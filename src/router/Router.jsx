@@ -3,7 +3,7 @@ import Layout from "../components/layout/Layout";
 import Home from "../components/home/Home";
 import UserProfile from "../components/user/UserProfile";
 import Admin from "../components/admin/AdminProfile";
-import ProductListingPage from "../components/user/ProductListingPage";
+
 
 const router = createBrowserRouter([
   {
@@ -13,7 +13,8 @@ const router = createBrowserRouter([
       { path: "/", element: <Home /> },
       { path: "/profile", element: <UserProfile /> },
       { path: "/Admin", element: <Admin /> },
-      { path: "/product-listing", element: <ProductListingPage /> },
+
+
     ],
   },
 ]);
