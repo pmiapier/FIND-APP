@@ -1,4 +1,4 @@
-import MyItemCard from '../../utils/MyItemCard';
+import MyItemCard from '../../components/cards/MyItemCard';
 
 export default function MyProductPage() {
   return (
