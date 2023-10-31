@@ -8,6 +8,7 @@ import MyProductPage from '../pages/user/MyProductPage';
 import { MyRentalItems } from '../pages/user/MyRentalItems';
 import WalletPage from '../pages/my-wallet/WalletPage';
 
+
 const router = createBrowserRouter([
   {
     path: '/',
@@ -21,6 +22,7 @@ const router = createBrowserRouter([
       { path: '/my-product', element: <MyProductPage /> },
       { path: '/my-rental-items', element: <MyRentalItems /> },
       { path: '/my-wallet', element: <WalletPage /> },
+ 
     ],
   },
 ]);
