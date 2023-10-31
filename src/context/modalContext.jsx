@@ -9,10 +9,10 @@ export default function ModalContextProvider({ children }) {
         setIsOpenModal(true)
         setModalType(type)
     }
-    //     useEffect(()=>{
-    // console.log("type" ,modalType)
-    // console.log("isOpen", isOpenModal)
-    //     },[modalType,isOpenModal])
+    useEffect(() => {
+        console.log("type", modalType)
+        console.log("isOpen", isOpenModal)
+    }, [modalType, isOpenModal])
     const onCloseModal = () => {
         setIsOpenModal(false)
     }
