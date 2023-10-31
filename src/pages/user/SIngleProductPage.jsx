@@ -1,4 +1,7 @@
+import { useModal } from "../../Hooks/useModal";
+
 export default function SingleProductPage() {
+  const { onOpenModal } = useModal()
   return (
     <div className="bg-[#F9F9FB] px-12 py-12 space-y-4">
       <div className="w-full bg-white p-6 grid grid-cols-2 rounded-md space-x-6 shadow">
@@ -34,7 +37,7 @@ export default function SingleProductPage() {
             </p>
           </div>
           <div className="flex gap-4 mb-2">
-            <button className="bg-blue-500 text-white w-6/12 p-4 rounded-md">
+            <button onClick={() => onOpenModal("checkoutModal")} className="bg-blue-500 text-white w-6/12 p-4 rounded-md">
               เช่าเลย!
             </button>
             <button className="bg-gray-400 text-white w-3/12 p-4 rounded-md">

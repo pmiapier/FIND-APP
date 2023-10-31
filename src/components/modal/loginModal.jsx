@@ -33,7 +33,7 @@ export default function LoginModal() {
                                 <div className="text-[40px]  font-bold">เข้าสู่ระบบ</div>
                                 <div className="flex gap-1 ">
                                     <div className="">ยังไม่เป็นสมาชิก?</div>
-                                    <div className="text-blue-600 font-bold hover:cursor-pointer" onClick={() => onOpenModal("registerModal")} >สมัครสมาชิก</div>
+                                    <div className="text-blue-500 font-bold hover:cursor-pointer" onClick={() => onOpenModal("registerModal")} >สมัครสมาชิก</div>
                                 </div>
                             </div>
                             <div className="flex gap-5 h-[60px] pt-[80px] w-full">
@@ -71,7 +71,7 @@ export default function LoginModal() {
                                     </div>
                                 </div>
                                 <div className="flex justify-end text-gray-500 hover:cursor-pointer">ลืมรหัสผ่าน?</div>
-                                <button className="px-4 py-1 my-2 w-[30%] font-bold hover:bg-sky-500 border-2 border-sky-500 hover:border-sky-500 bg-gray-100 text-sky-500 hover:text-white rounded-lg text-[20px]">เข้าสู่ระบบ</button>
+                                <button className="px-4 py-2 my-2 w-[30%] bg-blue-500 border-2 border-blue-500 hover:border-blue-500 hover:bg-gray-100 hover:text-blue-500 text-white rounded-lg text-[20px]">เข้าสู่ระบบ</button>
 
                             </form>
                         </div>

@@ -6,7 +6,10 @@ import {
   FaBars,
 } from 'react-icons/fa';
 import logo from '../images/FindLogo.png';
+import { useModal } from '../Hooks/useModal';
+
 const Header = () => {
+  const { onOpenModal } = useModal()
   return (
     <div className=' flex justify-center items-center w-full h-[85px] bg-white drop-shadow-xl'>
       <div className='flex justify-center items-center gap-[100px]'>
@@ -29,11 +32,11 @@ const Header = () => {
             <FaBars />
             หมวดหมู่สินค้า
           </div>
-          <div className='flex justify-center items-center gap-1'>
+          <div className='hover:cursor-pointer flex justify-center items-center gap-1'>
             <FaRegCommentAlt />
             ข้อความ
           </div>
-          <div className='flex justify-center items-center gap-1'>
+          <div onClick={() => onOpenModal("loginModal")} className='hover:cursor-pointer flex justify-center items-center gap-1'>
             <FaRegUserCircle />
             เข้าสู่ระบบ
           </div>
