@@ -1,8 +1,8 @@
-import { useModal } from '../../Hooks/useModal';
+import { useModal } from '../Hooks/useModal';
 import { FcGoogle } from 'react-icons/fc';
 import { BsEyeFill, BsEyeSlashFill } from 'react-icons/bs';
 import { BiLogoFacebook } from 'react-icons/bi';
-import Logo from '../../images/imgLogo.png'
+import Logo from '../images/imgLogo.png'
 import { useState } from 'react';
 export default function LoginModal() {
     const { onCloseModal, isOpenModal, modalType, onOpenModal } = useModal()

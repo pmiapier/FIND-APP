@@ -1,7 +1,7 @@
-import { useModal } from '../../Hooks/useModal';
+import { useModal } from '../hooks/useModal';
 import { FcGoogle } from 'react-icons/fc';
 import { BiLogoFacebook } from 'react-icons/bi';
-import Logo from '../../images/imgRegister.png'
+import Logo from '../images/imgRegister.png'
 
 export default function RegisterModal() {
     const { onCloseModal, isOpenModal, modalType } = useModal()
