@@ -5,6 +5,7 @@ import UserProfile from '../components/user/UserProfile';
 import Admin from '../components/admin/AdminProfile';
 import ProductListingPage from '../components/user/ProductListingPage';
 import SingleProductPage from '../components/user/SIngleProductPage';
+import MyProductPage from '../components/user/MyProductPage';
 
 const router = createBrowserRouter([
   {
@@ -16,9 +17,11 @@ const router = createBrowserRouter([
       { path: '/Admin', element: <Admin /> },
       { path: '/product-listing', element: <ProductListingPage /> },
       { path: '/single-product', element: <SingleProductPage /> },
+      { path: '/my-product', element: <MyProductPage /> },
     ],
   },
 ]);
+
 export default function Router() {
   return <RouterProvider router={router}> </RouterProvider>;
 }
