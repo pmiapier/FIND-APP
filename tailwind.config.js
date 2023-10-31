@@ -29,7 +29,11 @@ export default {
       },
     },
   },
-  plugins: [],
+  // plugins: [],
+  plugins: [require("daisyui")],
+  daisyui: {
+    themes: ["light", "dark", "cupcake"],
+  },
 };
 
 // This is the default colors object
