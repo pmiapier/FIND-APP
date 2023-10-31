@@ -6,6 +6,7 @@ import ProductListingPage from '../pages/user/ProductListingPage';
 import SingleProductPage from '../pages/user/SIngleProductPage';
 import MyProductPage from '../pages/user/MyProductPage';
 import { MyRentalItems } from '../pages/user/MyRentalItems';
+import WalletPage from '../pages/my-wallet/WalletPage';
 
 const router = createBrowserRouter([
   {
@@ -19,6 +20,7 @@ const router = createBrowserRouter([
       // มีญ่าสร้างpath ข้่างล่างนี้
       { path: '/my-product', element: <MyProductPage /> },
       { path: '/my-rental-items', element: <MyRentalItems /> },
+      { path: '/my-wallet', element: <WalletPage /> },
     ],
   },
 ]);
