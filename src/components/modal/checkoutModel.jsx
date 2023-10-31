@@ -15,8 +15,10 @@ export default function CheckoutModel() {
                     </button>
                     <div className="h-full w-[50%] p-10">
                         <div className="text-[30px] font-semibold mb-1">กระเป๋าสะพาย แบรนด์ KANKEN</div>
-                        <div className="flex w-full h-full">
-                            <div className="flex-1 w-[50%] h-[80%] "></div>
+                        <div className="flex gap-2 w-full h-full">
+                            <div className="flex-1 w-[50%] h-[80%] bg-red-500 rounded-lg overflow-hidden ">
+                                <img src={Logo} />
+                            </div>
                             <div className="flex flex-col w-[50%] justify-between h-[80%] ">
                                 <div className="">
                                     <div className="text-[20px] h-[15px]">ราคาค่าเช่า</div>
@@ -74,9 +76,9 @@ export default function CheckoutModel() {
                         <div className="flex">
                             <input type='checkbox' className="" />
                             <div className="text-[13px] pl-1">ยอมรับเงื่อนไขและข้อตกลงในการเช่าสินค้ากับ FIND อ่านเงื่อนไขและข้อตกลงเพิ่มเติมได้</div>
-                            <div className="text-[13px] pl-1 font-semibold text-sky-500">ที่นี่</div>
+                            <div className="text-[13px] pl-1 font-semibold text-blue-500">ที่นี่</div>
                         </div>
-                        <button className="px-4 py-2 my-2 w-full bg-sky-500 border-2 border-sky-500 hover:border-sky-500 hover:bg-gray-100 hover:text-sky-500 text-white rounded-lg ">ยืนยันและชำระเงิน</button>
+                        <button className="px-4 py-2 my-2 w-full bg-blue-500 border-2 border-blue-500 hover:border-blue-500 hover:bg-gray-100 hover:text-blue-500 text-white rounded-lg ">ยืนยันและชำระเงิน</button>
                     </div>
                 </div>
             </div>

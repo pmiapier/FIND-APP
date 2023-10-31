@@ -1,7 +1,7 @@
 import Footer from "./Footer"
 import Header from "./Header"
 import { Outlet } from 'react-router-dom'
-import { ModalProvider } from "../../providers/modalProvider"
+import { ModalProvider } from "../providers/modalProvider"
 
 const Layout = () => {
     return (
