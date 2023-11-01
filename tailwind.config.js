@@ -26,13 +26,17 @@ export default {
         itemCategory: '#FD8B21',
         itemLocation: '#217EFD',
         viewProduct: '#474DE1',
+        primaryButton: '#217EFD',
+        hoverPrimaryButton: '#5FA0F9',
+        messageButton: '#808080',
+        hoverMessageButton: '#010101',
       },
     },
   },
   // plugins: [],
-  plugins: [require("daisyui")],
+  plugins: [require('daisyui')],
   daisyui: {
-    themes: ["light", "dark", "cupcake"],
+    themes: ['light', 'dark', 'cupcake'],
   },
 };
 
