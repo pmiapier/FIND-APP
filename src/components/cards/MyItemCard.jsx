@@ -1,20 +1,15 @@
-import { FaPencilAlt, FaArrowRight } from 'react-icons/fa';
+import { FaArrowRight } from 'react-icons/fa';
+import ItemStatus from '../status/ItemStatus';
+import Button from '../buttons/Button';
+
 export default function MyItemCard() {
   return (
     <div className='flex flex-col gap-4 bg-white shadow-lg px-5 py-5 '>
       <div className='flex gap-4 text-lg font-bold'>
-        <div className='bg-readyToRent text-white bg-opacity-80 px-5 py-2 rounded-xl cursor-pointer hover:bg-[#2BF6B5]'>
-          Ready for rent
-        </div>
-        <div className='bg-itemPrice text-white bg-opacity-80 px-5 py-2 rounded-xl cursor-pointer hover:bg-[#FF395D]'>
-          ฿50
-        </div>
-        <div className='bg-itemCategory  text-white bg-opacity-80 px-5 py-2 rounded-xl cursor-pointer hover:bg-[#FA7A00]'>
-          Clothing
-        </div>
-        <div className='bg-itemLocation  text-white bg-opacity-80 px-5 py-2 rounded-xl cursor-pointer hover:bg-[#3E8FFF]'>
-          Phra Kanong
-        </div>
+        <ItemStatus text={' Ready for rent'} className={'bg-readyToRent'} />
+        <ItemStatus text={'฿50'} className={'bg-itemPrice'} />
+        <ItemStatus text={'Clothing'} className={'bg-itemCategory'} />
+        <ItemStatus text={'Phra Kanong'} className={'bg-itemLocation '} />
       </div>
 
       <div className='flex gap-6 items-center'>
@@ -41,21 +36,15 @@ export default function MyItemCard() {
           </div>
           <div className='flex flex-1 justify-between'>
             <div className='flex gap-4'>
-              <button
-                className='flex items-center justify-center gap-4 bg-[#808080]
-              text-white font-semibold text-lg px-4 py-2 rounded-xl cursor-pointer hover:bg-[#010101]'
-              >
-                <span>
-                  <FaPencilAlt />
-                </span>
-                Edit Product
-              </button>
-              <button
-                className='bg-[#808080]
-              text-white font-semibold text-lg px-4 py-2 rounded-xl cursor-pointer hover:bg-[#010101]'
-              >
-                Renew
-              </button>
+              <Button
+                text={'Edit Product'}
+                className={'bg-[#808080] hover:bg-[#010101]'}
+                icon={true}
+              />
+              <Button
+                text={'Renew'}
+                className={'bg-[#808080] hover:bg-[#010101]'}
+              />
             </div>
 
             <div className='flex gap-2 items-center  text-viewProduct text-lg font-bold hover:underline cursor-pointer'>
