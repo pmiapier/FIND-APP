@@ -25,10 +25,12 @@ const Header = () => {
           </button>
         </div>
         <div className="flex items-center justify-center gap-5">
-          <div className="flex justify-center items-center gap-1">
-            <FaBars />
-            หมวดหมู่สินค้า
-          </div>
+          <Link to="/product-listing">
+            <div className="flex justify-center items-center gap-1">
+              <FaBars />
+              หมวดหมู่สินค้า
+            </div>
+          </Link>
           <div className="hover:cursor-pointer flex justify-center items-center gap-1">
             <FaRegCommentAlt />
             ข้อความ
