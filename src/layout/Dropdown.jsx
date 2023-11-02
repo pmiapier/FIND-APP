@@ -18,10 +18,10 @@ export default function Dropdown() {
           <a href="/my-rental-items">My rental items</a>
         </li>
         <li>
-          <a href="/my-rental-items">My rented items</a>
+          <a href="/my-rented-items">My rented items</a>
         </li>
         <li>
-          <a href="/my-wallet">My account</a>
+          <a href="/myaccount">My account</a>
         </li>
         <li>
           <a href="/my-product">My products</a>

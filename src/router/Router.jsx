@@ -9,6 +9,8 @@ import MyRentalItemsPage from '../pages/user/MyRentalItemsPage';
 import WalletPage from '../pages/my-wallet/WalletPage';
 import StripeSuccess from '../components/checkout/stripe-checkout/StripeSuccess';
 import StripeCancelled from '../components/checkout/stripe-checkout/StripeCancelled';
+import MyAccountDetailPage from '../pages/user/MyAccountDetailPage';
+import MyRentedItemsPage from '../pages/user/MyRentedItemsPage';
 
 const router = createBrowserRouter([
   {
@@ -24,7 +26,9 @@ const router = createBrowserRouter([
       { path: '/my-rental-items', element: <MyRentalItemsPage /> },
       { path: '/my-wallet', element: <WalletPage /> },
       { path: '/success', element: <StripeSuccess /> },
-      { path: '/cancelled', element: <StripeCancelled /> }
+      { path: '/cancelled', element: <StripeCancelled /> },
+      { path: '/myaccount', element: <MyAccountDetailPage /> },
+      { path: '/my-rented-items', element: <MyRentedItemsPage /> }
     ]
   }
 ]);
