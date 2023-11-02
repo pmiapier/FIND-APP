@@ -29,15 +29,15 @@ export default {
         primaryButton: '#217EFD',
         hoverPrimaryButton: '#5FA0F9',
         messageButton: '#808080',
-        hoverMessageButton: '#010101',
-      },
-    },
+        hoverMessageButton: '#010101'
+      }
+    }
   },
   // plugins: [],
   plugins: [require('daisyui')],
   daisyui: {
-    themes: ['light', 'dark', 'cupcake'],
-  },
+    themes: ['light', 'dark', 'cupcake']
+  }
 };
 
 // This is the default colors object

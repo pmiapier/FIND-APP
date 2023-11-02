@@ -7,11 +7,11 @@ export default function InputFromUser({
   name,
   hasError,
   label,
-  limitText,
+  limitText
 }) {
   return (
     <>
-      <label htmlFor='' className='font-bold'>
+      <label htmlFor="" className="font-bold">
         {label}
         <input
           type={type}
@@ -27,13 +27,11 @@ export default function InputFromUser({
           name={name}
           maxLength={limitText}
         />
-        <div className='text-xs py-2 h-4 flex justify-between '>
-          <div>
-            {hasError && <p className='text-red-500'>Helper message</p>}
-          </div>
+        <div className="text-xs py-2 h-4 flex justify-between ">
+          <div>{hasError && <p className="text-red-500">Helper message</p>}</div>
           <div>
             {limitText && (
-              <p className='text-gray-400'>
+              <p className="text-gray-400">
                 <span>{value.length ?? 0}</span>&nbsp;/&nbsp;
                 <span>{limitText}</span>
               </p>

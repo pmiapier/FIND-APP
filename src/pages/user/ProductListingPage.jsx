@@ -1,19 +1,19 @@
-import ProductCard from "../../components/cards/ProductCard";
-import { Link } from "react-router-dom";
-import InputField from "../../components/inputs/InputField";
-import Pagination from "../../components/others/Pagination";
+import ProductCard from '../../components/cards/ProductCard';
+import { Link } from 'react-router-dom';
+import InputField from '../../components/inputs/InputField';
+import Pagination from '../../components/others/Pagination';
 
 const categoryList = [
-  "Sport",
-  "Electronics",
-  "Appliances",
-  "Tools",
-  "Baby",
-  "Books",
-  "Camping",
-  "Hiking",
-  "Clothing",
-  "Vehicles",
+  'Sport',
+  'Electronics',
+  'Appliances',
+  'Tools',
+  'Baby',
+  'Books',
+  'Camping',
+  'Hiking',
+  'Clothing',
+  'Vehicles'
 ];
 
 export default function ProductListingPage() {
@@ -28,13 +28,7 @@ export default function ProductListingPage() {
             <div className="border border-primaryGrayBorder p-4 rounded-md shadow space-y-4">
               <div className="space-y-2">
                 <p className="font-bold">ราคาเช่าต่อวัน</p>
-                <input
-                  type="range"
-                  min={0}
-                  max="100"
-                  value="40"
-                  className="range range-accent range-xs"
-                />
+                <input type="range" min={0} max="100" value="40" className="range range-accent range-xs" />
                 <div className="flex justify-between text-xs">
                   <p>
                     ราคา:<span> ฿0 - ฿20,000</span>
@@ -46,10 +40,7 @@ export default function ProductListingPage() {
               <div className="pl-2">
                 <ul className="space-y-1">
                   {categoryList.map((el, idx) => (
-                    <li
-                      className="text-blue-500 hover:text-blue-900 hover:underline"
-                      key={idx}
-                    >
+                    <li className="text-blue-500 hover:text-blue-900 hover:underline" key={idx}>
                       <Link to="#">{el}</Link>
                       <span className="text-xs p-1 text-gray-500">(147)</span>
                     </li>

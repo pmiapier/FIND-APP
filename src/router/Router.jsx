@@ -20,9 +20,9 @@ const router = createBrowserRouter([
       // มีญ่าสร้างpath ข้่างล่างนี้
       { path: '/my-product', element: <MyProductPage /> },
       { path: '/my-rental-items', element: <MyRentalItemsPage /> },
-      { path: '/my-wallet', element: <WalletPage /> },
-    ],
-  },
+      { path: '/my-wallet', element: <WalletPage /> }
+    ]
+  }
 ]);
 
 export default function Router() {

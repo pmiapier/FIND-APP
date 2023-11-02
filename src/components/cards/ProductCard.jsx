@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
 export default function ProductCard() {
   return (
@@ -12,10 +12,7 @@ export default function ProductCard() {
           />
         </div>
         <div className="space-y-7 p-3">
-          <p className="font-semibold">
-            Lorem ipsum dolor sit amet anadask babaconsectetur adipisicing
-            elit...
-          </p>
+          <p className="font-semibold">Lorem ipsum dolor sit amet anadask babaconsectetur adipisicing elit...</p>
           <div className="flex justify-between items-center pb-4">
             <p className="text-xs text-gray-400">
               ฿175<span>&nbsp;/&nbsp;วัน</span>

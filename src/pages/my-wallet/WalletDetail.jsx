@@ -1,4 +1,4 @@
-import WalletDetailItem from "./WalletDetailItem";
+import WalletDetailItem from './WalletDetailItem';
 
 export default function WalletDetail() {
   return (

@@ -1,6 +1,6 @@
-import React from "react";
-import WalletBalance from "./WalletBalance";
-import WalletDetail from "./WalletDetail";
+import React from 'react';
+import WalletBalance from './WalletBalance';
+import WalletDetail from './WalletDetail';
 
 export default function WalletPage() {
   return (

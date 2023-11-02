@@ -1,4 +1,4 @@
-import blank from "../../images/blank.png"
+import blank from '../../images/blank.png';
 
 export default function WalletBalance() {
   return (
@@ -11,9 +11,7 @@ export default function WalletBalance() {
             <span>FIND Balance</span>
             <div className="flex gap-4">
               <span className="font-bold">฿ 20,542 </span>
-              <button className="bg-red-500 w-20 rounded-md text-white">
-                ถอนเงิน
-              </button>
+              <button className="bg-red-500 w-20 rounded-md text-white">ถอนเงิน</button>
             </div>
           </div>
 
@@ -40,18 +38,18 @@ export default function WalletBalance() {
             <div className="flex flex-col border-l pl-2">
               <span className="font-bold">โอนเงินแล้ว</span>
               <div className="flex flex-col">
-              <span>สัปดาห์นี้</span>
-              <span className="font-bold">฿ 13,240 </span>
+                <span>สัปดาห์นี้</span>
+                <span className="font-bold">฿ 13,240 </span>
               </div>
             </div>
 
             <div className="flex flex-col">
-              <span >เดือนนี้</span>
+              <span>เดือนนี้</span>
               <span className="font-bold">฿ 23,100 </span>
             </div>
 
             <div className="flex flex-col">
-              <span >รวม</span>
+              <span>รวม</span>
               <span className="font-bold">฿ 68,792 </span>
             </div>
           </div>

@@ -6,7 +6,7 @@ export default function App() {
     <>
       <Router />
       <ToastContainer
-        position='top-center'
+        position="top-center"
         autoClose={3000}
         hideProgressBar={false}
         newestOnTop={false}
@@ -15,7 +15,7 @@ export default function App() {
         pauseOnFocusLoss
         draggable
         pauseOnHover
-        theme='light'
+        theme="light"
       />
     </>
   );
