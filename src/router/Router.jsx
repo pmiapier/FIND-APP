@@ -7,6 +7,8 @@ import SingleProductPage from '../pages/user/SIngleProductPage';
 import MyProductPage from '../pages/user/MyProductPage';
 import MyRentalItemsPage from '../pages/user/MyRentalItemsPage';
 import WalletPage from '../pages/my-wallet/WalletPage';
+import StripeSuccess from '../components/checkout/stripe-checkout/StripeSuccess';
+import StripeCancelled from '../components/checkout/stripe-checkout/StripeCancelled';
 
 const router = createBrowserRouter([
   {
@@ -20,7 +22,9 @@ const router = createBrowserRouter([
       // มีญ่าสร้างpath ข้่างล่างนี้
       { path: '/my-product', element: <MyProductPage /> },
       { path: '/my-rental-items', element: <MyRentalItemsPage /> },
-      { path: '/my-wallet', element: <WalletPage /> }
+      { path: '/my-wallet', element: <WalletPage /> },
+      { path: '/success', element: <StripeSuccess /> },
+      { path: '/cancelled', element: <StripeCancelled /> }
     ]
   }
 ]);
