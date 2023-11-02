@@ -1,13 +1,17 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import App from './App.jsx'
-import './index.css'
-import ModalContextProvider from './context/modalContext.jsx'
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import App from './App.jsx';
+import './index.css';
+import ModalContextProvider from './context/modalContext.jsx';
+import AuthContextProvider from './context/AuthContext.jsx';
+import 'react-toastify/dist/ReactToastify.css';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   // <React.StrictMode>
-  <ModalContextProvider>
-    <App />
-  </ModalContextProvider>
+  <AuthContextProvider>
+    <ModalContextProvider>
+      <App />
+    </ModalContextProvider>
+  </AuthContextProvider>
   // </React.StrictMode>,
-)
+);

@@ -9,14 +9,16 @@ import logo from '../images/FindLogo.png';
 import { useModal } from '../Hooks/useModal';
 import Dropdown from './Dropdown';
 import { Link } from 'react-router-dom';
+import { useAuth } from '../hooks/useAuth';
 
 const Header = () => {
-  const { onOpenModal } = useModal()
+  const { onOpenModal } = useModal();
+  const { authUser } = useAuth();
   return (
     <div className=' flex justify-center items-center w-full h-[85px] bg-white drop-shadow-xl'>
       <div className='flex justify-center items-center gap-[100px]'>
-        <Link to="/">
-        <img src={logo} className='w-[130px]' />
+        <Link to='/'>
+          <img src={logo} className='w-[130px]' />
         </Link>
         <div className='flex items-center justify-center h-[45px] w-[670px]'>
           <button className='w-[150px] h-full bg-gray-700 rounded-l-xl flex justify-center items-center gap-2'>
@@ -40,11 +42,19 @@ const Header = () => {
             <FaRegCommentAlt />
             ข้อความ
           </div>
-          <div onClick={() => onOpenModal("loginModal")} className='hover:cursor-pointer flex justify-center items-center gap-1'>
-            <FaRegUserCircle />
-            เข้าสู่ระบบ
-          </div>
-          <Dropdown/>
+
+          {authUser ? (
+            ''
+          ) : (
+            <div
+              onClick={() => onOpenModal('loginModal')}
+              className='hover:cursor-pointer flex justify-center items-center gap-1'
+            >
+              <FaRegUserCircle />
+              เข้าสู่ระบบ
+            </div>
+          )}
+          {authUser ? <Dropdown /> : ''}
         </div>
       </div>
     </div>
