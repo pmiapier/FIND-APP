@@ -1,7 +1,8 @@
+import StripeCheckout from "../components/checkout/stripe-checkout/StripeCheckout";
 export default function HomePage() {
   return (
-    <>
-      <div>Home</div>
-    </>
+    <div className="">
+      <StripeCheckout />
+    </div>
   );
 }

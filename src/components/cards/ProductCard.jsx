@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 
 export default function ProductCard() {
   return (
-    <Link to="#">
+    <Link to="/single-product">
       <div className="plant_product_card pb-2 rounded-[25px] w-full mt-2 border border-gray-200 overflow-hidden shadow h-fit">
         <div className="hover:scale-105">
           <img
