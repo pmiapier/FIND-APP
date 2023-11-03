@@ -2,6 +2,8 @@ import ProductCard from '../../components/cards/ProductCard';
 import { Link } from 'react-router-dom';
 import InputField from '../../components/inputs/InputField';
 import Pagination from '../../components/others/Pagination';
+import axios from 'axios'
+import { useEffect, useState } from 'react';
 
 const categoryList = [
   'Sport',
@@ -17,6 +19,20 @@ const categoryList = [
 ];
 
 export default function ProductListingPage() {
+  const [items,setItems] = useState([])
+
+  useEffect(()=>{
+    getAll()
+  },[])
+
+  const getAll = async()=>{
+    const x = await axios.get(`http://localhost:8000/item/productListing`)
+    setItems(x)
+    console.log(x);
+  }
+
+  const handlePriceChange=(e)=>{}
+
   return (
     <>
       <div className="flex justify-center items-center bg-primaryBackground w-full font-bold text-3xl h-[180px]">
@@ -28,7 +44,7 @@ export default function ProductListingPage() {
             <div className="border border-primaryGrayBorder p-4 rounded-md shadow space-y-4">
               <div className="space-y-2">
                 <p className="font-bold">ราคาเช่าต่อวัน</p>
-                <input type="range" min={0} max="100" value="40" className="range range-accent range-xs" />
+                <input type="range" onChange={handlePriceChange} min="0" max="100" value="40" className="range range-accent range-xs" />
                 <div className="flex justify-between text-xs">
                   <p>
                     ราคา:<span> ฿0 - ฿20,000</span>
