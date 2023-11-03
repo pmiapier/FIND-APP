@@ -5,6 +5,7 @@ import ImageCompress from 'quill-image-compress';
 import Button from '../buttons/Button';
 import { useModal } from '../../Hooks/useModal';
 import { useState } from 'react';
+import axios from 'axios';
 
 Quill.register('modules/imageResize', ImageResize);
 Quill.register('modules/imageCompress', ImageCompress);
@@ -41,7 +42,7 @@ const modules = {
 
 const UserAddProduct = ({ category, onCloseModal }) => {
   const [input, setInput] = useState({
-    itemFile: [],
+    file: [],
     itemName: '',
     itemCategory: '',
     itemDescription: '',
@@ -49,19 +50,36 @@ const UserAddProduct = ({ category, onCloseModal }) => {
   });
 
   const handleInput = (e) => {
-    if (e.target.name === `file`) return setInput({ ...input, [e.target.name]: e.target.files[0] });
+    if (e.target.name === `file`) {
+      // arr = []
+      
+      console.dir(e.target.files);
+      
+      return setInput({ ...input, [e.target.name]: e.target.files})
+    };
     setInput({ ...input, [e.target.name]: e.target.value });
   };
 
   const handleItemDescription = (value) => {
     setInput({ ...input, itemDescription: value });
   };
-  console.log(input);
+  console.dir(input);
 
-  const handleSubmit = async (e) => {};
+  const handleSubmit = async (e) => {
+    const formdata = new FormData()
+    for (const key in input){
+      formdata.append(key,input[key])
+  }
+  const headers = {
+    'Authorization': `Bearer ${localStorage.getItem("ACCESS_TOKEN")}`,
+    'Content-Type': 'multipart/form-data'
+}
+  await axios.post(`http://localhost:8000/user/postItem`,formdata,{headers})
+    
+  };
 
   return (
-    <form
+    <form encType='multipart/form-data'
       onSubmit={handleSubmit}
       className="flex flex-col gap-5 px-12 pt-5 pb-12 bg-white rounded-lg
     shadow-lg"
@@ -71,7 +89,7 @@ const UserAddProduct = ({ category, onCloseModal }) => {
         <div className="col-span-1">
           <span className="text-red-600">*</span>ภาพสินค้า
         </div>
-        <input type="file" className="col-span-8" name="itemFile" onChange={handleInput}></input>
+        <input type="file" multiple className="col-span-8" name="itemFile" onChange={handleInput}></input>
 
         <div className="col-span-1">
           <span className="text-red-600">*</span>ชื่อสินค้่า
