@@ -75,7 +75,7 @@ const UserAddProduct = ({ category, onCloseModal }) => {
       Authorization: `Bearer ${localStorage.getItem('ACCESS_TOKEN')}`,
       'Content-Type': 'multipart/form-data'
     };
-    await axios.post(`http://localhost:8000/user/postItem`, formdata, { headers });
+    await axios.post(`/user/postItem`, formdata, { headers });
   };
 
   return (

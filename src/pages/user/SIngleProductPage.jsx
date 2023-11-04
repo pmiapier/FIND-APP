@@ -1,7 +1,24 @@
 import { useModal } from '../../hooks/useModal';
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 
 export default function SingleProductPage() {
   const { onOpenModal } = useModal();
+  let { id } = useParams();
+  const [item, setItem] = useState({ user: '' });
+
+  const getSingleItem = () => {
+    axios.post('/item/get-single-item', { id: id }).then((response) => {
+      console.log('ourdata response', response.data);
+      setItem(response.data);
+    });
+  };
+
+  useEffect(() => {
+    getSingleItem();
+  }, []);
+
   return (
     <div className="bg-[#F9F9FB] px-12 py-12 space-y-4">
       <div className="w-full bg-white p-6 grid grid-cols-2 rounded-md space-x-6 shadow">
@@ -9,31 +26,17 @@ export default function SingleProductPage() {
           <div className="px-4 text-green-600 bg-green-200 rounded-md w-fit text-lg font-extrabold py-2">
             พร้อมให้เช่า
           </div>
-          <h1 className="text-5xl font-bold">กระเป๋าสะพาย แบรนด์ KANKEN</h1>
+          <h1 className="text-5xl font-bold">{item.title}</h1>
           <div className="bg-[#fafafa] h-[80px] p-2">
             <p>สำหรับการเช่า</p>
             <p className="text-5xl font-bold pl-4">
-              ฿50<span className="text-2xl">/วัน</span>
+              ฿{item.price}
+              <span className="text-2xl">/วัน</span>
             </p>
           </div>
           <p className="font-bold text-2xl">รายละเอียดสินค้า</p>
           <div className="p-2">
-            <p>
-              กระเป๋าสะพายแบบคลาสสิคที่ออกแบบมา ให้เหมาะสำหรับใช้ในการเดินทางหรือใช้ในชีวิตประจำวัน
-              มีช่องใส่ของหลากหลายช่องที่จัดเตรียมไว้ให้ผู้ใช้สะดวกต่อการใช้งาน
-            </p>
-            <p>
-              แบรนด์: KANKEN <br />
-              ประเภท: กระเป๋าสะพายหลัง
-              <br />
-              วัสดุ: ผ้าแคนวาส
-              <br />
-              สี: สีเหลือง Yellow
-              <br />
-              ขนาด: กว้าง 28 ซม. x สูง 38 ซม. x ลึก 13 ซม.
-              <br />
-              ลายลักษณ์อักษร: โลโก้ KANKEN ประจำแบรนด์{' '}
-            </p>
+            <div dangerouslySetInnerHTML={{ __html: item.description }} />
           </div>
           <div className="flex gap-4 mb-2">
             <button
@@ -54,18 +57,18 @@ export default function SingleProductPage() {
               </div>
               <div className="flex gap-4">
                 <p className="w-20">รหัสสินค้า</p>
-                <p className="text-gray-500">1934134</p>
+                <p className="text-gray-500">{item.id}</p>
               </div>
               <div className="flex gap-4">
                 <p className="w-20">อัพเดทเมื่อ</p>
-                <p className="text-gray-500">28 ตุลาคม 2566, 18:49</p>
+                <p className="text-gray-500">{item.updatedAt}</p>
               </div>
             </div>
             <div className="space-y-2">
               <p className="font-bold text-lg">ผู้ลงสินค้า</p>
               <div className="flex gap-4 items-center">
                 <div className="w-[32px] h-[32px] bg-blue-500"></div>
-                <p className="text-blue-500 text-lg">Patipano N</p>
+                <p className="text-blue-500 text-lg">{item.user}</p>
               </div>
               <div className="flex">
                 <p className="w-20 text-xs">เป็นสมาชิกเมื่อ</p>

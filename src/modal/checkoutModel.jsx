@@ -35,7 +35,7 @@ export default function CheckoutModel() {
         }
       }
     ];
-    const response = await axios.post('http://localhost:8080/create-checkout-session', {
+    const response = await axios.post('/create-checkout-session', {
       line_items,
       customer_email: 'test@tee.t'
     });
