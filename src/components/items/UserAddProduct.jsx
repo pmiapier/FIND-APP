@@ -3,7 +3,7 @@ import 'react-quill/dist/quill.snow.css';
 import ImageResize from 'quill-image-resize-module-react';
 import ImageCompress from 'quill-image-compress';
 import Button from '../buttons/Button';
-import { useModal } from '../../Hooks/useModal';
+import { useModal } from '../../hooks/useModal';
 import { useState } from 'react';
 import axios from 'axios';
 
@@ -52,11 +52,11 @@ const UserAddProduct = ({ category, onCloseModal }) => {
   const handleInput = (e) => {
     if (e.target.name === `file`) {
       // arr = []
-      
+
       console.dir(e.target.files);
-      
-      return setInput({ ...input, [e.target.name]: e.target.files})
-    };
+
+      return setInput({ ...input, [e.target.name]: e.target.files });
+    }
     setInput({ ...input, [e.target.name]: e.target.value });
   };
 
@@ -66,20 +66,21 @@ const UserAddProduct = ({ category, onCloseModal }) => {
   console.dir(input);
 
   const handleSubmit = async (e) => {
-    const formdata = new FormData()
-    for (const key in input){
-      formdata.append(key,input[key])
-  }
-  const headers = {
-    'Authorization': `Bearer ${localStorage.getItem("ACCESS_TOKEN")}`,
-    'Content-Type': 'multipart/form-data'
-}
-  await axios.post(`http://localhost:8000/user/postItem`,formdata,{headers})
-    
+    e.preventDefault();
+    const formdata = new FormData();
+    for (const key in input) {
+      formdata.append(key, input[key]);
+    }
+    const headers = {
+      Authorization: `Bearer ${localStorage.getItem('ACCESS_TOKEN')}`,
+      'Content-Type': 'multipart/form-data'
+    };
+    await axios.post(`http://localhost:8000/user/postItem`, formdata, { headers });
   };
 
   return (
-    <form encType='multipart/form-data'
+    <form
+      encType="multipart/form-data"
       onSubmit={handleSubmit}
       className="flex flex-col gap-5 px-12 pt-5 pb-12 bg-white rounded-lg
     shadow-lg"

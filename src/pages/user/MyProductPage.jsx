@@ -1,5 +1,5 @@
 import MyItemCard from '../../components/cards/MyItemCard';
-import { useModal } from '../../Hooks/useModal';
+import { useModal } from '../../hooks/useModal';
 import AddItemModal from '../../modal/AddItemModal';
 
 export default function MyProductPage() {
