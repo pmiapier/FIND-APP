@@ -1,4 +1,4 @@
-import { useModal } from '../../Hooks/useModal';
+import { useModal } from '../../hooks/useModal';
 
 export default function SingleProductPage() {
   const { onOpenModal } = useModal();

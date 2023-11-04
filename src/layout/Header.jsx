@@ -1,6 +1,6 @@
 import { FaMapMarkedAlt, FaSearch, FaRegUserCircle, FaRegCommentAlt, FaBars } from 'react-icons/fa';
 import logo from '../images/FindLogo.png';
-import { useModal } from '../Hooks/useModal';
+import { useModal } from '../hooks/useModal';
 import Dropdown from './Dropdown';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';

@@ -1,4 +1,4 @@
-import { useModal } from '../Hooks/useModal';
+import { useModal } from '../hooks/useModal';
 import UserAddProduct from '../components/items/UserAddProduct';
 
 const category = [`Vehicles`, `Electronic`, `Tools`, `Appliances`, `Hiking`, `Sport`, `Clothing`, `baby`, `Books`];
