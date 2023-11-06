@@ -1,7 +1,18 @@
-import { useModal } from '../Hooks/useModal';
+import { useModal } from '../hooks/useModal';
 import UserAddProduct from '../components/items/UserAddProduct';
 
-const category = [`Vehicles`, `Electronic`, `Tools`, `Appliances`, `Hiking`, `Sport`, `Clothing`, `baby`, `Books`];
+const category = [
+  `Please select category`,
+  `Vehicles`,
+  `Electronic`,
+  `Tools`,
+  `Appliances`,
+  `Hiking`,
+  `Sport`,
+  `Clothing`,
+  `baby`,
+  `Books`
+];
 
 export default function AddItemModal() {
   const { onCloseModal, isOpenModal, modalType, onOpenModal } = useModal();

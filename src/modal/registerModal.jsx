@@ -4,7 +4,7 @@ import Logo from '../images/imgRegister.png';
 import { useState } from 'react';
 import Joi from 'joi';
 import { toast } from 'react-toastify';
-import { useModal } from '../Hooks/useModal';
+import { useModal } from '../hooks/useModal';
 import InputFromUser from '../components/inputs/inputFromUser';
 import { useAuth } from '../hooks/useAuth';
 import axios from 'axios';
@@ -199,7 +199,7 @@ export default function RegisterModal() {
 // import { FcGoogle } from 'react-icons/fc';
 // import { BiLogoFacebook } from 'react-icons/bi';
 // import Logo from '../images/imgRegister.png';
-// import { useModal } from '../Hooks/useModal';
+// import { useModal } from '../hooks/useModal';
 
 // export default function RegisterModal() {
 //   const { onCloseModal, isOpenModal, modalType } = useModal();

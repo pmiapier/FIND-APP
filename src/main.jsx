@@ -7,6 +7,7 @@ import AuthContextProvider from './context/AuthContext.jsx';
 import 'react-toastify/dist/ReactToastify.css';
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
+import ProductContextProvider from './context/ProductContext.jsx';
 
 const stripePromise = loadStripe(
   'pk_test_51Lc5TuKd2gin3hft1nk3iVBY1H5fMy53PJBAonHMkJuoCma9qDetTENYxqvdlSgaA4Ib2lRpNFPlmh6hlbseU3Hx00GXDJTZE8'
@@ -17,7 +18,9 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   <Elements stripe={stripePromise}>
     <AuthContextProvider>
       <ModalContextProvider>
-        <App />
+        <ProductContextProvider>
+          <App />
+        </ProductContextProvider>
       </ModalContextProvider>
     </AuthContextProvider>
   </Elements>

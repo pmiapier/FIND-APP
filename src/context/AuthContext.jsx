@@ -42,6 +42,7 @@ export default function AuthContextProvider({ children }) {
   };
 
   const login = async (credential) => {
+
     try {
       const res = await axios.post('auth/login', credential);
       if(res.data.message===`done`){
@@ -52,6 +53,7 @@ export default function AuthContextProvider({ children }) {
     } catch (error) {
       return error.response.data.message
     }
+
   };
 
   const logout = () => {
