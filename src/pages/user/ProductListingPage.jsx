@@ -4,6 +4,7 @@ import InputField from '../../components/inputs/InputField';
 import Pagination from '../../components/others/Pagination';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import { useProduct } from '../../hooks/useProduct';
 
 const categoryList = [
   'Sport',
@@ -19,19 +20,20 @@ const categoryList = [
 ];
 
 export default function ProductListingPage() {
-  const [items, setItems] = useState([]); // [{}
+  const { items } = useProduct();
 
+  // const [items, setItems] = useState([]); // [{}
   // TODO: Need pagination
-  const getItems = () => {
-    axios.get('/item').then((response) => {
-      console.log(response.data);
-      setItems(response.data);
-    });
-  };
+  // const getItems = () => {
+  //   axios.get('/item').then((response) => {
+  //     console.log(response.data);
+  //     setItems(response.data);
+  //   });
+  // };
 
-  useEffect(() => {
-    getItems();
-  }, []);
+  // useEffect(() => {
+  //   getItems();
+  // }, []);
 
   return (
     <>

@@ -8,7 +8,10 @@ export default function ProductCard({ item }) {
       <div className="plant_product_card pb-2 rounded-[25px] w-full mt-2 border border-gray-200 overflow-hidden shadow h-fit">
         <div className="hover:scale-105">
           <img
-            src="https://images.pexels.com/photos/12456282/pexels-photo-12456282.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+            src={
+              item.images?.[0]?.imageUrl ||
+              'https://images.pexels.com/photos/12456282/pexels-photo-12456282.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'
+            }
             alt="product_img"
             className="object-cover w-full"
           />

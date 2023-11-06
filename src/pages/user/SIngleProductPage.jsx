@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 export default function SingleProductPage() {
   const { onOpenModal } = useModal();
   let { id } = useParams();
+
   const [item, setItem] = useState({ user: '' });
 
   const getSingleItem = () => {
@@ -85,7 +86,10 @@ export default function SingleProductPage() {
         <div className="space-y-4">
           <div className="w-full h-[548px] bg-red-500 rounded-md shadow">
             <img
-              src="https://images.unsplash.com/photo-1622560480605-d83c853bc5c3?auto=format&fit=crop&q=80&w=3176&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+              src={
+                item.images?.[0]?.imageUrl ||
+                'https://images.unsplash.com/photo-1622560480605-d83c853bc5c3?auto=format&fit=crop&q=80&w=3176&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+              }
               alt="product"
               className="object-cover h-full w-full rounded-md"
             />
@@ -93,21 +97,30 @@ export default function SingleProductPage() {
           <div className="grid grid-cols-3 place-items-center">
             <div className="w-[180px] h-[180px]">
               <img
-                src="https://images.unsplash.com/photo-1622560480605-d83c853bc5c3?auto=format&fit=crop&q=80&w=3176&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                src={
+                  item.images?.[1]?.imageUrl ||
+                  'https://images.unsplash.com/photo-1622560480605-d83c853bc5c3?auto=format&fit=crop&q=80&w=3176&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+                }
                 alt="product"
                 className="object-cover h-full w-full rounded-md"
               />
             </div>
             <div className="w-[180px] h-[180px]">
               <img
-                src="https://images.unsplash.com/photo-1622560480605-d83c853bc5c3?auto=format&fit=crop&q=80&w=3176&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                src={
+                  item.images?.[2]?.imageUrl ||
+                  'https://images.unsplash.com/photo-1622560480605-d83c853bc5c3?auto=format&fit=crop&q=80&w=3176&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+                }
                 alt="product"
                 className="object-cover h-full w-full rounded-md"
               />
             </div>
             <div className="w-[180px] h-[180px]">
               <img
-                src="https://images.unsplash.com/photo-1622560480605-d83c853bc5c3?auto=format&fit=crop&q=80&w=3176&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                src={
+                  item.images?.[3]?.imageUrl ||
+                  'https://images.unsplash.com/photo-1622560480605-d83c853bc5c3?auto=format&fit=crop&q=80&w=3176&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+                }
                 alt="product"
                 className="object-cover h-full w-full rounded-md"
               />

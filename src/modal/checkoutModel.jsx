@@ -7,11 +7,15 @@ import { useState } from 'react';
 import axios from 'axios';
 import { PaymentElement, LinkAuthenticationElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import InputField from '../components/inputs/InputField';
+import { useAuth } from '../../src/hooks/useAuth';
 
 export default function CheckoutModel() {
   const { onCloseModal, isOpenModal, modalType, onOpenModal } = useModal();
   const stripe = useStripe();
   const elements = useElements();
+
+  const { authUser } = useAuth();
+  console.log(authUser);
 
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState(null);
@@ -37,7 +41,7 @@ export default function CheckoutModel() {
     ];
     const response = await axios.post('/create-checkout-session', {
       line_items,
-      customer_email: 'test@tee.t'
+      customer_email: authUser.email
     });
     const { sessionId } = response.data;
     console.log('response', response);
