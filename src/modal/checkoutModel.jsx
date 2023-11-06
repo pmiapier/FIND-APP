@@ -3,7 +3,7 @@ import { FcGoogle } from 'react-icons/fc';
 import { BsEyeFill, BsEyeSlashFill } from 'react-icons/bs';
 import { BiLogoFacebook } from 'react-icons/bi';
 import Logo from '../images/imgLogo.png';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { PaymentElement, LinkAuthenticationElement, useStripe, useElements } from '@stripe/react-stripe-js';
@@ -27,6 +27,7 @@ export default function CheckoutModel() {
   const [message, setMessage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
+  //### Geting the single Item
   let { id } = useParams();
   const [item, setItem] = useState({ user: '' });
   const getSingleItem = () => {
@@ -38,8 +39,12 @@ export default function CheckoutModel() {
 
   useEffect(() => {
     getSingleItem();
-  }, []);
+    return () => {
+      setItem(null);
+    };
+  }, [id]);
 
+  // #### Handling submit
   const handleRenteeSubmit = async (e) => {
     e.preventDefault();
     const line_items = [
@@ -82,24 +87,18 @@ export default function CheckoutModel() {
   const [selectedDays, setSelectedDays] = useState(0);
   const handleSelect = (ranges) => {
     setSelection(ranges.selection);
-    // console.log(ranges.selection.startDate)
-    // console.log(ranges.selection.endDate)
     const start = ranges.selection.startDate;
     const end = ranges.selection.endDate;
     const daysDifference = Math.floor((end - start) / (24 * 60 * 60 * 1000)) + 1;
-    // console.log(daysDifference)
     setSelectedDays(daysDifference);
   };
   const hideOnEscape = (e) => {
-    // console.log(e.key)
     if (e.key === 'Escape') {
       setOpen(false);
     }
   };
   const refOne = useRef(null);
   const hideOnClickOutside = (e) => {
-    // console.log(refOne.current)
-    // console.log(e.target)
     if (refOne.current && !refOne.current.contains(e.target)) {
       setOpen(false);
     }
@@ -108,6 +107,10 @@ export default function CheckoutModel() {
     // event listeners
     document.addEventListener('keydown', hideOnEscape, true);
     document.addEventListener('click', hideOnClickOutside, true);
+    return () => {
+      document.removeEventListener('keydown', hideOnEscape, true);
+      document.removeEventListener('click', hideOnClickOutside, true);
+    };
   }, []);
 
   return (
@@ -156,19 +159,29 @@ export default function CheckoutModel() {
               <div className="flex w-full gap-7 mb-5">
                 <div className="w-full">
                   <div className="pb-1 font-semibold">วันที่รับสินค้า</div>
-
                   <div onClick={() => setOpen(true)} className="p-2 w-full rounded-lg border-2">
                     {selection.startDate.toDateString()}
                   </div>
                 </div>
                 <div className="w-full">
                   <div className="pb-1 font-semibold">วันที่รับสินค้า</div>
-
                   <div onClick={() => setOpen(true)} className="p-2 w-full rounded-lg border-2">
                     {selection.endDate.toDateString()}
                   </div>
                 </div>
               </div>
+              <div ref={refOne} className=" relative">
+                {open && (
+                  <div className="z-50 absolute top-[-10px] rounded-lg overflow-hidden">
+                    <DateRange
+                      ranges={[selection]}
+                      onChange={handleSelect}
+                      minDate={new Date()} // Set the minimum date to today
+                    />
+                  </div>
+                )}
+              </div>
+
               <div className="flex flex-col gap-2 mb-5 w-full">
                 <div className="flex w-full justify-between ">
                   <div className="">จำนวนวันในการเช่า</div>
