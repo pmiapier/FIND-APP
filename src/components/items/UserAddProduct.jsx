@@ -3,7 +3,6 @@ import 'react-quill/dist/quill.snow.css';
 import ImageResize from 'quill-image-resize-module-react';
 import ImageCompress from 'quill-image-compress';
 import Button from '../buttons/Button';
-import { useModal } from '../../Hooks/useModal';
 import { useState } from 'react';
 import axios from 'axios';
 
@@ -22,7 +21,7 @@ const modules = {
     maxWidth: 1000,
     maxHeight: 1000,
     imageType: 'image/jpeg',
-    debug: true,
+    debug: false,
     suppressErrorLogging: false,
     insertIntoEditor: undefined
   },
@@ -42,42 +41,46 @@ const modules = {
 
 const UserAddProduct = ({ category, onCloseModal }) => {
   const [input, setInput] = useState({
-    file: [],
     itemName: '',
-    itemCategory: '',
+    itemCategory: 'Vehicles',
     itemDescription: '',
     itemPrice: ''
   });
+  const [files,setFiles] = useState([])
 
   const handleInput = (e) => {
-    if (e.target.name === `file`) {
-      // arr = []
-      
-      console.dir(e.target.files);
-      
-      return setInput({ ...input, [e.target.name]: e.target.files})
+    if (e.target.files) {
+      return setFiles([...e.target.files])
     };
+
     setInput({ ...input, [e.target.name]: e.target.value });
   };
 
   const handleItemDescription = (value) => {
     setInput({ ...input, itemDescription: value });
   };
-  console.dir(input);
 
   const handleSubmit = async (e) => {
+    e.preventDefault()
     const formdata = new FormData()
     for (const key in input){
       formdata.append(key,input[key])
-  }
+    }
+    files.forEach((item,index)=>{
+      formdata.append(`file[${index}]`,item)
+    })
+  
   const headers = {
     'Authorization': `Bearer ${localStorage.getItem("ACCESS_TOKEN")}`,
     'Content-Type': 'multipart/form-data'
 }
-  await axios.post(`http://localhost:8000/user/postItem`,formdata,{headers})
-    
+  const res = await axios.post(`http://localhost:8000/user/postItem`,formdata,{headers})
+    if(res.data.message){
+      onCloseModal()
+    }
   };
 
+  
   return (
     <form encType='multipart/form-data'
       onSubmit={handleSubmit}
@@ -111,7 +114,7 @@ const UserAddProduct = ({ category, onCloseModal }) => {
           onChange={handleInput}
         >
           {category.map((item, index) => {
-            return <option value={item}>{item}</option>;
+            return <option key={index} value={item}>{item}</option>;
           })}
         </select>
 
@@ -142,7 +145,7 @@ const UserAddProduct = ({ category, onCloseModal }) => {
       </div>
       <div className="flex gap-5">
         <Button text="ยืนยัน" className="bg-blue-500" />
-        <Button onClick={() => onCloseModal()} text="ยกเลิก" className="bg-red-500" />
+        <Button event={onCloseModal} text="ยกเลิก" className="bg-red-500" />
       </div>
     </form>
   );
