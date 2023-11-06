@@ -1,4 +1,3 @@
-import { useModal } from '../Hooks/useModal';
 import { useState, createContext, useEffect } from 'react';
 import axios from '../config/axios';
 
@@ -7,9 +6,6 @@ import { addAccessToken, getAccessToken, removeAccessToken } from '../utils/loca
 export const AuthContext = createContext();
 
 export default function AuthContextProvider({ children }) {
-
-  // const { onCloseModal} = useModal();
-
   const [authUser, setAuthUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -31,29 +27,27 @@ export default function AuthContextProvider({ children }) {
   const register = async (registerInputObject) => {
     try {
       const res = await axios.post('/auth/register', registerInputObject);
-      if(res.data.message===`done`){
+      if (res.data.message === `done`) {
         addAccessToken(res.data.TOKEN);
         setAuthUser(res.data.user);
-        return `success`
+        return `success`;
       }
     } catch (error) {
-      return error.response.data.message
+      return error.response.data.message;
     }
   };
 
   const login = async (credential) => {
-
     try {
       const res = await axios.post('auth/login', credential);
-      if(res.data.message===`done`){
+      if (res.data.message === `done`) {
         addAccessToken(res.data.TOKEN);
         setAuthUser(res.data.user);
-        return `success`
+        return `success`;
       }
     } catch (error) {
-      return error.response.data.message
+      return error.response.data.message;
     }
-
   };
 
   const logout = () => {
