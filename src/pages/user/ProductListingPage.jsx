@@ -6,7 +6,6 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useProduct } from '../../hooks/useProduct';
 
-
 const categoryList = [
   'Sport',
   'Electronics',
@@ -21,8 +20,7 @@ const categoryList = [
 ];
 
 export default function ProductListingPage() {
-
-  const handlePriceChange=(e)=>{}
+  const handlePriceChange = (e) => {};
 
   const { items } = useProduct();
 
@@ -39,7 +37,6 @@ export default function ProductListingPage() {
   //   getItems();
   // }, []);
 
-
   return (
     <>
       <div className="flex justify-center items-center bg-primaryBackground w-full font-bold text-3xl h-[180px]">
@@ -51,7 +48,14 @@ export default function ProductListingPage() {
             <div className="border border-primaryGrayBorder p-4 rounded-md shadow space-y-4">
               <div className="space-y-2">
                 <p className="font-bold">ราคาเช่าต่อวัน</p>
-                <input type="range" onChange={handlePriceChange} min="0" max="100" value="40" className="range range-accent range-xs" />
+                <input
+                  type="range"
+                  onChange={handlePriceChange}
+                  min="0"
+                  max="100"
+                  value="40"
+                  className="range range-accent range-xs"
+                />
                 <div className="flex justify-between text-xs">
                   <p>
                     ราคา:<span> ฿0 - ฿20,000</span>

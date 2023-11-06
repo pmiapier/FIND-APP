@@ -3,11 +3,14 @@ import { FcGoogle } from 'react-icons/fc';
 import { BsEyeFill, BsEyeSlashFill } from 'react-icons/bs';
 import { BiLogoFacebook } from 'react-icons/bi';
 import Logo from '../images/imgLogo.png';
-import { useState } from 'react';
-import axios from 'axios';
+import { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+
 import { PaymentElement, LinkAuthenticationElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import InputField from '../components/inputs/InputField';
 import { useAuth } from '../../src/hooks/useAuth';
+
+import axios from '../config/axios';
 
 export default function CheckoutModel() {
   const { onCloseModal, isOpenModal, modalType, onOpenModal } = useModal();
@@ -17,9 +20,21 @@ export default function CheckoutModel() {
   const { authUser } = useAuth();
   console.log(authUser);
 
-  const [email, setEmail] = useState('');
   const [message, setMessage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+
+  let { id } = useParams();
+  const [item, setItem] = useState({ user: '' });
+  const getSingleItem = () => {
+    axios.post('/item/get-single-item', { id: id }).then((response) => {
+      console.log('ourdata response', response.data);
+      setItem(response.data);
+    });
+  };
+
+  useEffect(() => {
+    getSingleItem();
+  }, []);
 
   const handleRenteeSubmit = async (e) => {
     e.preventDefault();
@@ -30,18 +45,15 @@ export default function CheckoutModel() {
           currency: 'thb',
           unit_amount: 15000,
           product_data: {
-            name: 'กระเป๋าสะพาย แบรนด์ CODE',
+            name: `${item.title}`,
             description: 'โย่วและนี้คือเสียงจากระเป๋าที่คุณกำลังจะเช่า ฉันมันโครตเบา สะพายง่าย ถอดยาก',
-            images: [
-              'https://images.pexels.com/photos/12456282/pexels-photo-12456282.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'
-            ]
+            images: [`${item?.images[0]?.imageUrl}`]
           }
         }
       }
     ];
 
     const response = await axios.post('/create-checkout-session', {
-
       line_items,
       customer_email: authUser.email
     });
@@ -67,38 +79,37 @@ export default function CheckoutModel() {
               X
             </button>
             <div className="h-full w-[50%] p-10">
-              <div className="text-[30px] font-semibold mb-1">กระเป๋าสะพาย แบรนด์ KANKEN</div>
+              <div className="text-[30px] font-semibold mb-1">{item.title}</div>
               <div className="flex gap-2 w-full h-full">
                 <div className="flex-1 w-[50%] h-[80%] bg-red-500 rounded-lg overflow-hidden ">
-                  <img src={Logo} />
+                  <img src={item.images?.[0]?.imageUrl} />
                 </div>
                 <div className="flex flex-col w-[50%] justify-between h-[80%] ">
                   <div className="">
                     <div className="text-[20px] h-[15px]">ราคาค่าเช่า</div>
                     <div className="flex items-end">
-                      <div className="text-[50px] h-[60px]">฿50</div>
+                      <div className="text-[50px] h-[60px]">฿{item.price}</div>
                       <div className="">/วัน</div>
                     </div>
                     <div className="flex gap-2">
                       <div className="">สถานะสินค้า</div>
-                      <div className="">พร้อมให้เช่า</div>
+                      <div className="">{item.status}</div>
                     </div>
                   </div>
                   <div className="flex flex-col ">
                     <div className="flex justify-between">
                       <div className="">รหัสสินค้า</div>
-                      <div className="">1934134</div>
+                      <div className="">{item.id}</div>
                     </div>
                     <div className="flex justify-between">
                       <div className="">เจ้าของสินค้า</div>
-                      <div className="">Patipano N</div>
+                      <div className="">{item.user}</div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
             <form className="flex flex-col h-full w-[50%] pt-[80px] px-10" onSubmit={handleRenteeSubmit}>
-              <InputField type="email" onChange={(e) => setEmail(e.target.value)} placeholder="email" value={email} />
               <div className="flex w-full gap-7 mb-5">
                 <div className="w-full">
                   <div className="pb-1 font-semibold">วันที่รับสินค้า</div>

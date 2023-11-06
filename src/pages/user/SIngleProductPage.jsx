@@ -1,6 +1,6 @@
 import { useModal } from '../../hooks/useModal';
 import { useParams } from 'react-router-dom';
-import axios from 'axios';
+import axios from '../../config/axios';
 import { useEffect, useState } from 'react';
 
 export default function SingleProductPage() {
