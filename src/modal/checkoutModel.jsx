@@ -1,13 +1,13 @@
 import { useModal } from '../hooks/useModal';
-import { FcGoogle } from 'react-icons/fc';
-import { BsEyeFill, BsEyeSlashFill } from 'react-icons/bs';
-import { BiLogoFacebook } from 'react-icons/bi';
 import Logo from '../images/imgLogo.png';
-import { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 import { PaymentElement, LinkAuthenticationElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import InputField from '../components/inputs/InputField';
 import { useAuth } from '../../src/hooks/useAuth';
+import { DateRange } from 'react-date-range';
+import 'react-date-range/dist/styles.css';
+import 'react-date-range/dist/theme/default.css';
 
 export default function CheckoutModel() {
   const { onCloseModal, isOpenModal, modalType, onOpenModal } = useModal();
@@ -55,6 +55,45 @@ export default function CheckoutModel() {
       console.log(error);
     }
   };
+
+  // ##### Calendar Zone #####
+  const [open, setOpen] = useState(false)
+  const [selection, setSelection] = useState({
+    startDate: new Date(),
+    endDate: new Date(),
+    key: 'selection',
+  });
+  const [selectedDays, setSelectedDays] = useState(0);
+  const handleSelect = (ranges) => {
+    setSelection(ranges.selection);
+    // console.log(ranges.selection.startDate)
+    // console.log(ranges.selection.endDate)
+    const start = ranges.selection.startDate;
+    const end = ranges.selection.endDate;
+    const daysDifference = Math.floor((end - start) / (24 * 60 * 60 * 1000)) + 1;
+    // console.log(daysDifference)
+    setSelectedDays(daysDifference);
+  };
+  const hideOnEscape = (e) => {
+    // console.log(e.key)
+    if (e.key === "Escape") {
+      setOpen(false)
+    }
+  }
+  const refOne = useRef(null)
+  const hideOnClickOutside = (e) => {
+    // console.log(refOne.current)
+    // console.log(e.target)
+    if (refOne.current && !refOne.current.contains(e.target)) {
+      setOpen(false)
+    }
+  }
+  useEffect(() => {
+    // event listeners
+    document.addEventListener("keydown", hideOnEscape, true)
+    document.addEventListener("click", hideOnClickOutside, true)
+  }, [])
+
   return (
     <>
       {isOpenModal && modalType === 'checkoutModal' && (
@@ -62,7 +101,7 @@ export default function CheckoutModel() {
           <div className="relative flex items-center justify-center h-[450px] w-[1200px] drop-shadow-2xl rounded-lg bg-white">
             <button
               onClick={onCloseModal}
-              className=" text-white absolute top-4 right-4 bg-gray-300 border-2 hover:text-gray-500 hover:bg-white hover:border-gray-500 w-8 h-8 flex justify-center items-center rounded-full "
+              className=" text-white absolute top-2 right-2 bg-gray-300 border-2 hover:text-gray-500 hover:bg-white hover:border-gray-500 w-7 h-7 flex justify-center items-center rounded-full "
             >
               X
             </button>
@@ -97,22 +136,31 @@ export default function CheckoutModel() {
                 </div>
               </div>
             </div>
-            <form className="flex flex-col h-full w-[50%] pt-[80px] px-10" onSubmit={handleRenteeSubmit}>
+            <form className="flex flex-col h-full w-[50%] justify-center px-10" onSubmit={handleRenteeSubmit}>
               <InputField type="email" onChange={(e) => setEmail(e.target.value)} placeholder="email" value={email} />
               <div className="flex w-full gap-7 mb-5">
                 <div className="w-full">
                   <div className="pb-1 font-semibold">วันที่รับสินค้า</div>
-                  <input type="date" className="p-2 w-full rounded-lg border-2"></input>
+                  <div onClick={() => setOpen(true)} className="p-2 w-full rounded-lg border-2">{selection.startDate.toDateString()}</div>
                 </div>
                 <div className="w-full">
                   <div className="pb-1 font-semibold">วันที่รับสินค้า</div>
-                  <input type="date" className="p-2 w-full rounded-lg border-2"></input>
+                  <div onClick={() => setOpen(true)} className="p-2 w-full rounded-lg border-2">{selection.endDate.toDateString()}</div>
                 </div>
+              </div>
+              <div ref={refOne} className=' relative'>
+                {open && <div className='z-50 absolute top-[-10px] rounded-lg overflow-hidden'>
+                  <DateRange
+                    ranges={[selection]}
+                    onChange={handleSelect}
+                    minDate={new Date()} // Set the minimum date to today
+                  />
+                </div>}
               </div>
               <div className="flex flex-col gap-2 mb-5 w-full">
                 <div className="flex w-full justify-between ">
                   <div className="">จำนวนวันในการเช่า</div>
-                  <div className="">8 วัน</div>
+                  <div className="">{selectedDays}</div>
                 </div>
                 <div className="flex w-full justify-between ">
                   <div className="">ราคา</div>
