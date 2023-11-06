@@ -2,6 +2,9 @@ import ProductCard from '../../components/cards/ProductCard';
 import { Link } from 'react-router-dom';
 import InputField from '../../components/inputs/InputField';
 import Pagination from '../../components/others/Pagination';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+import { useProduct } from '../../hooks/useProduct';
 
 const categoryList = [
   'Sport',
@@ -17,6 +20,21 @@ const categoryList = [
 ];
 
 export default function ProductListingPage() {
+  const { items } = useProduct();
+
+  // const [items, setItems] = useState([]); // [{}
+  // TODO: Need pagination
+  // const getItems = () => {
+  //   axios.get('/item').then((response) => {
+  //     console.log(response.data);
+  //     setItems(response.data);
+  //   });
+  // };
+
+  // useEffect(() => {
+  //   getItems();
+  // }, []);
+
   return (
     <>
       <div className="flex justify-center items-center bg-primaryBackground w-full font-bold text-3xl h-[180px]">
@@ -66,11 +84,9 @@ export default function ProductListingPage() {
           </div>
           <div className="w-9/12 space-y-4">
             <div className="grid grid-cols-3 gap-4">
-              {Array(12)
-                .fill()
-                .map((el, idx) => (
-                  <ProductCard key={idx} />
-                ))}
+              {items.map((el, idx) => (
+                <ProductCard key={idx} item={el} />
+              ))}
             </div>
             <div className="flex justify-between">
               <p className="">Showing 1 to 12 of 17 results</p>

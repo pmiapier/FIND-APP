@@ -20,7 +20,7 @@ const router = createBrowserRouter([
       { path: '/', element: <Home /> },
 
       { path: '/product-listing', element: <ProductListingPage /> },
-      { path: '/single-product', element: <SingleProductPage /> },
+      { path: '/single-product/:id', element: <SingleProductPage /> },
       // มีญ่าสร้างpath ข้่างล่างนี้
       { path: '/my-product', element: <MyProductPage /> },
       { path: '/my-rental-items', element: <MyRentalItemsPage /> },
