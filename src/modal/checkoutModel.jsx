@@ -39,7 +39,9 @@ export default function CheckoutModel() {
         }
       }
     ];
+
     const response = await axios.post('/create-checkout-session', {
+
       line_items,
       customer_email: authUser.email
     });

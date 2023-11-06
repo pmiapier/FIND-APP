@@ -1,6 +1,7 @@
 import { FaPencilAlt } from 'react-icons/fa';
 
-const Button = ({ text, className, icon, event }) => {
+const Button = ({ text, className, icon ,event}) => {
+
   return (
     <div>
       <button

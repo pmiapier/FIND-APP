@@ -7,6 +7,8 @@ import { toast } from 'react-toastify';
 import { useModal } from '../hooks/useModal';
 import InputFromUser from '../components/inputs/inputFromUser';
 import { useAuth } from '../hooks/useAuth';
+import axios from 'axios';
+import { getAccessToken, removeAccessToken, addAccessToken } from '../utils/local-storage'
 
 const registerSchema = Joi.object({
   firstName: Joi.string().trim().required(),
@@ -28,8 +30,6 @@ const registerSchema = Joi.object({
 
 const validateRegister = (input) => {
   const { error } = registerSchema.validate(input, { abortEarly: false });
-  console.dir(error);
-
   if (error) {
     const result = error.details.reduce((acc, el) => {
       const { message, path } = el;
@@ -57,23 +57,26 @@ export default function RegisterModal() {
   const handleChangeInput = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
   };
-  const handleSubmitForm = (e) => {
-    e.preventDefault();
+  const handleSubmitForm = async(e) => {
+      e.preventDefault();
+  
+      const validationError = validateRegister(input);
+      if (validationError) {
+        return setError(validationError);
+      }
 
-    const validationError = validateRegister(input);
-    if (validationError) {
-      return setError(validationError);
-    }
-    toast.success('Register Success');
-    setTimeout(() => {
-      onCloseModal();
-    }, 1000);
-    setError({});
-    register(input).catch((err) => {
-      toast.error('Fail');
-    });
+      register(input)
+      .then(x=>{
+        if(x===`duplicateEmail`){
+          console.log(`duplicateEmail`);
+        }else if(x===`duplicatePhone`){
+          console.log(`duplicatePhone`);
+        }else if(x===`success`) onCloseModal()
+      }).catch(err=>{
+        console.warn(err);
+      })
   };
-
+  
   return (
     <>
       {isOpenModal && modalType === 'registerModal' && (
@@ -95,18 +98,6 @@ export default function RegisterModal() {
                     <div className="text-blue-600 font-bold hover:cursor-pointer">เข้าสู่ระบบ</div>
                   </div>
                 </div>
-                {/* <div className="flex gap-5 h-[60px] pt-[80px] w-full">
-                  <button className="flex justify-center gap-4 items-center bg-gray-300 h-[60px] w-[50%] rounded-full">
-                    <FcGoogle className=" h-[45px] w-[45px]" />
-                    <button className="col-span-8">CONTINUE WITH GOOGLE</button>
-                  </button>
-                  <button className="flex justify-center gap-4 items-center bg-blue-500 h-[60px] w-[50%] rounded-full">
-                    <BiLogoFacebook className="text-white col-span-2 h-[45px] w-[45px]" />
-                    <button className=" text-white">
-                      CONTINUE WITH FACEBOOK
-                    </button>
-                  </button>
-                </div> */}
                 <div className="mt-[100px] mb-[20px] w-[50%] relative flex   h-px place-items-center bg-gray-300">
                   <div className="absolute left-1/2 h-5 -translate-x-1/2 bg-white px-4 text-center text-sm text-gray-500">
                     หรือ
@@ -194,9 +185,7 @@ export default function RegisterModal() {
                       hasError={error.confirmPassword}
                     />
                   </div>
-                  <button className="px-4 py-2 my-2 w-[30%] bg-blue-500 border-2 border-blue-500 hover:border-blue-500 hover:bg-gray-100 hover:text-blue-500 text-white rounded-lg text-[20px]">
-                    Register
-                  </button>
+                  <input type='submit' value={`Register`} className="px-4 py-2 my-2 w-[30%] cursor-pointer bg-blue-500 border-2 border-blue-500 hover:border-blue-500 hover:bg-gray-100 hover:text-blue-500 text-white rounded-lg text-[20px]"/>
                 </form>
               </div>
             </div>

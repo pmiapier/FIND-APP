@@ -162,7 +162,6 @@ import 'react-quill/dist/quill.snow.css';
 import ImageResize from 'quill-image-resize-module-react';
 import ImageCompress from 'quill-image-compress';
 import Button from '../buttons/Button';
-// import { useModal } from '../../hooks/useModal';
 
 import { useState } from 'react';
 import axios from 'axios';
@@ -203,16 +202,18 @@ const modules = {
 const UserAddProduct = ({ category, onCloseModal }) => {
   const [input, setInput] = useState({
     itemName: '',
-    itemCategory: '',
+    itemCategory: 'Vehicles',
     itemDescription: '',
     itemPrice: ''
   });
+
   const [files, setFiles] = useState([]);
 
   const handleInput = (e) => {
     if (e.target.files) {
       return setFiles([...e.target.files]);
     }
+
 
     setInput({ ...input, [e.target.name]: e.target.value });
   };
@@ -222,6 +223,7 @@ const UserAddProduct = ({ category, onCloseModal }) => {
   };
 
   const handleSubmit = async (e) => {
+
     e.preventDefault();
     const formdata = new FormData();
     for (const key in input) {
@@ -241,7 +243,7 @@ const UserAddProduct = ({ category, onCloseModal }) => {
       onCloseModal();
     }
   };
-  //   console.log(files);s
+
   return (
     <form
       encType="multipart/form-data"
@@ -276,11 +278,13 @@ const UserAddProduct = ({ category, onCloseModal }) => {
           onChange={handleInput}
         >
           {category.map((item, index) => {
+
             return (
               <option key={index} value={item}>
                 {item}
               </option>
             );
+
           })}
         </select>
 
