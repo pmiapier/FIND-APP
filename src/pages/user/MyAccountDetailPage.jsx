@@ -1,9 +1,14 @@
 import detailImage from '../../assets/account-detail/Account 1.svg';
 import pointIcon from '../../assets/account-detail/pointIcon.svg';
+import {useAuth} from '../../hooks/useAuth'
 
 import ButtonAccount from '../../components/buttons/ButtonAccount';
+import { useEffect, useState } from 'react';
 
 export default function MyAccountDetailPage() {
+   
+  const {authUser} = useAuth()
+
   return (
     <div className="flex gap-10 justify-center items-center py-20 bg-primaryBackground">
       <div className="flex flex-col justify-center items-center gap-4">
@@ -17,21 +22,21 @@ export default function MyAccountDetailPage() {
           </div>
           <div className="flex gap-2 items-center">
             <img src={pointIcon} className="w-[24px] h-[24px] mt-[3px]"></img>
-            <h6> 4,800 FIND point</h6>
+            <h6> {authUser?.point} FIND POINT</h6>
           </div>
         </div>
         <div className="flex flex-col gap-4">
           <div className="flex gap-10">
             <div>Name</div>
-            <h4>Supatipanno Namotasa</h4>
+            <h4>{authUser?.firstName}  {authUser?.lastName}</h4>
           </div>
           <div className="flex gap-10">
             <div className="font-bold">Email</div>
-            <h4 className="inline">Supatipanno@gmail.com</h4>
+            <h4 className="inline">{authUser?.email}</h4>
           </div>
           <div className="flex gap-6">
             <div>Contact</div>
-            <h4>0874069111</h4>
+            <h4>{authUser?.phoneNumber}</h4>
           </div>
         </div>
         <div className="flex flex-col gap-4 mt-8">

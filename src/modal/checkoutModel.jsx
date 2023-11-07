@@ -22,7 +22,7 @@ export default function CheckoutModel() {
   const elements = useElements();
 
   const { authUser } = useAuth();
-  console.log(authUser);
+  // console.log(authUser);
 
   const [message, setMessage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -32,7 +32,7 @@ export default function CheckoutModel() {
   const [item, setItem] = useState({ user: '' });
   const getSingleItem = () => {
     axios.post('/item/get-single-item', { id: id }).then((response) => {
-      console.log('ourdata response', response.data);
+      // console.log('ourdata response', response.data);
       setItem(response.data);
     });
   };

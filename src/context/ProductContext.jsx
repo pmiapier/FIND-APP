@@ -8,7 +8,7 @@ export default function ProductContextProvider({ children }) {
 
   const getItems = () => {
     axios.get('/item').then((response) => {
-      console.log(response.data);
+      // console.log(response.data);
       setItems(response.data);
     });
   };

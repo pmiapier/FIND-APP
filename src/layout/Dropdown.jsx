@@ -1,5 +1,7 @@
+import { useAuth } from '../hooks/useAuth';
 import profile from '../images/profile.png';
 export default function Dropdown() {
+  const {logout} = useAuth()
   return (
     <div className="dropdown">
       <label tabIndex={0} className="btn m-1">
@@ -32,8 +34,8 @@ export default function Dropdown() {
         <li>
           <a href="#">My message</a>
         </li>
-        <li>
-          <a>Log out</a>
+        <li onClick={logout}>
+          <a href="/">Log out</a>
         </li>
       </ul>
     </div>
