@@ -4,27 +4,49 @@ import { useModal } from '../../hooks/useModal';
 import AddItemModal from '../../modal/AddItemModal';
 import axios from '../../config/axios';
 import { useAuth } from '../../hooks/useAuth';
+import { toast } from 'react-toastify';
+import useEditProduct from '../../hooks/useEditProduct';
 
 export default function MyProductPage() {
-  const [myProduct, setMyProduct] = useState();
+  const [myProduct, setMyProduct] = useState([]);
   const { authUser } = useAuth();
   const { onOpenModal } = useModal();
-  console.log('authUser', authUser);
-  console.log('my product', myProduct);
+
+  const { selectedProduct, editProduct, clearSelectedProduct, saveProductChanges } = useEditProduct();
+
+  const handleDeleteItem = async (itemId) => {
+    try {
+      await axios.delete('http://localhost:8000/user/deleteItem', { data: { itemId } });
+      setMyProduct((prevProduct) => prevProduct.filter((product) => product.id !== itemId));
+      toast.success('ลบสินค้าเรียบร้อบแล้ว', {
+        position: toast.POSITION.TOP_CENTER
+      });
+    } catch (error) {
+      console.log('error deleting product', error);
+    }
+  };
+
+  const handleEditItem = (product) => {
+    editProduct(product);
+    onOpenModal('AddItemModal');
+  };
+
   useEffect(() => {
     const getMyProductData = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/user/my-product', {
-          userId: authUser.id
-        });
-        console.log('response.data', response.data);
-        setMyProduct(response.data);
+        if (authUser && authUser.id) {
+          const response = await axios.get('http://localhost:8000/user/my-product', {
+            params: { userId: authUser.id }
+          });
+          setMyProduct(response.data);
+        }
       } catch (error) {
         console.error('Error fetching my product data: ', error);
       }
     };
     getMyProductData();
-  }, []);
+  }, [authUser]);
+
   return (
     <div className="flex flex-col bg-primaryBackground px-10 py-10 gap-10">
       <div className="text-lg">You have 8 items in total</div>
@@ -37,12 +59,16 @@ export default function MyProductPage() {
       </div>
 
       <div className="grid grid-cols-2 gap-6 justify-around">
-        <MyItemCard />
-        <MyItemCard />
-        <MyItemCard />
-        <MyItemCard />
-        <MyItemCard />
-        <MyItemCard />
+        {myProduct.map((product) => {
+          return (
+            <MyItemCard
+              key={product.id}
+              product={product}
+              handleDeleteItem={handleDeleteItem}
+              handleEditItem={handleEditItem}
+            />
+          );
+        })}
       </div>
       <AddItemModal />
     </div>

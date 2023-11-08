@@ -7,8 +7,9 @@ import InputField from '../inputs/InputField';
 import Joi from 'joi';
 import { toast } from 'react-toastify';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
+import useEditProduct from '../../hooks/useEditProduct';
 
 Quill.register('modules/imageResize', ImageResize);
 Quill.register('modules/imageCompress', ImageCompress);
@@ -52,6 +53,7 @@ const schema = Joi.object({
 });
 
 const UserAddProduct = ({ category, onCloseModal }) => {
+  const { selectedProduct, editProduct, clearSelectedProduct, saveProductChanges } = useEditProduct();
   const [input, setInput] = useState({
     itemName: '',
     itemCategory: 'Vehicles',
@@ -97,7 +99,10 @@ const UserAddProduct = ({ category, onCloseModal }) => {
     files.forEach((item, index) => {
       formdata.append(`file[${index}]`, item);
     });
-
+    if (selectedProduct) {
+      saveProductChanges({ ...selectedProduct, ...input });
+    }
+    clearSelectedProduct();
     const headers = {
       Authorization: `Bearer ${localStorage.getItem('ACCESS_TOKEN')}`,
       'Content-Type': 'multipart/form-data'
@@ -111,6 +116,19 @@ const UserAddProduct = ({ category, onCloseModal }) => {
       onCloseModal();
     }
   };
+
+  console.log('selectedProduct in UserAddProduct', selectedProduct);
+  useEffect(() => {
+    console.log('selectedProduct in UserAddProduct useEffect', selectedProduct);
+    if (selectedProduct) {
+      setInput({
+        itemName: selectedProduct.title,
+        itemCategory: selectedProduct.categories.name,
+        itemDescription: selectedProduct.description,
+        itemPrice: selectedProduct.price
+      });
+    }
+  }, [selectedProduct]);
 
   return (
     <form
