@@ -1,23 +1,13 @@
 import { useModal } from '../hooks/useModal';
 import UserAddProduct from '../components/items/UserAddProduct';
-import { useEffect, useState } from 'react';
-import axios from 'axios';
+import { useProduct } from '../hooks/useProduct';
 
 
 export default function AddItemModal() {
   const { onCloseModal, isOpenModal, modalType, onOpenModal } = useModal();
-  const [category,setCategory] = useState([]) 
-  useEffect(()=>{
-    getCategory()
-  },[])
-  const getCategory=async()=>{
-    try {
-      const res = await axios.get(`http://localhost:8000/item/getCategories`)
-      setCategory(res.data)
-    } catch (error) {
-      console.log(error);
-    }
-  }
+  const {category} = useProduct()
+
+
   return (
     <>
       {isOpenModal && modalType === 'AddItemModal' && (

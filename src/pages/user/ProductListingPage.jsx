@@ -2,40 +2,13 @@ import ProductCard from '../../components/cards/ProductCard';
 import { Link } from 'react-router-dom';
 import InputField from '../../components/inputs/InputField';
 import Pagination from '../../components/others/Pagination';
-import axios from 'axios';
-import { useEffect, useState } from 'react';
 import { useProduct } from '../../hooks/useProduct';
 
-const categoryList = [
-  'Sport',
-  'Electronics',
-  'Appliances',
-  'Tools',
-  'Baby',
-  'Books',
-  'Camping',
-  'Hiking',
-  'Clothing',
-  'Vehicles'
-];
 
 export default function ProductListingPage() {
   const handlePriceChange = (e) => {};
+  const { items,category } = useProduct();
 
-  const { items } = useProduct();
-
-  // const [items, setItems] = useState([]); // [{}
-  // TODO: Need pagination
-  // const getItems = () => {
-  //   axios.get('/item').then((response) => {
-  //     console.log(response.data);
-  //     setItems(response.data);
-  //   });
-  // };
-
-  // useEffect(() => {
-  //   getItems();
-  // }, []);
 
   return (
     <>
@@ -66,7 +39,7 @@ export default function ProductListingPage() {
               <p className="font-bold">หมวดหมู่สินค้า</p>
               <div className="pl-2">
                 <ul className="space-y-1">
-                  {categoryList.map((el, idx) => (
+                  {category.map((el, idx) => (
                     <li className="text-blue-500 hover:text-blue-900 hover:underline" key={idx}>
                       <Link to="#">{el}</Link>
                       <span className="text-xs p-1 text-gray-500">(147)</span>

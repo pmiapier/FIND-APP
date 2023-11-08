@@ -5,17 +5,24 @@ import axios from '../config/axios';
 
 export default function ProductContextProvider({ children }) {
   const [items, setItems] = useState([]); // [{}
+  const [category,setCategory] = useState([])
 
   const getItems = () => {
     axios.get('/item').then((response) => {
-      // console.log(response.data);
       setItems(response.data);
     });
   };
 
+  const getCategory = () =>{
+    axios.get(`/item/getCategories`).then(response=>{
+      setCategory(response.data)
+    })
+  }
+
   useEffect(() => {
     getItems();
+    getCategory()
   }, []);
 
-  return <ProductContext.Provider value={{ items, setItems, getItems }}>{children}</ProductContext.Provider>;
+  return <ProductContext.Provider value={{ items, setItems, getItems,category }}>{children}</ProductContext.Provider>;
 }
