@@ -14,7 +14,7 @@ export default function ProductContextProvider({ children }) {
   };
 
   const getCategory = () =>{
-    axios.get(`http://localhost:8000/item/getCategories`).then(response=>{
+    axios.get(`/item/getCategories`).then(response=>{
       setCategory(response.data)
     })
   }
