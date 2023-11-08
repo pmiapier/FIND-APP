@@ -27,6 +27,9 @@ export default function CheckoutModel() {
   const [message, setMessage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
+  const [tosChecked, setTosChecked] = useState(false);
+  const [error, setError] = useState(null);
+
   //### Geting the single Item
   let { id } = useParams();
   const [item, setItem] = useState({ user: '' });
@@ -44,29 +47,56 @@ export default function CheckoutModel() {
     };
   }, [id]);
 
+  const validateSubmit = () => {
+    if (!tosChecked) {
+      setError('กรุณายอมรับเงื่อนไขการเช่า');
+      return false;
+    }
+    if (total < 1) {
+      setError('กรุณาเลือกวันที่เช่า');
+      return false;
+    }
+    return true;
+  }
+  
   // #### Handling submit
   const handleRenteeSubmit = async (e) => {
     e.preventDefault();
+    if (!validateSubmit()) return;
     const line_items = [
       {
         quantity: 1,
         price_data: {
           currency: 'thb',
-          unit_amount: 15000,
+          unit_amount: `${total * 100}`,
           product_data: {
             name: `${item.title}`,
-            description: 'โย่วและนี้คือเสียงจากระเป๋าที่คุณกำลังจะเช่า ฉันมันโครตเบา สะพายง่าย ถอดยาก',
+            description:`${item.description}`,
             images: [`${item?.images[0]?.imageUrl}`]
           }
         }
       }
     ];
 
+    const rental = {
+      ownerId: item.ownerId,
+      renteeId: authUser.id,
+      itemId: item.id,
+      startRentDate: selection.startDate,
+      endRentDate: selection.endDate,
+      status: 'awaiting_payment',
+      amount: subtotal,
+      deposit: deposit,
+    }
+
     const response = await axios.post('/create-checkout-session', {
       line_items,
-      customer_email: authUser.email
+      customer_email: authUser.email,
+      rental: rental,
     });
+
     const { sessionId } = response.data;
+
     console.log('response', response);
     console.log('sessionId', sessionId);
     const { error } = await stripe.redirectToCheckout({
@@ -85,12 +115,19 @@ export default function CheckoutModel() {
     key: 'selection'
   });
   const [selectedDays, setSelectedDays] = useState(0);
+  const [subtotal, setSubtotal] = useState(0);
+  const [deposit, setDeposit] = useState(0);
+  const [total, setTotal] = useState(0);
+
   const handleSelect = (ranges) => {
     setSelection(ranges.selection);
     const start = ranges.selection.startDate;
     const end = ranges.selection.endDate;
     const daysDifference = Math.floor((end - start) / (24 * 60 * 60 * 1000)) + 1;
     setSelectedDays(daysDifference);
+    setSubtotal(daysDifference * item.price);
+    setDeposit((daysDifference * item.price) * 0.3);
+    setTotal((daysDifference * item.price) * 0.3 + (daysDifference * item.price));
   };
   const hideOnEscape = (e) => {
     if (e.key === 'Escape') {
@@ -155,7 +192,8 @@ export default function CheckoutModel() {
                 </div>
               </div>
             </div>
-            <form className="flex flex-col h-full w-[50%] justify-center px-10" onSubmit={handleRenteeSubmit}>
+            <div className="flex flex-col h-full w-[50%] justify-center items-center py-10 px-10">
+            <form className="" onSubmit={handleRenteeSubmit}>
               <div className="flex w-full gap-7 mb-5">
                 <div className="w-full">
                   <div className="pb-1 font-semibold">วันที่รับสินค้า</div>
@@ -164,7 +202,7 @@ export default function CheckoutModel() {
                   </div>
                 </div>
                 <div className="w-full">
-                  <div className="pb-1 font-semibold">วันที่รับสินค้า</div>
+                  <div className="pb-1 font-semibold">วันที่คืนสินค้า</div>
                   <div onClick={() => setOpen(true)} className="p-2 w-full rounded-lg border-2">
                     {selection.endDate.toDateString()}
                   </div>
@@ -190,28 +228,38 @@ export default function CheckoutModel() {
                 </div>
                 <div className="flex w-full justify-between ">
                   <div className="">ราคา</div>
-                  <div className="">฿2,000</div>
+                  <div className="">฿{subtotal}</div>
                 </div>
                 <div className="flex w-full justify-between ">
                   <div className="">มัดจำ</div>
-                  <div className="">฿600</div>
+                  <div className="">฿{deposit}</div>
                 </div>
                 <div className="flex w-full justify-between ">
                   <div className="">รวมทั้งหมด</div>
-                  <div className="">฿2,600</div>
+                  <div className="">฿{total}</div>
                 </div>
               </div>
               <div className="flex">
-                <input type="checkbox" className="" />
+                <input type="checkbox"
+                className="" 
+                checked={tosChecked}
+                onChange={(e) => setTosChecked(e.target.checked)}
+                />
                 <div className="text-[13px] pl-1">
                   ยอมรับเงื่อนไขและข้อตกลงในการเช่าสินค้ากับ FIND อ่านเงื่อนไขและข้อตกลงเพิ่มเติมได้
                 </div>
                 <div className="text-[13px] pl-1 font-semibold text-blue-500">ที่นี่</div>
               </div>
-              <button className="px-4 py-2 my-2 w-full bg-blue-500 border-2 border-blue-500 hover:border-blue-500 hover:bg-gray-100 hover:text-blue-500 text-white rounded-lg ">
+              <button
+              className="px-4 py-2 my-2 w-full bg-blue-500 border-2 border-blue-500 hover:border-blue-500 hover:bg-gray-100 hover:text-blue-500 text-white rounded-lg"
+              >
                 ยืนยันและชำระเงิน
               </button>
             </form>
+            <div className="">
+              {error && <div className="text-red-500">{error}</div>}
+            </div>
+            </div>
           </div>
         </div>
       )}
