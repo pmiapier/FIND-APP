@@ -66,11 +66,11 @@ export default function LoginModal() {
                 <div className="flex gap-5 h-[60px] pt-[80px] w-full">
                   <button className="flex justify-center gap-4 items-center bg-gray-300 h-[60px] w-[50%] rounded-full">
                     <FcGoogle className=" h-[45px] w-[45px]" />
-                    <button className="col-span-8">CONTINUE WITH GOOGLE</button>
+                    <div className="col-span-8">CONTINUE WITH GOOGLE</div>
                   </button>
                   <button className="flex justify-center gap-4 items-center bg-blue-500 h-[60px] w-[50%] rounded-full">
                     <BiLogoFacebook className="text-white col-span-2 h-[45px] w-[45px]" />
-                    <button className=" text-white">CONTINUE WITH FACEBOOK</button>
+                    <div className=" text-white">CONTINUE WITH FACEBOOK</div>
                   </button>
                 </div>
                 <div className="mt-[120px] mb-[60px] w-[50%] relative flex   h-px place-items-center bg-gray-300">
