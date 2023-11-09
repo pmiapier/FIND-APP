@@ -5,6 +5,7 @@ import axios from '../config/axios';
 
 export default function ProductContextProvider({ children }) {
   const [items, setItems] = useState([]); // [{}
+  const [category, setCategory] = useState([]);
   const [categoryList, setCategoryList] = useState([]);
 
   const getItems = () => {
@@ -15,6 +16,7 @@ export default function ProductContextProvider({ children }) {
 
   const getCategory = () => {
     axios.get(`/item/getCategories`).then((response) => {
+      setCategory(response.data);
       setCategoryList(response.data);
     });
   };

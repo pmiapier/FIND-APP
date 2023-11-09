@@ -3,7 +3,8 @@ import UserAddProduct from '../components/items/UserAddProduct';
 import { useProduct } from '../hooks/useProduct';
 
 export default function AddItemModal() {
-  const { onCloseModal, isOpenModal, modalType, onOpenModal } = useModal();
+  const { onCloseModal, isOpenModal, modalType, onOpenModal, productId } = useModal();
+  const { category } = useProduct();
   const { categoryList } = useProduct();
 
   return (
