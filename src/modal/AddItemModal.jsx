@@ -5,7 +5,6 @@ import { useProduct } from '../hooks/useProduct';
 export default function AddItemModal() {
   const { onCloseModal, isOpenModal, modalType, onOpenModal, productId } = useModal();
   const { category } = useProduct();
-  const { onCloseModal, isOpenModal, modalType, onOpenModal } = useModal();
   const { categoryList } = useProduct();
 
   return (
