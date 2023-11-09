@@ -33,19 +33,27 @@ export default function CheckoutModel() {
   //### Geting the single Item
   let { id } = useParams();
   const [item, setItem] = useState({ user: '' });
+  console.log(id);
   const getSingleItem = () => {
-    axios.post('/item/get-single-item', { id: id }).then((response) => {
-      // console.log('ourdata response', response.data);
+    axios.get(`/item/get-single-item/${id}`).then((response) => {
+      console.log('ourdata response', response.data);
       setItem(response.data);
     });
   };
 
   useEffect(() => {
-    getSingleItem();
-    return () => {
-      setItem(null);
-    };
+    if (id) {
+      getSingleItem();
+
+      return () => {
+        setItem(null);
+      };
+    }
   }, [id]);
+  // axios.get(`/item/get-single-item/${id}`).then((response) => {
+  //   console.log('ourdata response', response.data);
+  //   setItem(response.data);
+  // });
 
   const validateSubmit = () => {
     if (!tosChecked) {
@@ -57,8 +65,8 @@ export default function CheckoutModel() {
       return false;
     }
     return true;
-  }
-  
+  };
+
   // #### Handling submit
   const handleRenteeSubmit = async (e) => {
     e.preventDefault();
@@ -71,7 +79,7 @@ export default function CheckoutModel() {
           unit_amount: `${total * 100}`,
           product_data: {
             name: `${item.title}`,
-            description:`${item.description}`,
+            description: `${item.description}`,
             images: [`${item?.images[0]?.imageUrl}`]
           }
         }
@@ -86,13 +94,13 @@ export default function CheckoutModel() {
       endRentDate: selection.endDate,
       status: 'awaiting_payment',
       amount: subtotal,
-      deposit: deposit,
-    }
+      deposit: deposit
+    };
 
     const response = await axios.post('/create-checkout-session', {
       line_items,
       customer_email: authUser.email,
-      rental: rental,
+      rental: rental
     });
 
     const { sessionId } = response.data;
@@ -126,8 +134,8 @@ export default function CheckoutModel() {
     const daysDifference = Math.floor((end - start) / (24 * 60 * 60 * 1000)) + 1;
     setSelectedDays(daysDifference);
     setSubtotal(daysDifference * item.price);
-    setDeposit((daysDifference * item.price) * 0.3);
-    setTotal((daysDifference * item.price) * 0.3 + (daysDifference * item.price));
+    setDeposit(daysDifference * item.price * 0.3);
+    setTotal(daysDifference * item.price * 0.3 + daysDifference * item.price);
   };
   const hideOnEscape = (e) => {
     if (e.key === 'Escape') {
@@ -193,72 +201,69 @@ export default function CheckoutModel() {
               </div>
             </div>
             <div className="flex flex-col h-full w-[50%] justify-center items-center py-10 px-10">
-            <form className="" onSubmit={handleRenteeSubmit}>
-              <div className="flex w-full gap-7 mb-5">
-                <div className="w-full">
-                  <div className="pb-1 font-semibold">วันที่รับสินค้า</div>
-                  <div onClick={() => setOpen(true)} className="p-2 w-full rounded-lg border-2">
-                    {selection.startDate.toDateString()}
+              <form className="" onSubmit={handleRenteeSubmit}>
+                <div className="flex w-full gap-7 mb-5">
+                  <div className="w-full">
+                    <div className="pb-1 font-semibold">วันที่รับสินค้า</div>
+                    <div onClick={() => setOpen(true)} className="p-2 w-full rounded-lg border-2">
+                      {selection.startDate.toDateString()}
+                    </div>
+                  </div>
+                  <div className="w-full">
+                    <div className="pb-1 font-semibold">วันที่คืนสินค้า</div>
+                    <div onClick={() => setOpen(true)} className="p-2 w-full rounded-lg border-2">
+                      {selection.endDate.toDateString()}
+                    </div>
                   </div>
                 </div>
-                <div className="w-full">
-                  <div className="pb-1 font-semibold">วันที่คืนสินค้า</div>
-                  <div onClick={() => setOpen(true)} className="p-2 w-full rounded-lg border-2">
-                    {selection.endDate.toDateString()}
-                  </div>
+                <div ref={refOne} className=" relative">
+                  {open && (
+                    <div className="z-50 absolute top-[-10px] rounded-lg overflow-hidden">
+                      <DateRange
+                        ranges={[selection]}
+                        onChange={handleSelect}
+                        minDate={new Date()} // Set the minimum date to today
+                      />
+                    </div>
+                  )}
                 </div>
-              </div>
-              <div ref={refOne} className=" relative">
-                {open && (
-                  <div className="z-50 absolute top-[-10px] rounded-lg overflow-hidden">
-                    <DateRange
-                      ranges={[selection]}
-                      onChange={handleSelect}
-                      minDate={new Date()} // Set the minimum date to today
-                    />
-                  </div>
-                )}
-              </div>
 
-              <div className="flex flex-col gap-2 mb-5 w-full">
-                <div className="flex w-full justify-between ">
-                  <div className="">จำนวนวันในการเช่า</div>
+                <div className="flex flex-col gap-2 mb-5 w-full">
+                  <div className="flex w-full justify-between ">
+                    <div className="">จำนวนวันในการเช่า</div>
 
-                  <div className="">{selectedDays}</div>
+                    <div className="">{selectedDays}</div>
+                  </div>
+                  <div className="flex w-full justify-between ">
+                    <div className="">ราคา</div>
+                    <div className="">฿{subtotal}</div>
+                  </div>
+                  <div className="flex w-full justify-between ">
+                    <div className="">มัดจำ</div>
+                    <div className="">฿{deposit}</div>
+                  </div>
+                  <div className="flex w-full justify-between ">
+                    <div className="">รวมทั้งหมด</div>
+                    <div className="">฿{total}</div>
+                  </div>
                 </div>
-                <div className="flex w-full justify-between ">
-                  <div className="">ราคา</div>
-                  <div className="">฿{subtotal}</div>
+                <div className="flex">
+                  <input
+                    type="checkbox"
+                    className=""
+                    checked={tosChecked}
+                    onChange={(e) => setTosChecked(e.target.checked)}
+                  />
+                  <div className="text-[13px] pl-1">
+                    ยอมรับเงื่อนไขและข้อตกลงในการเช่าสินค้ากับ FIND อ่านเงื่อนไขและข้อตกลงเพิ่มเติมได้
+                  </div>
+                  <div className="text-[13px] pl-1 font-semibold text-blue-500">ที่นี่</div>
                 </div>
-                <div className="flex w-full justify-between ">
-                  <div className="">มัดจำ</div>
-                  <div className="">฿{deposit}</div>
-                </div>
-                <div className="flex w-full justify-between ">
-                  <div className="">รวมทั้งหมด</div>
-                  <div className="">฿{total}</div>
-                </div>
-              </div>
-              <div className="flex">
-                <input type="checkbox"
-                className="" 
-                checked={tosChecked}
-                onChange={(e) => setTosChecked(e.target.checked)}
-                />
-                <div className="text-[13px] pl-1">
-                  ยอมรับเงื่อนไขและข้อตกลงในการเช่าสินค้ากับ FIND อ่านเงื่อนไขและข้อตกลงเพิ่มเติมได้
-                </div>
-                <div className="text-[13px] pl-1 font-semibold text-blue-500">ที่นี่</div>
-              </div>
-              <button
-              className="px-4 py-2 my-2 w-full bg-blue-500 border-2 border-blue-500 hover:border-blue-500 hover:bg-gray-100 hover:text-blue-500 text-white rounded-lg"
-              >
-                ยืนยันและชำระเงิน
-              </button>
-            </form>
-            <div className="">
-              {error && <div className="text-red-500">{error}</div>}
-            </div>
+                <button className="px-4 py-2 my-2 w-full bg-blue-500 border-2 border-blue-500 hover:border-blue-500 hover:bg-gray-100 hover:text-blue-500 text-white rounded-lg">
+                  ยืนยันและชำระเงิน
+                </button>
+              </form>
+              <div className="">{error && <div className="text-red-500">{error}</div>}</div>
             </div>
           </div>
         </div>

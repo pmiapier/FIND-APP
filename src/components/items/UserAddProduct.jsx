@@ -10,6 +10,7 @@ import { toast } from 'react-toastify';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import useEditProduct from '../../hooks/useEditProduct';
+import { useModal } from '../../hooks/useModal';
 
 Quill.register('modules/imageResize', ImageResize);
 Quill.register('modules/imageCompress', ImageCompress);
@@ -53,7 +54,9 @@ const schema = Joi.object({
 });
 
 const UserAddProduct = ({ category, onCloseModal }) => {
-  const { selectedProduct, editProduct, clearSelectedProduct, saveProductChanges } = useEditProduct();
+  const { selectedProduct, clearSelectedProduct, saveProductChanges, editProduct } = useEditProduct();
+  const { productId } = useModal();
+
   const [input, setInput] = useState({
     itemName: '',
     itemCategory: 'Vehicles',
@@ -114,6 +117,7 @@ const UserAddProduct = ({ category, onCloseModal }) => {
         position: toast.POSITION.TOP_CENTER
       });
       onCloseModal();
+      await window.location.reload();
     }
   };
 
@@ -128,7 +132,8 @@ const UserAddProduct = ({ category, onCloseModal }) => {
         itemPrice: selectedProduct.price
       });
     }
-  }, [selectedProduct]);
+    // selectedProduct
+  }, []);
 
   return (
     <form

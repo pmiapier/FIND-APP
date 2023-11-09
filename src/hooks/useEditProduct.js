@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import axios from '../config/axios';
 
 const useEditProduct = () => {
@@ -6,7 +6,7 @@ const useEditProduct = () => {
   console.log('selectedProduct in useEditProduct', selectedProduct);
   const editProduct = async (productId) => {
     try {
-      const response = await axios.post('/item/get-single-item', { id: productId });
+      const response = await axios.get(`/item/get-single-item/${productId}`);
       console.log('response Data in editProduct hooks:', response.data);
       setSelectedProduct(response.data);
     } catch (error) {

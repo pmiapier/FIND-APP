@@ -10,7 +10,7 @@ export default function SingleProductPage() {
   const [item, setItem] = useState({ user: '' });
 
   const getSingleItem = () => {
-    axios.post('/item/get-single-item', { id: id }).then((response) => {
+    axios.get(`/item/get-single-item/${id}`).then((response) => {
       console.log('ourdata response', response.data);
       setItem(response.data);
     });
@@ -41,7 +41,7 @@ export default function SingleProductPage() {
           </div>
           <div className="flex gap-4 mb-2">
             <button
-              onClick={() => onOpenModal('checkoutModal')}
+              onClick={() => onOpenModal('checkoutModal', id)}
               className="bg-blue-500 text-white w-6/12 p-4 rounded-md"
             >
               เช่าเลย!
