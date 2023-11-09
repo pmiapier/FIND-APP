@@ -33,19 +33,27 @@ export default function CheckoutModel() {
   //### Geting the single Item
   let { id } = useParams();
   const [item, setItem] = useState({ user: '' });
+  console.log(id);
   const getSingleItem = () => {
-    axios.post('/item/get-single-item', { id: id }).then((response) => {
-      // console.log('ourdata response', response.data);
+    axios.get(`/item/get-single-item/${id}`).then((response) => {
+      console.log('ourdata response', response.data);
       setItem(response.data);
     });
   };
 
   useEffect(() => {
-    getSingleItem();
-    return () => {
-      setItem(null);
-    };
+    if (id) {
+      getSingleItem();
+
+      return () => {
+        setItem(null);
+      };
+    }
   }, [id]);
+  // axios.get(`/item/get-single-item/${id}`).then((response) => {
+  //   console.log('ourdata response', response.data);
+  //   setItem(response.data);
+  // });
 
   const validateSubmit = () => {
     if (!tosChecked) {

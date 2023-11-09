@@ -32,7 +32,7 @@ export default function InputField({
           <div>
             {limitText && (
               <p className="text-gray-400">
-                <span>{value.length ?? 0}</span>&nbsp;/&nbsp;
+                <span>{value?.length ?? 0}</span>&nbsp;/&nbsp;
                 <span>{limitText}</span>
               </p>
             )}
