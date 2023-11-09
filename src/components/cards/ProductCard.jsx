@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
 
 export default function ProductCard({ item }) {
-  console.log('item', item);
   const itemLink = `/single-product/${item.id}/`;
   return (
     <Link to={itemLink}>

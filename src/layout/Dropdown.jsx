@@ -1,19 +1,25 @@
 import { useAuth } from '../hooks/useAuth';
+
 import profile from '../images/profile.png';
 export default function Dropdown() {
-  const {logout} = useAuth()
+  const { authUser, logout } = useAuth();
+  // Render loading state or null if the user information is not yet available
+  if (!authUser) {
+    return <div>Loading user information...</div>;
+  }
+
   return (
     <div className="dropdown">
       <label tabIndex={0} className="btn m-1">
-        USER
+        {authUser.firstName}
       </label>
       <ul tabIndex={0} className="dropdown-content z-1 menu p-2 shadow bg-black-100 rounded-box w-60 bg-white">
         <div className="flex gap-2 border-b p-2">
-          <img src={profile} alt="profile" className="w-10 h-10" />
+          <img src={authUser.profileImg || profile} alt="profile" className="w-10 h-10" />
           <div className="flex flex-col ">
-            <span>Supatipanno</span>
-            <span>Supatipanno@gmail.com</span>
-            <li>FIND point: 0</li>
+            <span>{authUser.firstName}</span>
+            <span>{authUser.email}</span>
+            <li>FIND point: {authUser.point || 0}</li>
           </div>
         </div>
         <li>
