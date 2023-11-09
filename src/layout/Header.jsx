@@ -26,7 +26,6 @@ const Header = () => {
         </div>
         <div className="flex items-center justify-center gap-5">
           <Link to="/product-listing">
-
             <div className="flex justify-center items-center gap-1">
               <FaBars />
               หมวดหมู่สินค้า

@@ -2,11 +2,9 @@ import { useModal } from '../hooks/useModal';
 import UserAddProduct from '../components/items/UserAddProduct';
 import { useProduct } from '../hooks/useProduct';
 
-
 export default function AddItemModal() {
   const { onCloseModal, isOpenModal, modalType, onOpenModal } = useModal();
-  const {categoryList} = useProduct()
-
+  const { categoryList } = useProduct();
 
   return (
     <>

@@ -25,12 +25,12 @@ export default function LoginModal() {
   const submitLogin = (e) => {
     e.preventDefault();
     login(input)
-      .then(x => {
-        if(x===`user not found`){
+      .then((x) => {
+        if (x === `user not found`) {
           console.log(`user not found`);
-        }else if(x===`wrong password`){
+        } else if (x === `wrong password`) {
           console.log(`wrong password`);
-        }else if (x===`success`) onCloseModal();
+        } else if (x === `success`) onCloseModal();
       })
       .catch((err) => {
         console.warn(err);
