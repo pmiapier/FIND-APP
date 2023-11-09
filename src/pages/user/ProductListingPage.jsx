@@ -1,14 +1,36 @@
 import ProductCard from '../../components/cards/ProductCard';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import InputField from '../../components/inputs/InputField';
 import Pagination from '../../components/others/Pagination';
 import { useProduct } from '../../hooks/useProduct';
-
+import { useEffect, useState } from 'react';
+import axios from '../../config/axios';
 
 export default function ProductListingPage() {
-  const handlePriceChange = (e) => {};
-  const { items,category } = useProduct();
+  const [product, setProduct] = useState([]);
+  const [allPage, setAllPage] = useState(1);
+  const [page, setPage] = useState(1);
+  const [category, setCategory] = useState(null);
+  const { categoryList } = useProduct();
+  const [countItems, setCountItems] = useState(1);
 
+  const handlePriceChange = (e) => {};
+
+  useEffect(() => {
+    fetchProducts();
+  }, [page, category]);
+
+  const fetchProducts = async () => {
+    try {
+      const query = `/item/productListing?page=${page}` + (category ? `&categories=${category}` : '');
+      const res = await axios.get(query);
+      setAllPage(Math.ceil(res.data.count._count?.id / 15));
+      setProduct(res.data.item);
+      setCountItems(res.data.count._count.id);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <>
@@ -39,9 +61,11 @@ export default function ProductListingPage() {
               <p className="font-bold">หมวดหมู่สินค้า</p>
               <div className="pl-2">
                 <ul className="space-y-1">
-                  {category.map((el, idx) => (
+                  {categoryList.map((el, idx) => (
                     <li className="text-blue-500 hover:text-blue-900 hover:underline" key={idx}>
-                      <Link to="#">{el}</Link>
+                      <Link to="#" onClick={() => setCategory(el)}>
+                        {el}
+                      </Link>
                       <span className="text-xs p-1 text-gray-500">(147)</span>
                     </li>
                   ))}
@@ -66,13 +90,13 @@ export default function ProductListingPage() {
           </div>
           <div className="w-9/12 space-y-4">
             <div className="grid grid-cols-3 gap-4">
-              {items.map((el, idx) => (
-                <ProductCard key={idx} item={el} />
-              ))}
+              {product ? product.map((el, idx) => <ProductCard key={idx} item={el} />) : null}
             </div>
             <div className="flex justify-between">
-              <p className="">Showing 1 to 12 of 17 results</p>
-              <Pagination />
+              <p className="">
+                Showing 1 to {countItems >= 15 ? 15 : countItems} of {countItems} results
+              </p>
+              <Pagination page={page} setPage={setPage} allPage={allPage} />
             </div>
           </div>
         </div>
