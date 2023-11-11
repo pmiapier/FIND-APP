@@ -1,49 +1,11 @@
-import ReactQuill, { Quill } from 'react-quill';
-import 'react-quill/dist/quill.snow.css';
-import ImageResize from 'quill-image-resize-module-react';
-import ImageCompress from 'quill-image-compress';
 import Button from '../buttons/Button';
 import InputField from '../inputs/InputField';
 import Joi from 'joi';
 import { toast } from 'react-toastify';
-
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import useEditProduct from '../../hooks/useEditProduct';
-import { useModal } from '../../hooks/useModal';
-
-Quill.register('modules/imageResize', ImageResize);
-Quill.register('modules/imageCompress', ImageCompress);
-
-const modules = {
-  imageResize: {
-    parchment: Quill.import('parchment'),
-    modules: ['Resize', 'DisplaySize'],
-    background: 'black',
-    padding: '100px'
-  },
-  imageCompress: {
-    quality: 1.0,
-    maxWidth: 1000,
-    maxHeight: 1000,
-    imageType: 'image/jpeg',
-    debug: false,
-    suppressErrorLogging: false,
-    insertIntoEditor: undefined
-  },
-  toolbar: [
-    [{ header: [1, 2, 3, 4, 5, 6, false] }],
-    [{ font: [] }],
-    [{ size: [] }],
-    ['bold', 'italic', 'underline', 'strike', 'blockquote'],
-    [{ align: [] }],
-    [{ color: [] }, { background: [] }],
-    [{ list: 'ordered' }, { list: 'bullet' }, { indent: '-1' }, { indent: '+1' }],
-    ['link', 'image', 'video'],
-    [{ direction: 'rtl' }],
-    ['clean']
-  ]
-};
+import { useProduct } from '../../hooks/useProduct';
+import { useAuth } from '../../hooks/useAuth';
 
 const schema = Joi.object({
   itemName: Joi.string().max(150).required().label('ชื่อสินค้า'),
@@ -53,15 +15,16 @@ const schema = Joi.object({
   itemFile: Joi.array().min(1).max(4).required().label('ภาพสินค้า')
 });
 
-const UserAddProduct = ({ category, onCloseModal }) => {
-  const { selectedProduct, clearSelectedProduct, saveProductChanges, editProduct } = useEditProduct();
-  const { productId } = useModal();
+const UserAddProduct = ({ onCloseModal }) => {
+  const { authUser } = useAuth();
+  const { selectedProduct, saveProductChanges, clearSelectedProduct, categoryList, getMyProductData } = useProduct();
+  console.log('selectedProduct UserAddProduct: ', selectedProduct);
 
   const [input, setInput] = useState({
-    itemName: '',
-    itemCategory: 'Vehicles',
-    itemDescription: '',
-    itemPrice: ''
+    itemName: selectedProduct?.title || '',
+    itemCategory: selectedProduct?.categories.name || '',
+    itemDescription: selectedProduct?.description || '',
+    itemPrice: selectedProduct?.price || ''
   });
 
   const [files, setFiles] = useState([]);
@@ -75,6 +38,7 @@ const UserAddProduct = ({ category, onCloseModal }) => {
       reader.onload = (event) => {
         setImagePreview(event.target.result);
       };
+      reader.readAsDataURL(e.target.files[0]);
     } else {
       if (imagePreview) {
         setImagePreview(null);
@@ -88,10 +52,6 @@ const UserAddProduct = ({ category, onCloseModal }) => {
     setImagePreview(null);
   };
 
-  const handleItemDescription = (value) => {
-    setInput({ ...input, itemDescription: value });
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -102,10 +62,9 @@ const UserAddProduct = ({ category, onCloseModal }) => {
     files.forEach((item, index) => {
       formdata.append(`file[${index}]`, item);
     });
-    if (selectedProduct) {
-      saveProductChanges({ ...selectedProduct, ...input });
-    }
+
     clearSelectedProduct();
+
     const headers = {
       Authorization: `Bearer ${localStorage.getItem('ACCESS_TOKEN')}`,
       'Content-Type': 'multipart/form-data'
@@ -117,28 +76,42 @@ const UserAddProduct = ({ category, onCloseModal }) => {
         position: toast.POSITION.TOP_CENTER
       });
       onCloseModal();
-      await window.location.reload();
+      clearSelectedProduct();
+      getMyProductData(authUser);
     }
   };
 
-  console.log('selectedProduct in UserAddProduct', selectedProduct);
+  const handleEditProduct = async (e) => {
+    e.preventDefault();
+    if (selectedProduct) {
+      const payload = {
+        title: input.itemName,
+        categories: input.itemCategory,
+        description: input.itemDescription,
+        price: input.itemPrice,
+        id: selectedProduct.id
+      };
+      saveProductChanges(payload);
+      clearSelectedProduct();
+      window.location.reload();
+    }
+  };
+
   useEffect(() => {
-    console.log('selectedProduct in UserAddProduct useEffect', selectedProduct);
     if (selectedProduct) {
       setInput({
-        itemName: selectedProduct.title,
-        itemCategory: selectedProduct.categories.name,
-        itemDescription: selectedProduct.description,
-        itemPrice: selectedProduct.price
+        itemName: selectedProduct?.title || '',
+        itemCategory: selectedProduct?.categories.name || '',
+        itemDescription: selectedProduct?.description || '',
+        itemPrice: selectedProduct?.price || ''
       });
     }
-    // selectedProduct
-  }, []);
+  }, [selectedProduct]);
 
   return (
     <form
       encType="multipart/form-data"
-      onSubmit={handleSubmit}
+      onSubmit={selectedProduct ? handleEditProduct : handleSubmit}
       className="flex flex-col gap-5 px-12 pt-5 pb-12 bg-white rounded-lg
     shadow-lg"
     >
@@ -156,25 +129,49 @@ const UserAddProduct = ({ category, onCloseModal }) => {
           </div>
           <div className="basis-full">
             <div className="relative flex flex-row gap-2">
-              {files.map((file, index) => (
-                <div key={index} className="relative border border-dotted rounded-md p-1">
-                  <img
-                    src={URL.createObjectURL(file)}
-                    alt={`Selected Image ${index}`}
-                    style={{ maxWidth: '80px', maxHeight: '80px' }}
-                  />
-                  <div
-                    className="text-white bg-red-500 text-[8px] rounded-full px-2 py-1 font-bold absolute top-[-5px] right-[-5px] cursor-pointer"
-                    onClick={() => {
-                      const updatedFiles = [...files];
-                      updatedFiles.splice(index, 1);
-                      setFiles(updatedFiles);
-                    }}
-                  >
-                    X
+              {files.length > 0 ? (
+                files.map((file, index) => (
+                  <div key={index} className="relative border border-dotted rounded-md p-1">
+                    <img
+                      src={URL.createObjectURL(file)}
+                      alt={`Selected Image ${index}`}
+                      style={{ maxWidth: '80px', maxHeight: '80px' }}
+                    />
+                    <div
+                      className="text-white bg-red-500 text-[8px] rounded-full px-2 py-1 font-bold absolute top-[-5px] right-[-5px] cursor-pointer"
+                      onClick={() => {
+                        const updatedFiles = [...files];
+                        updatedFiles.splice(index, 1);
+                        setFiles(updatedFiles);
+                      }}
+                    >
+                      X
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))
+              ) : selectedProduct ? (
+                selectedProduct.images.map((file, index) => (
+                  <div key={index} className="relative border border-dotted rounded-md p-1">
+                    <img
+                      src={file.imageUrl}
+                      alt={`Selected Image ${index}`}
+                      style={{ maxWidth: '80px', maxHeight: '80px' }}
+                    />
+                    <div
+                      className="text-white bg-red-500 text-[8px] rounded-full px-2 py-1 font-bold absolute top-[-5px] right-[-5px] cursor-pointer"
+                      onClick={() => {
+                        const updatedFiles = [...files];
+                        updatedFiles.splice(index, 1);
+                        setFiles(updatedFiles);
+                      }}
+                    >
+                      X
+                    </div>
+                  </div>
+                ))
+              ) : (
+                <></>
+              )}
               {files.length < 4 && (
                 <div
                   className="border border-dashed relative flex items-center"
@@ -237,10 +234,14 @@ const UserAddProduct = ({ category, onCloseModal }) => {
             className="basis-full pl-1 rounded-md border-gray-200 border-2 py-2"
             name="itemCategory"
             onChange={handleInput}
+            value={input.itemCategory || (selectedProduct ? selectedProduct.categories.name : '')}
           >
-            {category.map((item, index) => {
+            <option className="hidden " disabled value="">
+              โปรดเลือกหมวดหมู่
+            </option>
+            {categoryList.map((item, index) => {
               return (
-                <option key={index} value={item}>
+                <option key={index} id={item.id} value={item}>
                   {item}
                 </option>
               );
@@ -253,13 +254,13 @@ const UserAddProduct = ({ category, onCloseModal }) => {
             <span className="text-red-600">*</span>รายละเอียดสินค้า
           </div>
           <div className="basis-full">
-            <ReactQuill
-              theme="snow"
-              placeholder="Content..."
+            <textarea
               name="itemDescription"
-              onChange={handleItemDescription}
-              modules={modules}
-              // value={input.itemDescription}
+              onChange={handleInput}
+              value={input.itemDescription}
+              cols="30"
+              rows="10"
+              className="border border-gray-200 rounded-md"
             />
           </div>
         </div>

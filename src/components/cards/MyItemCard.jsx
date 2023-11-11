@@ -3,8 +3,11 @@ import ItemStatus from '../status/ItemStatus';
 import Button from '../buttons/Button';
 import { FaRegTrashAlt } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
+import { useProduct } from '../../hooks/useProduct';
 
 export default function MyItemCard({ product, handleDeleteItem, handleEditItem }) {
+  const { updateProductStatus } = useProduct();
+
   return (
     <div className="flex flex-col gap-4 bg-white shadow-lg px-5 py-5 ">
       <div className="flex justify-between items-center">
@@ -73,7 +76,13 @@ export default function MyItemCard({ product, handleDeleteItem, handleEditItem }
               />
 
               {product.status === 'stock' ? (
-                <Button text={'Renew'} className={'bg-[#808080] hover:bg-[#010101]'} renew={true} disabled={false} />
+                <Button
+                  text={'Renew'}
+                  className={'bg-[#808080] hover:bg-[#010101]'}
+                  renew={true}
+                  disabled={false}
+                  event={() => updateProductStatus(product.id)}
+                />
               ) : null}
             </div>
 

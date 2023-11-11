@@ -5,15 +5,13 @@ import AddItemModal from '../../modal/AddItemModal';
 import axios from '../../config/axios';
 import { useAuth } from '../../hooks/useAuth';
 import { toast } from 'react-toastify';
-import useEditProduct from '../../hooks/useEditProduct';
+
+import { useProduct } from '../../hooks/useProduct';
 
 export default function MyProductPage() {
-  const [myProduct, setMyProduct] = useState([]);
   const { authUser } = useAuth();
   const { onOpenModal, setProductId } = useModal();
-
-  const { selectedProduct, editProduct, clearSelectedProduct, saveProductChanges } = useEditProduct();
-
+  const { editProduct, myProduct, setMyProduct, getMyProductData } = useProduct();
   const handleDeleteItem = async (itemId) => {
     try {
       await axios.delete('http://localhost:8000/user/deleteItem', { data: { itemId } });
@@ -26,27 +24,28 @@ export default function MyProductPage() {
     }
   };
 
-  const getMyProductData = async () => {
-    try {
-      if (authUser && authUser.id) {
-        const response = await axios.get('http://localhost:8000/user/my-product', {
-          params: { userId: authUser.id }
-        });
-        setMyProduct(response.data);
-      }
-    } catch (error) {
-      console.error('Error fetching my product data: ', error);
-    }
-  };
+  // const getMyProductData = async () => {
+  //   try {
+  //     if (authUser && authUser.id) {
+  //       const response = await axios.get('http://localhost:8000/user/my-product', {
+  //         params: { userId: authUser.id }
+  //       });
+  //       setMyProduct(response.data);
+  //     }
+  //   } catch (error) {
+  //     console.error('Error fetching my product data: ', error);
+  //   }
+  // };
 
   const handleEditItem = (product) => {
     setProductId(product);
     editProduct(product);
     onOpenModal('AddItemModal');
+    getMyProductData(authUser);
   };
 
   useEffect(() => {
-    getMyProductData();
+    getMyProductData(authUser);
   }, [authUser]);
 
   return (
