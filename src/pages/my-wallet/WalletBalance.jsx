@@ -5,7 +5,7 @@ import comfirm from '../../utils/sweetAlert/sweetAlert';
 
 export default function WalletBalance() {
   const [balance, setBalance] = useState([]);
-  console.log('🚀 ~ file: WalletBalance.jsx:8 ~ WalletBalance ~ balance:', balance);
+  // console.log('🚀 ~ file: WalletBalance.jsx:8 ~ WalletBalance ~ balance:', balance);
   const [isLoading,setIsloading] = useState(false)
 
   const updateWithdraw = async () => {
@@ -21,8 +21,8 @@ export default function WalletBalance() {
 
   const getBalance = async () => {
     const myWallet = await axios.get('/wallet/getWallet');
-    console.log(myWallet);
-    console.log(myWallet.data);
+    // console.log(myWallet);
+    // console.log(myWallet.data);
     setBalance(+myWallet.data.amount);
   };
 
@@ -40,7 +40,7 @@ export default function WalletBalance() {
             <span>FIND Balance</span>
             <div className="flex gap-4">
               <span className="font-bold">฿ {balance.toLocaleString()} </span>
-              <button className="bg-red-500 w-20 rounded-md text-white" onClick={updateWithdraw}>ถอนเงิน</button>
+              <button className="bg-red-500 w-20 rounded-md text-white hover:bg-red-600" onClick={updateWithdraw}>ถอนเงิน</button>
             </div>
           </div>
 
