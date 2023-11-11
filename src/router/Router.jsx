@@ -11,6 +11,7 @@ import StripeSuccess from '../components/checkout/stripe-checkout/StripeSuccess'
 import StripeCancelled from '../components/checkout/stripe-checkout/StripeCancelled';
 import MyAccountDetailPage from '../pages/user/MyAccountDetailPage';
 import MyRentedItemsPage from '../pages/user/MyRentedItemsPage';
+import ChatPage from '../pages/chat/chatPage';
 
 const router = createBrowserRouter([
   {
@@ -28,7 +29,8 @@ const router = createBrowserRouter([
       { path: '/success', element: <StripeSuccess /> },
       { path: '/cancelled', element: <StripeCancelled /> },
       { path: '/myaccount', element: <MyAccountDetailPage /> },
-      { path: '/my-rented-items', element: <MyRentedItemsPage /> }
+      { path: '/my-rented-items', element: <MyRentedItemsPage /> },
+      { path: '/Chat', element: <ChatPage /> }
     ]
   }
 ]);
