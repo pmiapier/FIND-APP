@@ -5,14 +5,13 @@ import axios from '../config/axios';
 
 export default function ProductContextProvider({ children }) {
   const [myProduct, setMyProduct] = useState([]);
-  const [items, setItems] = useState([]); // [{}
+  const [items, setItems] = useState([]);
   const [category, setCategory] = useState([]);
   const [categoryList, setCategoryList] = useState([]);
 
   //# TEE
   const [selectedProduct, setSelectedProduct] = useState(null);
 
-  console.log('selectedProduct in useEditProduct', selectedProduct);
   const editProduct = async (productId) => {
     try {
       const response = await axios.get(`/item/get-single-item/${productId}`);
@@ -40,6 +39,7 @@ export default function ProductContextProvider({ children }) {
   const updateProductStatus = async (productId) => {
     try {
       const response = await axios.patch(`/user/updateItemStatus/`, { productId });
+      setMyProduct((prevItems) => prevItems.map((item) => (item.id === productId ? response.data : item)));
     } catch (error) {
       console.log('Error updating status: ', error);
     }
@@ -62,10 +62,10 @@ export default function ProductContextProvider({ children }) {
   const getMyProductData = async (authUser) => {
     try {
       if (authUser && authUser.id) {
-        const response = await axios.get('http://localhost:8000/user/my-product', {
+        const response = await axios.get('/user/my-product', {
           params: { userId: authUser.id }
         });
-        setMyProduct(response.data);
+        await setMyProduct(response.data);
       }
     } catch (error) {
       console.error('Error fetching my product data: ', error);
@@ -86,6 +86,7 @@ export default function ProductContextProvider({ children }) {
         getItems,
         categoryList,
         selectedProduct,
+        setSelectedProduct,
         editProduct,
         clearSelectedProduct,
         saveProductChanges,
