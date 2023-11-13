@@ -10,14 +10,30 @@ export default function WalletDetail() {
   console.log('🚀 ~ file: WalletDetail.jsx:7 ~ WalletDetail ~ rentee:', rentee);
   const [owner, setOwner] = useState([]);
   console.log('🚀 ~ file: WalletDetail.jsx:9 ~ WalletDetail ~ owner:', owner);
+  const [userPoint,setUserPoint] = useState()
+  // console.log("🚀 ~ file: WalletDetail.jsx:14 ~ WalletDetail ~ userPoint:", userPoint)
 
   const getTransaciton = async () => {
     const getData = await axios.get('/transaction/get-order');
     setRentee(getData.data.orderTransactionRentee);
     setOwner(getData.data.orderTransactionOwner);
   };
+  // const getPoint = async () => {
+  //   const getPointUser = await axios.get('/transaction/get-point')
+  //   console.log("🚀 ~ file: WalletDetail.jsx:22 ~ getPoint ~ getPoint:", getPointUser)
+  //   console.log("🚀 ~ file: WalletDetail.jsx:22 ~ getPoint ~ getPoint:", getPointUser.data)
+  //   setUserPoint(getPointUser.data)
+  const getP = async (itemId) => {
+    const get = await axios.post('/transaction/createTransaction', {itemId})
+    console.log("gggggggggggg",get)
+    setUserPoint(get.findUserIdByWallet)
+  }
+
+  // }
   useEffect(() => {
     getTransaciton();
+    getP(13)
+    // getPoint()
   }, []);
 
   return (
