@@ -6,38 +6,40 @@ export default function ChatUserBox({ input, setCurrentUser, onlineUsers }) {
 
     //######################## All Online User ##############################
     const [alluser, setAlluser] = useState([])
+
+
     useEffect(() => {
         socket.on(`onlineUser`, (data) => {
             delete data[input?.sender]
             const userArray = Object.keys(data)
-            console.log(userArray);
+            console.log(data, "+++++++++++++++++")
             setAlluser(userArray)
         });
         socket.on("updateChatRoom", () => {
-            getHistoryRoom()
+            // getHistoryRoom()
         })
         return () => {
             socket.off("onlineUser")
         }
-    }, [])
-    console.log("alluser", alluser)
+    }, [input])
+    // console.log("alluser", alluser)
 
     //#################### Get History Chat Room ###########################
-    const [chatRooms, setChatRooms] = useState([]);
-    const getHistoryRoom = () => {
-        axios.get(`http://localhost:8000/api/chat-rooms?user=${input.sender}`)
-            .then((response) => {
-                setChatRooms((pre) => response.data);
-                console.log(response.data);
-                console.log('room', response.data);
-            })
-            .catch((error) => {
-                console.error('Error fetching chat rooms:', error);
-            });
-    }
-    useEffect(() => {
-        getHistoryRoom()
-    }, []);
+    // const [chatRooms, setChatRooms] = useState([]);
+    // const getHistoryRoom = () => {
+    //     axios.get(`/chat?user=${input.sender}`)
+    //         .then((response) => {
+    //             setChatRooms((pre) => response.data);
+    //             console.log(response.data);
+    //             console.log('room', response.data);
+    //         })
+    //         .catch((error) => {
+    //             console.error('Error fetching chat rooms:', error);
+    //         });
+    // }
+    // useEffect(() => {
+    //     getHistoryRoom()
+    // }, []);
 
     //############################ Return ##################################
     return (
@@ -48,10 +50,9 @@ export default function ChatUserBox({ input, setCurrentUser, onlineUsers }) {
                     receiver: user
                 })
                 setCurrentUser(user)
-                getHistoryRoom()
+                // getHistoryRoom()
 
-            }} className={`h-[80px] w-full flex items-center gap-2 hover:bg-gray-200 px-5 ${user === input?.sender ? 'bg-blue-100' : ''
-                }`}>
+            }} className={`h-[80px] w-full flex items-center gap-2 hover:bg-gray-200 px-5 `}>
                 <div className="flex flex-col justify-center gap-0.5 h-full w-full">
                     <div className="font-bold text-[18px]">{user}</div>
                 </div>
@@ -64,7 +65,7 @@ export default function ChatUserBox({ input, setCurrentUser, onlineUsers }) {
 
             <hr className='border-2' />
 
-            {chatRooms?.map((user, idx) => <div key={idx} role="button"
+            {/* {chatRooms?.map((user, idx) => <div key={idx} role="button"
                 onClick={() => {
                     socket.emit('join_room', {
                         sender: input?.sender,
@@ -82,7 +83,7 @@ export default function ChatUserBox({ input, setCurrentUser, onlineUsers }) {
                 ) : (
                     <div className="text-gray-500">Offline</div>
                 )}
-            </div>)}
+            </div>)} */}
         </div>
     )
 }

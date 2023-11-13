@@ -15,9 +15,9 @@ export default function ChatMessageBox({ input, currentUser }) {
 
     // 👇 Scroll To Bottom 👇
     const messageInputRef = useRef();
-    useEffect(() => {
-        messageInputRef.current?.scrollIntoView({ behavior: 'smooth' });
-    }, [messageList]);
+    // useEffect(() => {
+    //     messageInputRef.current?.scrollIntoView({ behavior: 'smooth' });
+    // }, [messageList]);
 
     // 👇 Send Message 👇
     const sendMessage = async () => {
@@ -154,7 +154,7 @@ export default function ChatMessageBox({ input, currentUser }) {
                         {message.type === `message` ? <div>{message.message}</div> : <img className='rounded-xl' src={message.message} />}
                     </div>
                     <div className={`flex items-end text-[12px] ${timePosition}`}>{formattedTime}</div>
-                    {message.sender !== input.sender && (<div className=' -order-1 mr-2'><AvatarInMessage /></div>)}
+                    {message.sender !== input.sender && (<div className=' -order-1 mr-2'> receiver</div>)}
                 </div>
             );
         });
