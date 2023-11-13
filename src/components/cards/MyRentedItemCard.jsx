@@ -19,6 +19,7 @@ export default function MyRentedItemCard({ data }) {
   const [renteeStatus, setRenteeStatus] = useState(data.rentee_status);
 
   const getMainStatus = () => {
+    console.log(ownerStatus, renteeStatus)
     if (ownerStatus === 'pending_delivery' && renteeStatus === 'pending_received') {
       return 'Awaiting delivery';
     } else if (ownerStatus === 'renting' && renteeStatus === 'pending_received') {
@@ -37,6 +38,7 @@ export default function MyRentedItemCard({ data }) {
   const [status, setStatus] = useState('');
 
   useEffect(() => {
+    console.log(getMainStatus())
     setStatus(getMainStatus());
   }, [ownerStatus, renteeStatus]);
 

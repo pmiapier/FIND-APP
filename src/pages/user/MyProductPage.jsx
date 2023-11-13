@@ -65,6 +65,7 @@ export default function MyProductPage() {
 
       <div className="grid grid-cols-2 gap-6 justify-around">
         {myProduct.map((product) => {
+          console.log(product)
           return (
             <MyItemCard
               // getMyProductData={getMyProductData}
