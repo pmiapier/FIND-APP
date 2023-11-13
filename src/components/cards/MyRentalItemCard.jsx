@@ -4,6 +4,7 @@ import item from '../../assets/jamesunsplash.jpg';
 import axios from '../../config/axios';
 import { useState, useEffect } from 'react';
 import { formatDate } from '../../utils/dates';
+import { Link } from 'react-router-dom';
 
 export default function MyRentalItemCard({ data }) {
   let startRentDate = formatDate(data.startRentDate);
@@ -168,7 +169,9 @@ export default function MyRentalItemCard({ data }) {
               className={'bg-primaryButton hover:bg-hoverPrimaryButton w-64'}
             />
           ) : null}
-          <Button text={'Item Dispute'} className={'bg-messageButton hover:bg-hoverMessageButton w-48'} />
+          <Link to="item-dispute">
+            <Button text={'Item Dispute'} className={'bg-messageButton hover:bg-hoverMessageButton w-48'} />
+          </Link>
         </div>
       </div>
     </div>

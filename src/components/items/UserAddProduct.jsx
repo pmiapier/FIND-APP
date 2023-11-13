@@ -61,7 +61,8 @@ const UserAddProduct = ({ category, onCloseModal }) => {
     itemName: '',
     itemCategory: 'Vehicles',
     itemDescription: '',
-    itemPrice: ''
+    itemPrice: '',
+    availability: 'available'
   });
 
   const [files, setFiles] = useState([]);
@@ -277,6 +278,17 @@ const UserAddProduct = ({ category, onCloseModal }) => {
               value={input.itemPrice}
               hasError=""
             />
+          </div>
+        </div>
+        <div>
+          <div className="basis-36">
+            <span className="text-red-600">*</span>Availability
+          </div>
+          <div className="basis-full">
+            <select name="availability" onChange={handleInput}>
+              <option value="available">available</option>
+              <option value="unavailable">unavailable</option>
+            </select>
           </div>
         </div>
       </div>
