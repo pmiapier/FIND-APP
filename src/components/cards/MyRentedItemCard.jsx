@@ -41,6 +41,7 @@ export default function MyRentedItemCard({ data }) {
     console.log(getMainStatus())
     setStatus(getMainStatus());
   }, [ownerStatus, renteeStatus]);
+ 
 
   const handleDelivery = () => {
     const res = axios.post(`/rent/changeRenteeStatus`, { rentId: data.id, status: 'received_item' }).then(() => {
@@ -53,15 +54,22 @@ export default function MyRentedItemCard({ data }) {
     }
   };
 
-  const handleReturned = () => {
-    const res = axios.post(`/rent/changeRenteeStatus`, { rentId: data.id, status: 'completed' }).then(() => {
-      setStatus('renting');
-      setRenteeStatus('completed');
-    });
+  const handleReturned = async() => {
+    try {
 
-    if (!res) {
-      console.log('error from handleReturned');
+      const res = await axios.post(`/rent/changeRenteeStatus`, { rentId: data.id, status: 'completed' }).then(() => {
+        setStatus('renting');
+        setRenteeStatus('completed');
+      }   
+      );
+      if (!res) {
+        console.log('error from handleReturned');
+      }
+      await axios.post(`/transaction/createTransaction`, { rentId: data.id })
+    } catch (error) {
+      console.log(error)
     }
+
   };
 
   return (
