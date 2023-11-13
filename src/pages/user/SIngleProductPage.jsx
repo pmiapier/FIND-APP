@@ -2,6 +2,7 @@ import { useModal } from '../../hooks/useModal';
 import { useParams } from 'react-router-dom';
 import axios from '../../config/axios';
 import { useEffect, useState } from 'react';
+import { formatDate } from '../../utils/dates';
 
 export default function SingleProductPage() {
   const { onOpenModal } = useModal();
@@ -24,9 +25,6 @@ export default function SingleProductPage() {
     <div className="bg-[#F9F9FB] px-12 py-12 space-y-4">
       <div className="w-full bg-white p-6 grid grid-cols-2 rounded-md space-x-6 shadow">
         <div className="flex space-y-4 flex-col ">
-          <div className="px-4 text-green-600 bg-green-200 rounded-md w-fit text-lg font-extrabold py-2">
-            พร้อมให้เช่า
-          </div>
           <h1 className="text-5xl font-bold">{item.title}</h1>
           <div className="bg-[#fafafa] h-[80px] p-2">
             <p>สำหรับการเช่า</p>
@@ -62,7 +60,7 @@ export default function SingleProductPage() {
               </div>
               <div className="flex gap-4">
                 <p className="w-20">อัพเดทเมื่อ</p>
-                <p className="text-gray-500">{item.updatedAt}</p>
+                <p className="text-gray-500">{formatDate(item.updatedAt)}</p>
               </div>
             </div>
             <div className="space-y-2">

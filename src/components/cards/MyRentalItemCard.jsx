@@ -1,12 +1,68 @@
 import Button from '../buttons/Button';
 import ItemStatus from '../status/ItemStatus';
 import item from '../../assets/jamesunsplash.jpg';
+import axios from '../../config/axios';
+import { useState, useEffect } from 'react';
+import { formatDate } from '../../utils/dates';
 
-export default function MyRentalItemCard({data}) {
-  // console.log(data.createdAt.getHours());
-  const startRentDate = `${new Date(data.startRentDate).getDate()}-${new Date(data.startRentDate).getMonth()}-${new Date(data.startRentDate).getFullYear()}`
-  const endRentDate = `${new Date(data.endRentDate).getDate()}-${new Date(data.endRentDate).getMonth()}-${new Date(data.endRentDate).getFullYear()}`
-  const diffDate = (new Date(data.startRentDate)- new Date(data.endRentDate));
+export default function MyRentalItemCard({ data }) {
+  let startRentDate = formatDate(data.startRentDate);
+  const dateNow = formatDate(new Date());
+  if (startRentDate < dateNow) {
+    startRentDate = dateNow;
+  }
+  const endRentDate = formatDate(data.endRentDate);
+
+  const diffDate = Math.ceil((new Date(endRentDate) - new Date(startRentDate)) / 86400000);
+  const daysUntilStart = Math.ceil((new Date(startRentDate) - new Date(dateNow)) / 86400000);
+
+  const [ownerStatus, setOwnerStatus] = useState(data.owner_status);
+  const [renteeStatus, setRenteeStatus] = useState(data.rentee_status);
+
+  const getMainStatus = () => {
+    if (ownerStatus === 'pending_delivery' && renteeStatus === 'pending_received') {
+      return 'Awaiting delivery';
+    } else if (ownerStatus === 'renting' && renteeStatus === 'pending_received') {
+      return 'Awaiting received';
+    } else if (ownerStatus === 'renting' && renteeStatus === 'received_item') {
+      return 'Renting';
+    } else if (ownerStatus === 'renting' && renteeStatus === 'completed') {
+      return 'Awaiting owner action';
+    } else if (ownerStatus === 'completed' && renteeStatus === 'completed') {
+      return 'Completed';
+    } else if (renteeStatus === 'awaiting_payment') {
+      return 'Awaiting payment';
+    }
+  };
+
+  const [status, setStatus] = useState('');
+
+  useEffect(() => {
+    setStatus(getMainStatus());
+  }, [ownerStatus, renteeStatus]);
+
+  const handleDelivery = () => {
+    const res = axios.post(`/rent/changeOwnerStatus`, { rentId: data.id, status: 'renting' }).then(() => {
+      setStatus('renting');
+      setOwnerStatus('renting');
+    });
+
+    if (!res) {
+      console.log('error from handleDelivery');
+    }
+  };
+
+  const handleReturned = () => {
+    const res = axios.post(`/rent/changeOwnerStatus`, { rentId: data.id, status: 'completed' }).then(() => {
+      setStatus('renting');
+      setOwnerStatus('completed');
+    });
+
+    if (!res) {
+      console.log('error from handleDelivery');
+    }
+  };
+
   return (
     <div className="bg-white flex justify-center items-center gap-5 py-5">
       <div className="w-60 h-40 overflow-hidden rounded-lg">
@@ -21,26 +77,28 @@ export default function MyRentalItemCard({data}) {
           <div>{data.item.id}</div>
         </div>
         <div>Item Status:</div>
-        <ItemStatus text={data.status} className={'bg-[#FF7A00]'} />
+        <ItemStatus text={status} />
         <div className="flex gap-2">
           <div>Item Owner</div>
           <div>{data.owner.firstName}</div>
         </div>
       </div>
 
-      <div className="border-2 border-gray-100 flex flex-col gap-1 px-10 py-5 rounded-lg text-center ">
-        <div>RENTAL START</div>
-        <div className="text-gray-400">{startRentDate}</div>
-        <div>RENTAL ENDS</div>
-        <div className="text-gray-400">{endRentDate}</div>
-      </div>
-
-      <div className="bg-[#FF9900] text-white px-10 py-5 rounded-lg flex flex-col justify-center items-center ">
-        <div>Expect returning in</div>
-        <div className="text-[30px]">{diffDate} days</div>
-        <div>Returning Date</div>
-        <div>10-31-2023</div>
-      </div>
+      {startRentDate <= dateNow ? (
+        <div className="bg-orange text-white px-10 py-5 rounded-lg flex flex-col justify-center items-center ">
+          <div>Must Return</div>
+          <div>the item</div>
+          <div>in</div>
+          <div className="text-[30px]">{diffDate} days</div>
+        </div>
+      ) : (
+        <div className="bg-readyToRent text-white px-10 py-5 rounded-lg flex flex-col justify-center items-center ">
+          <div>Rental</div>
+          <div>starts</div>
+          <div>in</div>
+          <div className="text-[30px]">{daysUntilStart} days</div>
+        </div>
+      )}
 
       <div className="border-2 border-gray-100 flex flex-col gap-1 px-10 py-5 rounded-lg text-center">
         <div className="flex justify-between">
@@ -58,8 +116,59 @@ export default function MyRentalItemCard({data}) {
           <div>฿{data.amount}</div>
         </div>
         <div className="flex gap-2 items-center mt-4">
-          <Button text={'Send Message '} className={'bg-messageButton hover:bg-hoverMessageButton'} />
-          <Button text={'Comfirm Receive Item'} className={'bg-primaryButton hover:bg-hoverPrimaryButton'} />
+          <Button text={'Send Message '} className={'bg-messageButton hover:bg-hoverMessageButton w-48'} />
+          {ownerStatus === 'pending_delivery' && renteeStatus !== 'awaiting_payment' ? (
+            <Button
+              text={'Confirm Item Delivery'}
+              className={'bg-primaryButton hover:bg-hoverPrimaryButton w-64'}
+              event={handleDelivery}
+            />
+          ) : ownerStatus === 'renting' && renteeStatus === 'completed' ? (
+            <Button
+              text={'Confirm Item Returned'}
+              className={'bg-primaryButton hover:bg-hoverPrimaryButton w-64'}
+              event={handleReturned}
+            />
+          ) : ownerStatus === 'completed' && renteeStatus === 'completed' ? (
+            <Button
+              text={'Rental Completed'}
+              disabled="disabled"
+              className={'bg-successButton hover:bg-hoverPrimaryButton w-64'}
+            />
+          ) : ownerStatus === 'completed' && renteeStatus === 'received_item' ? (
+            <Button
+              text={'Awaiting rentee action'}
+              disabled="disabled"
+              className={'bg-primaryButton hover:bg-hoverPrimaryButton w-64'}
+            />
+          ) : renteeStatus === 'pending_received' && ownerStatus === 'renting' ? (
+            <Button
+              text={'Awaiting rentee action'}
+              disabled="disabled"
+              className={'bg-primaryButton hover:bg-hoverPrimaryButton w-64'}
+            />
+          ) : renteeStatus === 'awaiting_payment' ? (
+            <Button
+              text={'Awaiting user payment'}
+              disabled="disabled"
+              className={'bg-primaryButton hover:bg-hoverPrimaryButton w-64'}
+            />
+          ) : renteeStatus === 'received_item' && ownerStatus === 'renting' ? (
+            // TODO: This probably should have a check to see if we're in between the rental dates.
+            // Otherwise we can have a dispute button
+            <Button
+              text={'Item rented'}
+              disabled="disabled"
+              className={'bg-primaryButton hover:bg-hoverPrimaryButton w-64'}
+            />
+          ) : renteeStatus === 'awaiting_payment ' ? (
+            <Button
+              text={'Awaiting user payment'}
+              disabled="disabled"
+              className={'bg-primaryButton hover:bg-hoverPrimaryButton w-64'}
+            />
+          ) : null}
+          <Button text={'Item Dispute'} className={'bg-messageButton hover:bg-hoverMessageButton w-48'} />
         </div>
       </div>
     </div>
