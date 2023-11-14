@@ -280,11 +280,11 @@ const UserAddProduct = ({ category, onCloseModal }) => {
             />
           </div>
         </div>
-        <div>
+        <div className="flex">
           <div className="basis-36">
             <span className="text-red-600">*</span>Availability
           </div>
-          <div className="basis-full">
+          <div className="basis-full pl-1 rounded-md border-gray-200 border-2 py-2">
             <select name="availability" onChange={handleInput}>
               <option value="available">available</option>
               <option value="unavailable">unavailable</option>
