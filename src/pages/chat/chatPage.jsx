@@ -6,7 +6,7 @@ import { useAuth } from "../../hooks/useAuth";
 import axios from 'axios';
 export default function ChatPage() {
     const { authUser } = useAuth();
-    console.log(authUser, "------------------------------")
+    // console.log(authUser)
 
     const [input, setInput] = useState({
         sender: null,
@@ -17,11 +17,13 @@ export default function ChatPage() {
     const [onlineUsers, setOnlineUsers] = useState([]);
 
     useEffect(() => {
-        if (authUser) { setInput(prevInput => ({ ...prevInput, sender: authUser?.id })) }
+        if (authUser) {
+            setInput(prevInput => ({ ...prevInput, sender: authUser?.id }))
+        }
     }, [authUser])
 
     useEffect(() => {
-        socket.auth = { userId: authUser?.id }
+        socket.auth = { authUser }
         socket.connect()
         socket.on("onlineUser", (data) => {
             delete data[input.sender];
@@ -32,6 +34,7 @@ export default function ChatPage() {
             socket.disconnect()
         }
     }, [input])
+
 
 
     return (
@@ -48,7 +51,7 @@ export default function ChatPage() {
                     </div>
                     <div className="w-full h-full  ">
                         <div className="h-[60px] w-full flex justify-center items-center font-bold text-[20px] border-b-2">
-                            {currentUser}
+                            {currentUser.firstName}
                         </div>
                         <div className="h-full w-full">
                             <div className="h-[60px] w-full ">

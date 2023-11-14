@@ -12,20 +12,21 @@ export default function ChatMessageBox({ input, currentUser }) {
     const [type, setType] = useState(``)
     const [inputText, setInputText] = useState(``)
     const [inputShowImg, setInputShowImg] = useState(``)
-
+    // console.log(currentUser, "5555")
     // 👇 Scroll To Bottom 👇
     const messageInputRef = useRef();
-    // useEffect(() => {
-    //     messageInputRef.current?.scrollIntoView({ behavior: 'smooth' });
-    // }, [messageList]);
+    useEffect(() => {
+        messageInputRef.current?.scrollIntoView({ behavior: 'smooth' });
+    }, [messageList]);
 
     // 👇 Send Message 👇
     const sendMessage = async () => {
         if (currentMessage !== ``) {
+            console.log(chatroom, "sendRoom")
             const messageData = {
                 chatroom,
-                to: currentUser,
-                sender: input.sender,
+                to: currentUser.userId,
+                sender: input?.sender,
                 message: currentMessage,
                 type,
                 send_date: new Date()
@@ -110,6 +111,7 @@ export default function ChatMessageBox({ input, currentUser }) {
     // 👇 Socket.io Get => room id / all chat / receive message 👇
     useEffect(() => {
         socket.on(`room_id`, (data) => {
+            console.log(data.id, "room")
             setChatroom(data.id)
         });
         socket.on('disconnect', () => {
@@ -120,7 +122,7 @@ export default function ChatMessageBox({ input, currentUser }) {
                 return (
                     {
                         chatroom: item.chatroom_id,
-                        sender: item.sender.user,
+                        sender: item.sender.id,
                         message: item.message,
                         type: item.type,
                         send_date: item.send_date
@@ -131,15 +133,20 @@ export default function ChatMessageBox({ input, currentUser }) {
         })
         socket.on(`receive_message`, handleReceiveMessage)
         return () => {
-            socket.off(`receive_message`, handleReceiveMessage)
+            socket.off(`receive_message`)
             socket.off(`all_chat`)
+            socket.off(`room_id`)
+            socket.off(`disconnect`)
+
         };
-    }, [socket]);
+    }, [socket, handleReceiveMessage]);
 
     // 👇 Render Messages Box / Classify receiver and sender 👇
     const renderMessages = () => {
         return messageList.map((message, index) => {
-            const isMe = message.sender === input.sender;
+            // console.log(message.sender, '111111111111111111111111')
+            // console.log(input?.sender, '222222222222222222222222')
+            const isMe = message.sender === input?.sender;
             const messageClass = isMe ? 'bg-blue-500 text-white' : 'bg-gray-300 ';
             const messageImgClass = message.type !== `message` ? 'bg-white ' : messageClass;
             const messageDirection = isMe ? 'justify-end' : 'justify-start';
@@ -154,7 +161,7 @@ export default function ChatMessageBox({ input, currentUser }) {
                         {message.type === `message` ? <div>{message.message}</div> : <img className='rounded-xl' src={message.message} />}
                     </div>
                     <div className={`flex items-end text-[12px] ${timePosition}`}>{formattedTime}</div>
-                    {message.sender !== input.sender && (<div className=' -order-1 mr-2'> receiver</div>)}
+                    {message.sender !== input.sender && (<div className=' -order-1 mr-2'> {currentUser.firstName}</div>)}
                 </div>
             );
         });
