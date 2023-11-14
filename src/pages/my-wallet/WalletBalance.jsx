@@ -8,6 +8,20 @@ export default function WalletBalance() {
   // console.log('🚀 ~ file: WalletBalance.jsx:8 ~ WalletBalance ~ balance:', balance);
   const [isLoading,setIsloading] = useState(false)
 
+  const [pendingOwner,setPendingOwner] = useState({})
+  console.log("🚀 ~ file: WalletBalance.jsx:12 ~ WalletBalance ~ pendingOwner:", pendingOwner)
+  const [pendingRent,setPendingRent] = useState({})
+  console.log("🚀 ~ file: WalletBalance.jsx:14 ~ WalletBalance ~ pendingRent:", pendingRent)
+  const sumPending = pendingOwner + pendingRent
+  console.log("🚀 ~ file: WalletBalance.jsx:14 ~ WalletBalance ~ sumPending:", sumPending)
+  const getPending = async () => {
+    const getData = await axios.get('/transaction/get-pending');
+    setPendingOwner(getData.data.amountStatusOwner._sum)
+    setPendingRent(getData.data.amountStatusRentee._sum)
+    // setPending(getData.data.orderTransactionRentee);
+  
+  };
+
   const updateWithdraw = async () => {
     const result = await comfirm()
       if(result.isConfirmed){
@@ -28,6 +42,7 @@ export default function WalletBalance() {
 
   useEffect(() => {
     getBalance();
+    getPending()
   }, [isLoading]);
 
   return (

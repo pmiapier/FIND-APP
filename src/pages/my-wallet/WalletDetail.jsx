@@ -10,30 +10,19 @@ export default function WalletDetail() {
   console.log('🚀 ~ file: WalletDetail.jsx:7 ~ WalletDetail ~ rentee:', rentee);
   const [owner, setOwner] = useState([]);
   console.log('🚀 ~ file: WalletDetail.jsx:9 ~ WalletDetail ~ owner:', owner);
-  const [userPoint,setUserPoint] = useState()
-  // console.log("🚀 ~ file: WalletDetail.jsx:14 ~ WalletDetail ~ userPoint:", userPoint)
+  
+ 
 
   const getTransaciton = async () => {
     const getData = await axios.get('/transaction/get-order');
     setRentee(getData.data.orderTransactionRentee);
     setOwner(getData.data.orderTransactionOwner);
   };
-  // const getPoint = async () => {
-  //   const getPointUser = await axios.get('/transaction/get-point')
-  //   console.log("🚀 ~ file: WalletDetail.jsx:22 ~ getPoint ~ getPoint:", getPointUser)
-  //   console.log("🚀 ~ file: WalletDetail.jsx:22 ~ getPoint ~ getPoint:", getPointUser.data)
-  //   setUserPoint(getPointUser.data)
-  const getP = async (itemId) => {
-    const get = await axios.post('/transaction/createTransaction', {itemId})
-    console.log("gggggggggggg",get)
-    setUserPoint(get.findUserIdByWallet)
-  }
 
-  // }
+
   useEffect(() => {
     getTransaciton();
-    getP(13)
-    // getPoint()
+
   }, []);
 
   return (
@@ -44,13 +33,14 @@ export default function WalletDetail() {
         <span className="flex flex-1 font-bold">วันที่ทำการโอนเงิน</span>
         <span className="flex flex-1 font-bold">สถานะ</span>
         <span className="flex flex-1 font-bold">จำนวนเงินที่ได้รับ</span>
+        <span className="flex flex-1 font-bold">Role</span>
       </div>
       <div> 
         {rentee.map((el) => (
-           <WalletDetailItem key={el.id} deposit={el.deposit} amount={el.amount} status={el.status} renteeId={el.renteeId} createdAt={el.createdAt}  />
+           <WalletDetailItem key={el.id} deposit={el.deposit} amount={el.amount} rentee_status={el.rentee_status} renteeId={el.renteeId} createdAt={el.createdAt}  />
         ))}
         {owner.map((el) => (
-           <WalletDetailItem key={el.id} deposit={el.deposit} amount={el.amount} status={el.status} ownerId={el.ownerId} createdAt={el.createdAt} />
+           <WalletDetailItem key={el.id} deposit={el.deposit} amount={el.amount} owner_status={el.owner_status} ownerId={el.ownerId} createdAt={el.createdAt} />
         ))}
 
         {/* {authUser !== rentee
