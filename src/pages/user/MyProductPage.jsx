@@ -1,9 +1,8 @@
 import { useEffect, useState } from 'react';
 import MyItemCard from '../../components/cards/MyItemCard';
-
 import axios from '../../config/axios';
 import { useAuth } from '../../hooks/useAuth';
-import { toast } from 'react-toastify';
+import Swal from 'sweetalert2';
 import { useProduct } from '../../hooks/useProduct';
 import { useNavigate } from 'react-router-dom';
 
@@ -14,13 +13,32 @@ export default function MyProductPage() {
 
   const handleDeleteItem = async (itemId) => {
     try {
-      await axios.delete('http://localhost:8000/user/deleteItem', { data: { itemId } });
-      setMyProduct((prevProduct) => prevProduct.filter((product) => product.id !== itemId));
-      toast.success('ลบสินค้าเรียบร้อบแล้ว', {
-        position: toast.POSITION.TOP_CENTER
+      await Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          axios.delete('/user/deleteItem', { data: { itemId } });
+          setMyProduct((prevProduct) => prevProduct.filter((product) => product.id !== itemId));
+          Swal.fire({
+            title: 'Deleted!',
+            text: 'Your file has been deleted.',
+            icon: 'success'
+          });
+        }
       });
     } catch (error) {
-      console.log('error deleting product', error);
+      await Swal.fire({
+        title: 'Error!',
+        text: 'There was a problem deleting the item.',
+        icon: 'error',
+        confirmButtonText: 'OK'
+      });
     }
   };
 
@@ -43,8 +61,6 @@ export default function MyProductPage() {
       <div
         onClick={() => {
           goToAddProductPage();
-          // onOpenModal('AddItemModal');
-          // console.log('test add pd');
         }}
         className="flex gap-5 justify-start items-center bg-white px-5 py-5 shadow-lg cursor-pointer"
       >
@@ -56,7 +72,6 @@ export default function MyProductPage() {
         {myProduct.map((product) => {
           return (
             <MyItemCard
-              // getMyProductData={getMyProductData}
               key={product.id}
               product={product}
               handleDeleteItem={handleDeleteItem}

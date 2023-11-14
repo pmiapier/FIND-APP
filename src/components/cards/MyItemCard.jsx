@@ -1,35 +1,31 @@
 import { FaArrowRight } from 'react-icons/fa';
-import ItemStatus from '../status/ItemStatus';
+
 import Button from '../buttons/Button';
 import { FaRegTrashAlt } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import { useProduct } from '../../hooks/useProduct';
+import StatusForMyProduct from '../status/StatusForMyProduct';
 
 export default function MyItemCard({ product, handleDeleteItem, handleEditItem }) {
   const { updateProductStatus } = useProduct();
+  console.log(product);
 
   return (
     <div className="flex flex-col gap-4 bg-white shadow-lg px-5 py-5 ">
       <div className="flex justify-between items-center">
-        <div className="flex gap-4 text-lg font-bold">
-          <ItemStatus
-            text={
-              product.status === 'available' ? 'Available' : product.status === 'unavailable' ? 'Unavailable' : null
-            }
+        <div className="flex gap-4 text-lg font-bold text-white">
+          <StatusForMyProduct
+            text={product?.status?.charAt(0).toUpperCase() + product?.status?.slice(1)}
             className={
               product.status === 'available'
                 ? 'bg-readyToRent'
-                : product.status === 'stock'
+                : product.status === 'unavailable'
                 ? 'bg-itemStock'
-                : product.status === 'renting'
-                ? 'bg-itemRenting'
-                : product.status === 'reserve'
-                ? 'bg-itemReserve'
                 : null
             }
           />
-          <ItemStatus text={`฿${product.price}`} className={'bg-itemPrice'} />
-          <ItemStatus text={product.categories.name} className={'bg-itemCategory'} />
+          <StatusForMyProduct text={`฿${product.price}`} className={'text-white bg-itemCategory '} />
+          <StatusForMyProduct text={product.categories.name} className={'text-white bg-itemCategory'} />
         </div>
         <FaRegTrashAlt onClick={() => handleDeleteItem(product.id)} className="cursor-pointer" />
       </div>
@@ -65,7 +61,7 @@ export default function MyItemCard({ product, handleDeleteItem, handleEditItem }
                 text={'Edit Product'}
                 className={'bg-[#808080] hover:bg-[#010101]'}
                 icon={true}
-                disabled={product.status === 'renting'}
+                // disabled={product.status === 'renting'}
                 event={() => handleEditItem(product.id)}
               />
 

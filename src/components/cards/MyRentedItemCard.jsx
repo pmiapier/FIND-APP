@@ -14,6 +14,11 @@ export default function MyRentedItemCard({ data }) {
   }
   const endRentDate = formatDate(data.endRentDate);
 
+  const [pic, setPic] = useState(``);
+  useEffect(() => {
+    setPic(data.item.images[0]?.imageUrl);
+  }, []);
+
   const diffDate = Math.ceil((new Date(endRentDate) - new Date(startRentDate)) / 86400000);
   const daysUntilStart = Math.ceil((new Date(startRentDate) - new Date(dateNow)) / 86400000);
   const [ownerStatus, setOwnerStatus] = useState(data.owner_status);
@@ -66,7 +71,8 @@ export default function MyRentedItemCard({ data }) {
   return (
     <div className="bg-white flex justify-center items-center gap-10 py-5">
       <div className="w-60 h-40 overflow-hidden rounded-lg">
-        <img className="rounded-sm" src={data.item.images[0].imageUrl} alt="item" />
+        {/* <img className="rounded-sm" src={data.item.images[0].imageUrl} alt="item" /> */}
+        {pic ? <img className="rounded-sm" src={pic} alt="item" /> : null}
       </div>
 
       <div className="py-5">
