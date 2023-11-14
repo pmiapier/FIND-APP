@@ -83,13 +83,13 @@ export default function MyItemCard({ product, handleDeleteItem, handleEditItem }
                   className={'bg-[#808080] hover:bg-[#010101]'}
                   renew={true}
                   disabled={false}
-                  event={async () => {
-                    await updateProductStatus(product.id);
+                  event={() => {
+                    updateProductStatus(product.id);
+                    window.location.reload();
                   }}
                 />
               ) : null}
             </div>
-
             <Link to={`/single-product/${product.id}`}>
               <div className="flex gap-2 items-center  text-viewProduct text-lg font-bold hover:underline cursor-pointer">
                 View Product

@@ -26,10 +26,15 @@ export default function ProductContextProvider({ children }) {
 
   const saveProductChanges = async (editedProduct) => {
     try {
-      await axios.patch(`/user/updateItem`, editedProduct);
+      const headers = {
+        Authorization: `Bearer ${localStorage.getItem('ACCESS_TOKEN')}`,
+        'Content-Type': 'multipart/form-data'
+      };
+      const response = await axios.patch(`/user/updateItem`, editedProduct, { headers });
       setMyProduct((prevItems) => {
         return prevItems.map((item) => (item.id === editedProduct.id ? editedProduct : item));
       });
+      console.log('response', response.data);
     } catch (error) {
       console.error('Error saving changes: ', error);
     }
@@ -39,7 +44,8 @@ export default function ProductContextProvider({ children }) {
   const updateProductStatus = async (productId) => {
     try {
       const response = await axios.patch(`/user/updateItemStatus/`, { productId });
-      setMyProduct((prevItems) => prevItems.map((item) => (item.id === productId ? response.data : item)));
+      // setMyProduct((prevItems) => prevItems.map((item) => (item.id === productId ? response.data : item)));
+      getMyProductData();
     } catch (error) {
       console.log('Error updating status: ', error);
     }
