@@ -109,7 +109,7 @@ export default function MyRentalItemCard({ data }) {
       )}
 
       <div className="border-2 border-gray-100 flex flex-col gap-1 px-10 py-5 rounded-lg text-center">
-        <div className="flex justify-between">
+        {/* <div className="flex justify-between">
           <div>rental price</div>
           <div>฿{data.item.price}</div>
         </div>
@@ -122,9 +122,9 @@ export default function MyRentalItemCard({ data }) {
         <div className="flex justify-between">
           <div>Total</div>
           <div>฿{data.amount}</div>
-        </div>
-        <div className="flex gap-2 items-center mt-4">
-          <Button text={'Send Message '} className={'bg-messageButton hover:bg-hoverMessageButton w-48'} />
+        </div> */}
+        <div className="flex flex-col gap-2 items-center mt-4">
+          <Button text={'Send Message '} className={'bg-messageButton hover:bg-hoverMessageButton w-64'} />
           {ownerStatus === 'pending_delivery' && renteeStatus !== 'awaiting_payment' ? (
             <Button
               text={'Confirm Item Delivery'}
@@ -177,7 +177,7 @@ export default function MyRentalItemCard({ data }) {
             />
           ) : null}
           <Link to="item-dispute">
-            <Button text={'Item Dispute'} className={'bg-messageButton hover:bg-hoverMessageButton w-48'} />
+            <Button text={'Item Dispute'} className={'bg-messageButton hover:bg-hoverMessageButton w-64'} />
           </Link>
         </div>
       </div>

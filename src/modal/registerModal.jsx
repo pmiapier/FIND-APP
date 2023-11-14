@@ -8,7 +8,7 @@ import { useModal } from '../hooks/useModal';
 import InputFromUser from '../components/inputs/inputFromUser';
 import { useAuth } from '../hooks/useAuth';
 import axios from 'axios';
-import { getAccessToken, removeAccessToken, addAccessToken } from '../utils/local-storage'
+import { getAccessToken, removeAccessToken, addAccessToken } from '../utils/local-storage';
 
 const registerSchema = Joi.object({
   firstName: Joi.string().trim().required(),
@@ -41,7 +41,7 @@ const validateRegister = (input) => {
 };
 
 export default function RegisterModal() {
-  const { onCloseModal, isOpenModal, modalType } = useModal();
+  const { onCloseModal, isOpenModal, modalType, onOpenModal } = useModal();
   const { register } = useAuth();
 
   const [error, setError] = useState({});
@@ -57,26 +57,27 @@ export default function RegisterModal() {
   const handleChangeInput = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
   };
-  const handleSubmitForm = async(e) => {
-      e.preventDefault();
-  
-      const validationError = validateRegister(input);
-      if (validationError) {
-        return setError(validationError);
-      }
+  const handleSubmitForm = async (e) => {
+    e.preventDefault();
 
-      register(input)
-      .then(x=>{
-        if(x===`duplicateEmail`){
+    const validationError = validateRegister(input);
+    if (validationError) {
+      return setError(validationError);
+    }
+
+    register(input)
+      .then((x) => {
+        if (x === `duplicateEmail`) {
           console.log(`duplicateEmail`);
-        }else if(x===`duplicatePhone`){
+        } else if (x === `duplicatePhone`) {
           console.log(`duplicatePhone`);
-        }else if(x===`success`) onCloseModal()
-      }).catch(err=>{
-        console.warn(err);
+        } else if (x === `success`) onCloseModal();
       })
+      .catch((err) => {
+        console.warn(err);
+      });
   };
-  
+
   return (
     <>
       {isOpenModal && modalType === 'registerModal' && (
@@ -95,7 +96,12 @@ export default function RegisterModal() {
                   <div className="text-[40px]  font-bold">สมัครสมาชิก</div>
                   <div className="flex gap-1 ">
                     <div className="">เป็นสมาชิกอยู่แล้ว?</div>
-                    <div className="text-blue-600 font-bold hover:cursor-pointer">เข้าสู่ระบบ</div>
+                    <div
+                      className="text-blue-600 font-bold hover:cursor-pointer"
+                      onClick={() => onOpenModal('loginModal')}
+                    >
+                      เข้าสู่ระบบ
+                    </div>
                   </div>
                 </div>
                 <div className="mt-[100px] mb-[20px] w-[50%] relative flex   h-px place-items-center bg-gray-300">
@@ -185,7 +191,11 @@ export default function RegisterModal() {
                       hasError={error.confirmPassword}
                     />
                   </div>
-                  <input type='submit' value={`Register`} className="px-4 py-2 my-2 w-[30%] cursor-pointer bg-blue-500 border-2 border-blue-500 hover:border-blue-500 hover:bg-gray-100 hover:text-blue-500 text-white rounded-lg text-[20px]"/>
+                  <input
+                    type="submit"
+                    value={`Register`}
+                    className="px-4 py-2 my-2 w-[30%] cursor-pointer bg-blue-500 border-2 border-blue-500 hover:border-blue-500 hover:bg-gray-100 hover:text-blue-500 text-white rounded-lg text-[20px]"
+                  />
                 </form>
               </div>
             </div>
