@@ -14,15 +14,7 @@ export default function MyItemCard({ product, handleDeleteItem, handleEditItem }
         <div className="flex gap-4 text-lg font-bold">
           <ItemStatus
             text={
-              product.status === 'available'
-                ? 'พร้อมให้เช่า'
-                : product.status === 'stock'
-                ? 'ไม่แสดง'
-                : product.status === 'renting'
-                ? 'กำลังเช่า'
-                : product.status === 'reserve'
-                ? 'รอส่งสินค้า'
-                : null
+              product.status === 'available' ? 'Available' : product.status === 'unavailable' ? 'Unavailable' : null
             }
             className={
               product.status === 'available'

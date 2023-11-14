@@ -24,7 +24,8 @@ export default function AddProductPage() {
     itemName: '',
     itemCategory: '',
     itemDescription: '',
-    itemPrice: ''
+    itemPrice: '',
+    availability: 'available'
   });
   //# New File Input Image Preview ##################################################
   const [selectedImages, setSelectedImages] = useState([]);
@@ -311,6 +312,18 @@ export default function AddProductPage() {
               value={input.itemPrice}
               hasError=""
             />
+          </div>
+        </div>
+        <div className="flex">
+          <div className="basis-36">
+            <span className="text-red-600">*</span>Availability
+          </div>
+
+          <div className="basis-full pl-1 rounded-md border-gray-200 border-2 py-2">
+            <select name="availability" onChange={handleInput}>
+              <option value="available">available</option>
+              <option value="unavailable">unavailable</option>
+            </select>
           </div>
         </div>
       </div>

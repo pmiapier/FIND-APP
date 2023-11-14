@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import MyItemCard from '../../components/cards/MyItemCard';
-import { useModal } from '../../hooks/useModal';
-import AddItemModal from '../../modal/AddItemModal';
+
 import axios from '../../config/axios';
 import { useAuth } from '../../hooks/useAuth';
 import { toast } from 'react-toastify';
@@ -66,7 +65,6 @@ export default function MyProductPage() {
           );
         })}
       </div>
-      <AddItemModal />
     </div>
   );
 }

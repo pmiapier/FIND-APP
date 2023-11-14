@@ -12,7 +12,8 @@ export default function EditProductPage() {
     itemName: '',
     itemCategory: '',
     itemDescription: '',
-    itemPrice: ''
+    itemPrice: '',
+    availability: 'available'
   });
   const [selectedImages, setSelectedImages] = useState([]);
   const [selectedFiles, setSelectedFiles] = useState([]);
@@ -87,79 +88,11 @@ export default function EditProductPage() {
     navigate('/my-product');
   };
 
-  // const handleInputChange = (e) => {
-  //   if (e.target.files) {
-  //     setFiles([...files, ...e.target.files]);
-
-  //     const reader = new FileReader();
-  //     reader.onload = (event) => {
-  //       setImagePreviews(event.target.result);
-  //     };
-  //     reader.readAsDataURL(e.target.files[0]);
-  //   } else {
-  //     if (imagePreviews) {
-  //       setImagePreviews(null);
-  //     }
-  //     setInput({ ...input, [e.target.name]: e.target.value });
-  //   }
-  // };
-
-  // const handleFileChange = (e) => {
-  //   const selectedFiles = Array.from(e.target.files);
-
-  //   const selectedPreviews = [];
-
-  //   selectedFiles.forEach((file) => {
-  //     const reader = new FileReader();
-
-  //     reader.onload = () => {
-  //       selectedPreviews.push(reader.result);
-  //     };
-
-  //     reader.readAsDataURL(file);
-  //   });
-
-  //   const newPreviews = [...imagePreviews, ...selectedPreviews].slice(0, 4);
-  //   setImagePreviews(newPreviews);
-
-  //   if (selectedPreviews.length + imagePreviews.length <= 4) {
-  //     setImagePreviews((prev) => [...prev, ...selectedPreviews]);
-  //   }
-  // const selectedFiles = e.target.files;
-
-  // // Reset existing image preview
-  // setImagePreview([]);
-
-  // // Set new image preview
-  // selectedFiles.forEach((file) => {
-  //   const reader = new FileReader();
-  //   reader.onload = () => {
-  //     setImagePreview((prevPreview) => [...prevPreview, reader.result]);
-  //   };
-  //   reader.readAsDataURL(file);
-  // });
-
-  // // Set selected files
-  // setFiles((prevFiles) => [...prevFiles, ...selectedFiles]);
-  // };
-
-  // const removeImage = (index) => {
-  //   const updatedPreviews = [...imagePreviews];
-  //   updatedPreviews.splice(index, 1);
-  //   setImagePreviews(updatedPreviews);
-  // const updatedFiles = [...files];
-  // updatedFiles.splice(index, 1);
-  // setFiles(updatedFiles);
-
-  // const updatedPreview = [...imagePreview];
-  // updatedPreview.splice(index, 1);
-  // setImagePreview(updatedPreview);
-  // };
-
   if (!selectedProduct) {
     return <div>Hello World</div>;
   }
 
+  console.log('input:', input);
   return (
     <form
       encType="multipart/form-data"
@@ -346,6 +279,18 @@ export default function EditProductPage() {
               value={input.itemPrice}
               hasError=""
             />
+          </div>
+        </div>
+        <div className="flex">
+          <div className="basis-36">
+            <span className="text-red-600">*</span>Availability
+          </div>
+
+          <div className="basis-full pl-1 rounded-md border-gray-200 border-2 py-2">
+            <select name="availability" onChange={handleInputChange}>
+              <option value="available">available</option>
+              <option value="unavailable">unavailable</option>
+            </select>
           </div>
         </div>
       </div>
