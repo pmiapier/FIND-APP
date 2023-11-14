@@ -33,7 +33,7 @@ export default function CheckoutModel() {
   //### Geting the single Item
   let { id } = useParams();
   const [item, setItem] = useState({ user: '' });
-  console.log(id);
+
   const getSingleItem = () => {
     axios.get(`/item/get-single-item/${id}`).then((response) => {
       console.log('ourdata response', response.data);

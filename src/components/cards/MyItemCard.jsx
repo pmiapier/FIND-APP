@@ -3,8 +3,11 @@ import ItemStatus from '../status/ItemStatus';
 import Button from '../buttons/Button';
 import { FaRegTrashAlt } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
+import { useProduct } from '../../hooks/useProduct';
 
 export default function MyItemCard({ product, handleDeleteItem, handleEditItem }) {
+  const { updateProductStatus } = useProduct();
+
   return (
     <div className="flex flex-col gap-4 bg-white shadow-lg px-5 py-5 ">
       <div className="flex justify-between items-center">
@@ -41,7 +44,9 @@ export default function MyItemCard({ product, handleDeleteItem, handleEditItem }
 
       <div className="flex gap-6 items-center">
         <div className="w-[180px] h-full">
-          <img className="rounded-lg" src={product.images[0]?.imageUrl} alt="item" />
+          {product.images && product.images.length > 0 && (
+            <img className="rounded-lg" src={product.images[0]?.imageUrl} alt="item" />
+          )}
         </div>
         <div className="flex flex-col gap-1 flex-1">
           <div className="text-2xl font-bold line-clamp-2">{product.title}</div>
@@ -73,10 +78,18 @@ export default function MyItemCard({ product, handleDeleteItem, handleEditItem }
               />
 
               {product.status === 'stock' ? (
-                <Button text={'Renew'} className={'bg-[#808080] hover:bg-[#010101]'} renew={true} disabled={false} />
+                <Button
+                  text={'Renew'}
+                  className={'bg-[#808080] hover:bg-[#010101]'}
+                  renew={true}
+                  disabled={false}
+                  event={() => {
+                    updateProductStatus(product.id);
+                    window.location.reload();
+                  }}
+                />
               ) : null}
             </div>
-
             <Link to={`/single-product/${product.id}`}>
               <div className="flex gap-2 items-center  text-viewProduct text-lg font-bold hover:underline cursor-pointer">
                 View Product

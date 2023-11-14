@@ -11,6 +11,8 @@ import StripeSuccess from '../components/checkout/stripe-checkout/StripeSuccess'
 import StripeCancelled from '../components/checkout/stripe-checkout/StripeCancelled';
 import MyAccountDetailPage from '../pages/user/MyAccountDetailPage';
 import MyRentedItemsPage from '../pages/user/MyRentedItemsPage';
+import AddProductPage from '../pages/user/AddProductPage';
+import EditProductPage from '../pages/user/EditProductPage';
 
 const router = createBrowserRouter([
   {
@@ -22,7 +24,12 @@ const router = createBrowserRouter([
       { path: '/product-listing', element: <ProductListingPage /> },
       { path: '/single-product/:id', element: <SingleProductPage /> },
       // มีญ่าสร้างpath ข้่างล่างนี้
-      { path: '/my-product', element: <MyProductPage /> },
+      {
+        path: '/my-product',
+        element: <MyProductPage />
+      },
+      { path: '/add-new-product', element: <AddProductPage /> },
+      { path: '/edit-product/:id', element: <EditProductPage /> },
       { path: '/my-rental-items', element: <MyRentalItemsPage /> },
       { path: '/my-wallet', element: <WalletPage /> },
       { path: '/success', element: <StripeSuccess /> },
