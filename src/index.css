@@ -1,13 +1,31 @@
 @import url('https://fonts.googleapis.com/css2?family=Kanit:wght@100;200;300&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;1,400&display=swap');
+
+:root {
+  --primary: rgb(208, 208, 208);
+  --secondary: rgb(124, 124, 124);
+}
 @tailwind base;
-@tailwind components;
-@tailwind utilities;
-body {
-  font-family: Kanit;
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--secondary) var(--primary);
+}
+*::-webkit-scrollbar {
+  width: 10px;
+}
+*::-webkit-scrollbar-track {
+  background: var(--primary);
+  border-radius: 10px;
+}
+*::-webkit-scrollbar-thumb {
+  background-color: var(--secondary);
+  border-radius: 30px;
+  border: 2px solid var(--primary);
 }
 
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: Kanit;
 }

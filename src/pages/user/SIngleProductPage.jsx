@@ -3,11 +3,13 @@ import { useParams } from 'react-router-dom';
 import axios from '../../config/axios';
 import { useEffect, useState } from 'react';
 import { formatDate } from '../../utils/dates';
+import { socket } from '../chat/confic/socket';
+import { useAuth } from '../../hooks/useAuth';
+
 
 export default function SingleProductPage() {
   const { onOpenModal } = useModal();
   let { id } = useParams();
-
   const [item, setItem] = useState({ user: '' });
 
   const getSingleItem = () => {
@@ -16,11 +18,9 @@ export default function SingleProductPage() {
       setItem(response.data);
     });
   };
-
   useEffect(() => {
     getSingleItem();
   }, []);
-
   return (
     <div className="bg-[#F9F9FB] px-12 py-12 space-y-4">
       <div className="w-full bg-white p-6 grid grid-cols-2 rounded-md space-x-6 shadow">
@@ -44,7 +44,17 @@ export default function SingleProductPage() {
             >
               เช่าเลย!
             </button>
-            <button className="bg-gray-400 text-white w-3/12 p-4 rounded-md">ส่งข้อความ</button>
+            <button
+              // onClick={() => {
+              //   socket.emit('join_room', {
+              //     sender: input?.sender,
+              //     receiver: item.ownerId
+              //   })
+              //   setCurrentUser({ userId: item.ownerId })
+              // }}
+              className="bg-gray-400 text-white w-3/12 p-4 rounded-md">
+              ส่งข้อความ
+            </button>
           </div>
           <hr />
           <div className="grid grid-cols-2">
