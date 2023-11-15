@@ -1,10 +1,14 @@
-import Logo from "../images/imgRegister.png";
+
 import { useState } from "react";
 import Joi from "joi";
 import { useModal } from "../hooks/useModal";
 import InputFromUser from "../components/inputs/inputFromUser";
 import { useAuth } from "../hooks/useAuth";
-
+import { FcGoogle } from 'react-icons/fc';
+import { BiLogoFacebook } from 'react-icons/bi';
+import Logo from '../images/imgRegister.png';
+import axios from 'axios';
+import { getAccessToken, removeAccessToken, addAccessToken } from '../utils/local-storage';
 
 const registerSchema = Joi.object({
     firstName: Joi.string().trim().required()
@@ -61,8 +65,8 @@ const validateRegister = (input) => {
 };
 
 export default function RegisterModal() {
-    const { onCloseModal, isOpenModal, modalType } = useModal();
-    const { register } = useAuth();
+  const { onCloseModal, isOpenModal, modalType, onOpenModal } = useModal();
+  const { register } = useAuth();
 
     const [error, setError] = useState({});
     const [input, setInput] = useState({

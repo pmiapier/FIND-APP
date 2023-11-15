@@ -56,11 +56,11 @@ export default function CheckoutModel() {
 
   const validateSubmit = () => {
     if (!tosChecked) {
-      setError('กรุณายอมรับเงื่อนไขการเช่า');
+      setError('Please accept the renting term');
       return false;
     }
     if (total < 1) {
-      setError('กรุณาเลือกวันที่เช่า');
+      setError('Please select the dates');
       return false;
     }
     return true;
@@ -176,23 +176,19 @@ export default function CheckoutModel() {
                 </div>
                 <div className="flex flex-col w-[50%] justify-between h-[80%] ">
                   <div className="">
-                    <div className="text-[20px] h-[15px]">ราคาค่าเช่า</div>
+                    <div className="text-[20px] h-[15px]">Price</div>
                     <div className="flex items-end">
                       <div className="text-[50px] h-[60px]">฿{item.price}</div>
-                      <div className="">/วัน</div>
-                    </div>
-                    <div className="flex gap-2">
-                      <div className="">สถานะสินค้า</div>
-                      <div className="">{item.status}</div>
+                      <div className="">/day</div>
                     </div>
                   </div>
                   <div className="flex flex-col ">
                     <div className="flex justify-between">
-                      <div className="">รหัสสินค้า</div>
+                      <div className="">Item number</div>
                       <div className="">{item.id}</div>
                     </div>
                     <div className="flex justify-between">
-                      <div className="">เจ้าของสินค้า</div>
+                      <div className="">Owner</div>
                       <div className="">{item.user}</div>
                     </div>
                   </div>
@@ -203,13 +199,13 @@ export default function CheckoutModel() {
               <form className="" onSubmit={handleRenteeSubmit}>
                 <div className="flex w-full gap-7 mb-5">
                   <div className="w-full">
-                    <div className="pb-1 font-semibold">วันที่รับสินค้า</div>
+                    <div className="pb-1 font-semibold">Start date</div>
                     <div onClick={() => setOpen(true)} className="p-2 w-full rounded-lg border-2">
                       {selection.startDate.toDateString()}
                     </div>
                   </div>
                   <div className="w-full">
-                    <div className="pb-1 font-semibold">วันที่คืนสินค้า</div>
+                    <div className="pb-1 font-semibold">Return date</div>
                     <div onClick={() => setOpen(true)} className="p-2 w-full rounded-lg border-2">
                       {selection.endDate.toDateString()}
                     </div>
@@ -229,20 +225,20 @@ export default function CheckoutModel() {
 
                 <div className="flex flex-col gap-2 mb-5 w-full">
                   <div className="flex w-full justify-between ">
-                    <div className="">จำนวนวันในการเช่า</div>
+                    <div className="">Total renting days</div>
 
                     <div className="">{selectedDays}</div>
                   </div>
                   <div className="flex w-full justify-between ">
-                    <div className="">ราคา</div>
+                    <div className="">Sub total</div>
                     <div className="">฿{subtotal}</div>
                   </div>
                   <div className="flex w-full justify-between ">
-                    <div className="">มัดจำ</div>
+                    <div className="">Deposit</div>
                     <div className="">฿{deposit}</div>
                   </div>
                   <div className="flex w-full justify-between ">
-                    <div className="">รวมทั้งหมด</div>
+                    <div className="">Total</div>
                     <div className="">฿{total}</div>
                   </div>
                 </div>
@@ -253,13 +249,11 @@ export default function CheckoutModel() {
                     checked={tosChecked}
                     onChange={(e) => setTosChecked(e.target.checked)}
                   />
-                  <div className="text-[13px] pl-1">
-                    ยอมรับเงื่อนไขและข้อตกลงในการเช่าสินค้ากับ FIND อ่านเงื่อนไขและข้อตกลงเพิ่มเติมได้
-                  </div>
-                  <div className="text-[13px] pl-1 font-semibold text-blue-500">ที่นี่</div>
+                  <div className="text-[13px] pl-1">Agree to Terms and Conditions of FIND read more</div>
+                  <div className="text-[13px] pl-1 font-semibold text-blue-500">Here</div>
                 </div>
                 <button className="px-4 py-2 my-2 w-full bg-blue-500 border-2 border-blue-500 hover:border-blue-500 hover:bg-gray-100 hover:text-blue-500 text-white rounded-lg">
-                  ยืนยันและชำระเงิน
+                  Confirm payment
                 </button>
               </form>
               <div className="">{error && <div className="text-red-500">{error}</div>}</div>
