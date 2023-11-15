@@ -17,11 +17,11 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   // <React.StrictMode>
   <Elements stripe={stripePromise}>
     <AuthContextProvider>
-      <ModalContextProvider>
-        <ProductContextProvider>
+      <ProductContextProvider>
+        <ModalContextProvider>
           <App />
-        </ProductContextProvider>
-      </ModalContextProvider>
+        </ModalContextProvider>
+      </ProductContextProvider>
     </AuthContextProvider>
   </Elements>
   // </React.StrictMode>,

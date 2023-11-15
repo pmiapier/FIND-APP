@@ -19,6 +19,7 @@ export default {
         blue: colors.blue,
         pink: colors.pink,
         purple: colors.violet,
+        orange: '#FF9900',
         primaryBackground: '#F9F9FB',
         primaryGrayBorder: '#F4F4F4',
         readyToRent: '#1AD598',
@@ -30,6 +31,7 @@ export default {
         itemLocation: '#217EFD',
         viewProduct: '#474DE1',
         primaryButton: '#217EFD',
+        successButton: '#1a6e34', // green
         hoverPrimaryButton: '#5FA0F9',
         messageButton: '#808080',
         hoverMessageButton: '#010101'
