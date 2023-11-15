@@ -1,5 +1,5 @@
-import one from '../../images/one.png';
-import two from '../../images/two.png';
+import one from '../../images/1.png';
+import two from '../../images/2.png';
 import three from '../../images/3.png';
 import four from '../../images/4.png';
 import col21 from '../../images/col21.png';
@@ -16,10 +16,6 @@ import col41 from '../../images/col41.png';
 import col42 from '../../images/col42.png';
 import col43 from '../../images/col43.png';
 import col44 from '../../images/col44.png';
-import col51 from '../../images/col51.png';
-import col52 from '../../images/col52.png';
-import col53 from '../../images/col53.png';
-import col54 from '../../images/col54.png';
 
 const Home = () => {
   return (

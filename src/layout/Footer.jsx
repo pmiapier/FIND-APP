@@ -2,7 +2,7 @@ import { FaFacebook } from 'react-icons/fa6';
 import { CiInstagram } from 'react-icons/Ci';
 import { BsLine } from 'react-icons/bs';
 import { IoLogoYoutube } from 'react-icons/Io';
-import logo from '../../images/FindLogo.png';
+import logo from '../images/FindLogo.png';
 
 const Footer = () => {
   return (
