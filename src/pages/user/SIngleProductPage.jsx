@@ -12,11 +12,10 @@ export default function SingleProductPage() {
   const { onOpenModal } = useModal();
   let { id } = useParams();
   const [item, setItem] = useState({ user: '' });
-  const { authUser } = useAuth();
+  const { authUser, setCurrentUser } = useAuth();
   const navigate = useNavigate();
   const getSingleItem = () => {
     axios.get(`/item/get-single-item/${id}`).then((response) => {
-      console.log('ourdata response', response.data);
       setItem(response.data);
     });
   };
@@ -62,6 +61,7 @@ export default function SingleProductPage() {
               onClick={() => {
                 handleClickNavigateToChat()
                 handleJoinRoom()
+                setCurrentUser({ fullName: item.user })
               }}
               className="bg-gray-400 text-white w-3/12 p-4 rounded-md">
               ส่งข้อความ

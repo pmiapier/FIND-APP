@@ -8,7 +8,7 @@ export default function ChatUserBox({ input, setCurrentUser, currentUser, online
     const [alluser, setAlluser] = useState([])
     const [chatRooms, setChatRooms] = useState([]);
     const getHistoryRoom = () => {
-        console.log("A", input, +input?.sender)
+        // console.log("A", input, +input?.sender)
         axios.get(`/chat?user=${+input?.sender}`)
             .then((response) => {
                 setChatRooms((pre) => response.data);
@@ -39,10 +39,10 @@ export default function ChatUserBox({ input, setCurrentUser, currentUser, online
             socket.off("onlineUser")
         }
     }, [input])
-
+    console.log(currentUser)
     return (
         <div >
-            {alluser.map((user) => <div key={user.socketId} role="button" onClick={() => {
+            {/* {alluser.map((user) => <div key={user.socketId} role="button" onClick={() => {
                 socket.emit('join_room', {
                     sender: input?.sender,
                     receiver: user.userId
@@ -58,20 +58,22 @@ export default function ChatUserBox({ input, setCurrentUser, currentUser, online
                 ) : (
                     <div className="text-gray-500">Offline</div>
                 )}
-            </div>)}
-            <div className="">************************************************************</div>
+            </div>)} */}
+            {/* <div className="">************************************************************</div> */}
             {chatRooms?.map((user, idx) => <div key={idx} role="button"
                 onClick={() => {
                     socket.emit('join_room', {
                         sender: input?.sender,
                         receiver: user.userA.id === input?.sender ? user.userB.id : user.userA.id
                     })
-                    setCurrentUser(user.userA.id === input?.sender ? { userId: user.userB.id, firstName: user.userB.firstName } : { userId: user.userA.id, firstName: user.userA.firstName })
+                    setCurrentUser(user.userA.id === input?.sender ?
+                        { userId: user.userB.id, firstName: user.userB.firstName, lastName: user.userB.lastName, fullName: user.userB.firstName + " " + user.userB.lastName }
+                        : { userId: user.userA.id, firstName: user.userA.firstName, lastName: user.userA.lastName, fullName: user.userA.firstName + " " + user.userA.lastName })
                     getHistoryRoom()
                 }}
                 className=" h-[80px] w-full flex items-center gap-2 hover:bg-gray-200 px-5">
                 <div className="flex flex-col justify-center gap-0.5 h-full w-full">
-                    <div className="font-bold text-[18px]">{user.userA.id === input?.sender ? user.userB.firstName : user.userA.firstName}</div>
+                    <div className="font-bold text-[18px]">{user.userA.id === input?.sender ? user.userB.firstName + " " + user.userB.lastName : user.userA.firstName + " " + user.userA.lastName}</div>
                 </div>
                 {/* {onlineUsers?.includes(user.userA.id === input?.sender ? user.userA.id : user.userB.id) ? (
                     <div className="text-green-500">Online</div>

@@ -5,9 +5,9 @@ import ChatMessageBox from "./components/ChatMessageBox";
 import { useAuth } from "../../hooks/useAuth";
 import axios from 'axios';
 export default function ChatPage() {
-    const { authUser } = useAuth();
+    const { authUser, currentUser, setCurrentUser } = useAuth();
     // console.log(authUser)
-    const [currentUser, setCurrentUser] = useState('')
+    // const [currentUser, setCurrentUser] = useState('')
     const [input, setInput] = useState({
         sender: null,
         receiver: null
@@ -46,9 +46,9 @@ export default function ChatPage() {
                             <ChatUserBox input={input} setCurrentUser={setCurrentUser} currentUser={currentUser} onlineUsers={onlineUsers} />
                         </div>
                     </div>
-                    <div className="w-full h-full  ">
+                    <div className="w-full h-full">
                         <div className="h-[60px] w-full flex justify-center items-center font-bold text-[20px] border-b-2">
-                            {currentUser.firstName}
+                            {currentUser.fullName}
                         </div>
                         <div className="h-full w-full">
                             <div className="h-[60px] w-full ">
