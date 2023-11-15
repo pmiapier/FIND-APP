@@ -12,12 +12,10 @@ export default function MyRentalItemCard({ data }) {
   if (startRentDate < dateNow) {
     startRentDate = dateNow;
   }
-
   const [pic, setPic] = useState(``);
   useEffect(() => {
     setPic(data.item.images[0]?.imageUrl);
   }, []);
-
   const endRentDate = formatDate(data.endRentDate);
 
   const diffDate = Math.ceil((new Date(endRentDate) - new Date(startRentDate)) / 86400000);
@@ -48,33 +46,49 @@ export default function MyRentalItemCard({ data }) {
     setStatus(getMainStatus());
   }, [ownerStatus, renteeStatus]);
 
-  const handleDelivery = () => {
-    const res = axios.post(`/rent/changeOwnerStatus`, { rentId: data.id, status: 'renting' }).then(() => {
-      setStatus('renting');
-      setOwnerStatus('renting');
-    });
+  const handleDelivery = async () => {
+    try {
+      console.log("🚀 ~ file: MyRentedItemCard.jsx:44 ~ MyRentedItemCard ~ renteeStatus:", renteeStatus)
+      console.log("🚀 ~ file: MyRentedItemCard.jsx:44 ~ MyRentedItemCard ~ ownerStatus:", ownerStatus)
+      const res = await axios.post(`/rent/changeOwnerStatus`, { rentId: data.id, status: 'renting' }).then(() => {
+        setStatus('renting');
+        setOwnerStatus('renting');
+      });
 
-    if (!res) {
-      console.log('error from handleDelivery');
+      if (!res) {
+        console.log('error from handleDelivery');
+      }
+
+      
+        // await axios.post(`/transaction/createTransaction`, { rentId: data.id })
+   
+    } catch (error) {
+      console.log(error)
     }
   };
 
-  const handleReturned = () => {
-    const res = axios.post(`/rent/changeOwnerStatus`, { rentId: data.id, status: 'completed' }).then(() => {
-      setStatus('renting');
-      setOwnerStatus('completed');
-    });
-
-    if (!res) {
-      console.log('error from handleDelivery');
+  const handleReturned = async() => {
+    try {
+      const res = await axios.post(`/rent/changeOwnerStatus`, { rentId: data.id, status: 'completed' }).then(() => {
+        setStatus('renting');
+        setOwnerStatus('completed');
+      });
+  
+      if (!res) {
+        console.log('error from handleDelivery');
+      }
+      await axios.post(`/transaction/createTransaction`, { rentId: data.id })
+      
+    } catch (error) {
+      console.log(error)
     }
   };
 
   return (
     <div className="bg-white flex justify-center items-center gap-5 py-5">
       <div className="w-60 h-40 overflow-hidden rounded-lg">
-        {/* <img className="rounded-sm" src={data.item.images[0].imageUrl} alt="item" /> */}
-        {pic ? <img className="rounded-sm" src={pic} alt="item" /> : null}
+      {pic ? <img className="rounded-sm" src={pic} alt="item" /> : null}
+
       </div>
 
       <div className="py-5">
