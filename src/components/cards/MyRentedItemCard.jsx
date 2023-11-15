@@ -4,6 +4,7 @@ import ItemStatus from '../status/ItemStatus';
 import { useState, useEffect } from 'react';
 import axios from '../../config/axios';
 import { formatDate } from '../../utils/dates';
+import { Link } from 'react-router-dom';
 
 export default function MyRentedItemCard({ data }) {
   let startRentDate = formatDate(data.startRentDate);
@@ -16,6 +17,7 @@ export default function MyRentedItemCard({ data }) {
     setPic(data.item.images[0]?.imageUrl);
   }, []);
   const endRentDate = formatDate(data.endRentDate);
+
 
   const diffDate = Math.ceil((new Date(endRentDate) - new Date(startRentDate)) / 86400000);
   const daysUntilStart = Math.ceil((new Date(startRentDate) - new Date(dateNow)) / 86400000);
@@ -132,8 +134,10 @@ export default function MyRentedItemCard({ data }) {
       )}
 
       <div className="border-2 border-gray-100 flex flex-col gap-1 px-10 py-5 rounded-lg ">
-        <Button text={'Item Dispute'} className={'bg-messageButton hover:bg-hoverMessageButton w-48'} />
-        {/* <Button text={'Proof of Returning'} className={'bg-readyToRent hover:bg-green-700 w-full'} /> */}
+        <Link to="item-dispute">
+          <Button text={'Item Dispute'} className={'bg-messageButton hover:bg-hoverMessageButton w-48'} />
+          {/* <Button text={'Proof of Returning'} className={'bg-readyToRent hover:bg-green-700 w-full'} /> */}
+        </Link>
 
         {ownerStatus === 'renting' && renteeStatus === 'received_item' ? (
           <div>
