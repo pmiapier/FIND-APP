@@ -31,11 +31,12 @@ const Header = () => {
               หมวดหมู่สินค้า
             </div>
           </Link>
-          <div className="hover:cursor-pointer flex justify-center items-center gap-1">
-            <FaRegCommentAlt />
-            ข้อความ
-          </div>
-
+          <Link to="/Chat">
+            <div className="hover:cursor-pointer flex justify-center items-center gap-1">
+              <FaRegCommentAlt />
+              ข้อความ
+            </div>
+          </Link>
           {authUser ? (
             ''
           ) : (
