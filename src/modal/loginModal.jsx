@@ -11,7 +11,7 @@ import Joi from "joi";
 const loginSchema = Joi.object({
     email: Joi.string().trim().required().messages({
         "string.empty": "Email is required",
-        "string.email": "The email address you entered is not in a valid format. Please enter a valid email address.",
+        "string.email": "Incorrect email.",
     }),
     password: Joi.string()
         .trim()
@@ -20,9 +20,7 @@ const loginSchema = Joi.object({
         .min(6).max(20)
         .messages({
             "string.empty": "Password is required",
-            "string.max":"maximum 20",
-            "string.min":"minimum 6",
-            // "string.pattern.base":"a-z A-Z 0-9"
+            "string.pattern.base":"Incorrect password."
         }),
 });
 

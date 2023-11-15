@@ -34,9 +34,9 @@ const registerSchema = Joi.object({
         .min(6).max(20)
         .messages({
             "string.empty": "Password is required",
-            "string.max":"maximum 20",
-            "string.min":"minimum 6",
-            // "string.pattern.base":"a-z A-Z 0-9"
+            "string.max":"Password only contains maximum of 20 charactors.",
+            "string.min":"Password must be at least 6 charactors.",
+            "string.pattern.base":"Password must at least contains 1 alphabet a-z and 0-9."
         }),
     confirmPassword: Joi.string().valid(Joi.ref("password")).trim().required().messages({
         "string.empty": "Password is required",
@@ -45,9 +45,14 @@ const registerSchema = Joi.object({
 
 const validateRegister = (input) => {
     const { error } = registerSchema.validate(input, { abortEarly: false });
+    console.dir(error);
     if (error) {
         const result = error.details.reduce((acc, el) => {
             const { message, path } = el;
+            if(path[0]==="confirmPassword") {
+                acc[path[0]] = "The passwords you entered do not match. Please ensure both passwords are the same."
+                return acc
+            }
             acc[path[0]] = message;
             return acc;
         }, {});
@@ -78,7 +83,7 @@ export default function RegisterModal() {
 
         setError({})
         const validationError = validateRegister(input);
-        console.log(validationError)
+        // console.log(validationError)
         if (validationError) {
             return setError(validationError);
         }
@@ -156,7 +161,7 @@ export default function RegisterModal() {
                                                 "block py-2.5 px-0 w-full text-sm text-black bg-transparent border-0 border-b-[1px] border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                             }
                                             placeholder="Email"
-                                            type="text"
+                                            type="emial"
                                             onChange={handleChangeInput}
                                             name="email"
                                             value={input.email}
