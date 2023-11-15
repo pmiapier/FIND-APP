@@ -7,34 +7,32 @@ import axios from 'axios';
 export default function ChatPage() {
     const { authUser } = useAuth();
     // console.log(authUser)
-
     const [input, setInput] = useState({
         sender: null,
         receiver: null
     })
-
     const [currentUser, setCurrentUser] = useState('')
     const [onlineUsers, setOnlineUsers] = useState([]);
-
     useEffect(() => {
         if (authUser) {
             setInput(prevInput => ({ ...prevInput, sender: authUser?.id }))
         }
     }, [authUser])
-
     useEffect(() => {
         socket.auth = { authUser }
         socket.connect()
         socket.on("onlineUser", (data) => {
+            console.log("**********************************************")
             delete data[input.sender];
             const userArray = Object.keys(data);
+            console.log(userArray)
             setOnlineUsers(userArray);
         });
         return () => {
             socket.disconnect()
         }
     }, [input])
-
+    console.log(currentUser, "5555")
 
 
     return (
@@ -46,7 +44,7 @@ export default function ChatPage() {
                             {authUser?.firstName}
                         </div>
                         <div className="w-full h-[740px] overflow-auto">
-                            <ChatUserBox input={input} setCurrentUser={setCurrentUser} onlineUsers={onlineUsers} />
+                            <ChatUserBox input={input} setCurrentUser={setCurrentUser} currentUser={currentUser} onlineUsers={onlineUsers} />
                         </div>
                     </div>
                     <div className="w-full h-full  ">
@@ -55,7 +53,7 @@ export default function ChatPage() {
                         </div>
                         <div className="h-full w-full">
                             <div className="h-[60px] w-full ">
-                                <ChatMessageBox input={input} currentUser={currentUser} />
+                                <ChatMessageBox input={input} setCurrentUser={setCurrentUser} currentUser={currentUser} />
                             </div>
                         </div>
                     </div>

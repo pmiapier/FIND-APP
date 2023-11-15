@@ -22,7 +22,7 @@ export default function ChatMessageBox({ input, currentUser }) {
     // 👇 Send Message 👇
     const sendMessage = async () => {
         if (currentMessage !== ``) {
-            console.log(chatroom, "sendRoom")
+            // console.log(chatroom, "sendRoom")
             const messageData = {
                 chatroom,
                 to: currentUser.userId,
@@ -111,7 +111,7 @@ export default function ChatMessageBox({ input, currentUser }) {
     // 👇 Socket.io Get => room id / all chat / receive message 👇
     useEffect(() => {
         socket.on(`room_id`, (data) => {
-            console.log(data.id, "room")
+            // console.log(data.id, "room")
             setChatroom(data.id)
         });
         socket.on('disconnect', () => {
