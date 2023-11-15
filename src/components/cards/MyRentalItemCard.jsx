@@ -4,6 +4,7 @@ import item from '../../assets/jamesunsplash.jpg';
 import axios from '../../config/axios';
 import { useState, useEffect } from 'react';
 import { formatDate } from '../../utils/dates';
+import { Link } from 'react-router-dom';
 
 export default function MyRentalItemCard({ data }) {
   let startRentDate = formatDate(data.startRentDate);
@@ -11,6 +12,12 @@ export default function MyRentalItemCard({ data }) {
   if (startRentDate < dateNow) {
     startRentDate = dateNow;
   }
+
+  const [pic, setPic] = useState(``);
+  useEffect(() => {
+    setPic(data.item.images[0]?.imageUrl);
+  }, []);
+
   const endRentDate = formatDate(data.endRentDate);
 
   const diffDate = Math.ceil((new Date(endRentDate) - new Date(startRentDate)) / 86400000);
@@ -66,7 +73,8 @@ export default function MyRentalItemCard({ data }) {
   return (
     <div className="bg-white flex justify-center items-center gap-5 py-5">
       <div className="w-60 h-40 overflow-hidden rounded-lg">
-        <img className="rounded-sm" src={data.item.images[0].imageUrl} alt="item" />
+        {/* <img className="rounded-sm" src={data.item.images[0].imageUrl} alt="item" /> */}
+        {pic ? <img className="rounded-sm" src={pic} alt="item" /> : null}
       </div>
 
       <div className="py-5">
@@ -101,7 +109,7 @@ export default function MyRentalItemCard({ data }) {
       )}
 
       <div className="border-2 border-gray-100 flex flex-col gap-1 px-10 py-5 rounded-lg text-center">
-        <div className="flex justify-between">
+        {/* <div className="flex justify-between">
           <div>rental price</div>
           <div>฿{data.item.price}</div>
         </div>
@@ -114,9 +122,9 @@ export default function MyRentalItemCard({ data }) {
         <div className="flex justify-between">
           <div>Total</div>
           <div>฿{data.amount}</div>
-        </div>
-        <div className="flex gap-2 items-center mt-4">
-          <Button text={'Send Message '} className={'bg-messageButton hover:bg-hoverMessageButton w-48'} />
+        </div> */}
+        <div className="flex flex-col gap-2 items-center mt-4">
+          <Button text={'Send Message '} className={'bg-messageButton hover:bg-hoverMessageButton w-64'} />
           {ownerStatus === 'pending_delivery' && renteeStatus !== 'awaiting_payment' ? (
             <Button
               text={'Confirm Item Delivery'}
@@ -168,7 +176,9 @@ export default function MyRentalItemCard({ data }) {
               className={'bg-primaryButton hover:bg-hoverPrimaryButton w-64'}
             />
           ) : null}
-          <Button text={'Item Dispute'} className={'bg-messageButton hover:bg-hoverMessageButton w-48'} />
+          <Link to="item-dispute">
+            <Button text={'Item Dispute'} className={'bg-messageButton hover:bg-hoverMessageButton w-64'} />
+          </Link>
         </div>
       </div>
     </div>
