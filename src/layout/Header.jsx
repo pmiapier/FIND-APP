@@ -10,11 +10,11 @@ const Header = () => {
   const { authUser } = useAuth();
   return (
     <div className=" flex justify-center items-center w-full h-[85px] bg-white drop-shadow-xl">
-      <div className="flex justify-center items-center gap-[100px]">
+      <div className="flex justify-evenly items-center gap-[100px] w-full">
         <Link to="/">
           <img src={logo} className="w-[130px]" />
         </Link>
-        <div className="flex items-center justify-center h-[45px] w-[670px]">
+        {/* <div className="flex items-center justify-center h-[45px] w-[670px]">
           <button className="w-[150px] h-full bg-gray-700 rounded-l-xl flex justify-center items-center gap-2">
             <FaMapMarkedAlt className="text-white" />
             <div className=" text-white">ค้นหาด้วยแผนที่</div>
@@ -23,7 +23,7 @@ const Header = () => {
           <button className="w-[50px] h-full bg-gray-700 rounded-r-xl flex justify-center items-center">
             <FaSearch className="text-white" />
           </button>
-        </div>
+        </div> */}
         <div className="flex items-center justify-center gap-5">
           <Link to="/product-listing">
             <div className="flex justify-center items-center gap-1">

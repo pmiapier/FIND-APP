@@ -5,6 +5,8 @@ import Pagination from '../../components/others/Pagination';
 import { useProduct } from '../../hooks/useProduct';
 import { useEffect, useState } from 'react';
 import axios from '../../config/axios';
+import { FaMapMarkedAlt, FaSearch } from 'react-icons/fa';
+
 
 export default function ProductListingPage() {
   const [product, setProduct] = useState([]);
@@ -13,6 +15,26 @@ export default function ProductListingPage() {
   const [category, setCategory] = useState(null);
   const { categoryList } = useProduct();
   const [countItems, setCountItems] = useState(1);
+
+  const [searchItem,setSearchItem] = useState("")
+
+  const handleInput = (e) =>{
+    setSearchItem(e.target.value)
+  }
+  let filterItem =[...product]
+  // console.log(product[0].title)
+  // const itemTitle = product.map((el) => el.title) 
+  // console.log("🚀 ~ file: ProductListingPage.jsx:28 ~ ProductListingPage ~ itemTitle:", itemTitle)
+  
+  if(searchItem){
+
+    filterItem = product.filter((el)=>{
+      if(el.title.toLowerCase().includes(searchItem.toLowerCase())){
+        return true
+      }
+      return false
+    })
+  }
 
   const handlePriceChange = (e) => {};
 
@@ -34,9 +56,17 @@ export default function ProductListingPage() {
 
   return (
     <>
-      <div className="flex justify-center items-center bg-primaryBackground w-full font-bold text-3xl h-[180px]">
-        <h1>YOUR CATEGORY NAME HERE</h1>
+      <div className="flex flex-col gap-5 justify-center items-center bg-primaryBackground w-full font-bold h-[180px]">
+        <h1 className='text-3xl '>YOUR CATEGORY NAME HERE</h1>
+      <div className="flex items-center justify-center h-[45px] w-[670px]">
+          <input className="w-[470px] h-full p-3 border-2 border-gray-300" placeholder="ค้นหาสินค้า..." onChange={handleInput}/>
+          <button className="w-[50px] h-full bg-gray-700 rounded-r-xl flex justify-center items-center">
+            <FaSearch className="text-white" />
+          </button>
+        </div>
       </div>
+
+
       <div className="px-[12rem]">
         <div className="flex space-x-4 space-y-4">
           <div className="h-fit w-3/12 p-4">
@@ -90,7 +120,7 @@ export default function ProductListingPage() {
           </div>
           <div className="w-9/12 space-y-4">
             <div className="grid grid-cols-3 gap-4">
-              {product ? product.map((el, idx) => <ProductCard key={idx} item={el} />) : null}
+              {product ? filterItem.map((el, idx) => <ProductCard key={idx} item={el} />) : null}
             </div>
             <div className="flex justify-between">
               <p className="">
