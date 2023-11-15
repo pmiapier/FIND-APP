@@ -8,7 +8,7 @@ import StatusForMyProduct from '../status/StatusForMyProduct';
 
 export default function MyItemCard({ product, handleDeleteItem, handleEditItem }) {
   const { updateProductStatus } = useProduct();
-  console.log(product);
+  // console.log(product);
 
   return (
     <div className="flex flex-col gap-4 bg-white shadow-lg px-5 py-5 ">
