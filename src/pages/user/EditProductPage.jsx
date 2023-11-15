@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import InputField from '../../components/inputs/InputField';
 import Button from '../../components/buttons/Button';
 import { useNavigate } from 'react-router-dom';
-import axios from '../../config/axios';
+import axios from 'axios';
 import Swal from 'sweetalert2';
 import Loading from '../../components/loading/Loading';
 
@@ -23,7 +23,6 @@ export default function EditProductPage() {
 
   useEffect(() => {
     if (selectedProduct) {
-      console.log('selectedProduct', selectedProduct);
       setInput({
         itemName: selectedProduct?.title || '',
         itemCategory: selectedProduct?.categories.name || '',
@@ -33,10 +32,16 @@ export default function EditProductPage() {
       });
     }
 
+    selectedProduct?.images?.map(async (item, index) => {
+      const filesname = Math.random() * 10000000;
+      const x = await axios.get(item.imageUrl, { responseType: 'blob' });
+      const file = new File([x.data], filesname);
+      const arr = selectedFiles;
+      arr.push(file);
+      setSelectedFiles(arr);
+    });
     setSelectedImages(selectedProduct?.images?.map((image) => image?.imageUrl));
   }, [selectedProduct]);
-
-  console.log('selectedProduct in EditProductPage: ', selectedProduct);
 
   const handleInputChange = (e) => {
     if (e.target.files) {
@@ -65,7 +70,7 @@ export default function EditProductPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('loading handleSubmit: .........', loading);
+    // console.log('loading handleSubmit: .........', loading);
     if (selectedProduct) {
       const payload = {
         title: input.itemName,
@@ -75,6 +80,7 @@ export default function EditProductPage() {
         id: selectedProduct.id,
         availability: input.availability
       };
+
       payload.images = selectedFiles;
 
       const formData = new FormData();
@@ -85,9 +91,10 @@ export default function EditProductPage() {
       payload.images.forEach((file, index) => {
         formData.append(`file[${index}]`, file);
       });
+
       try {
         setLoading(true);
-        console.log('loading in try: .........', loading);
+        // console.log('loading in try: .........', loading);
         await saveProductChanges(payload);
         Swal.fire('Success', 'Product details updated successfully', 'success');
       } catch (error) {
@@ -95,10 +102,10 @@ export default function EditProductPage() {
       } finally {
         setLoading(false);
       }
-      console.log('loading after try: .........', loading);
+      // console.log('loading after try: .........', loading);
       saveProductChanges(payload);
       clearSelectedProduct();
-      navigate('/my-product');
+      navigate('/my-product', { state: { a: 20 } });
     }
   };
 
@@ -115,8 +122,6 @@ export default function EditProductPage() {
     );
   }
 
-  console.log('input:', input);
-  console.log('loading: .........', loading);
   return (
     <>
       {loading && <Loading />}

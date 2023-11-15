@@ -4,12 +4,15 @@ import axios from '../../config/axios';
 import { useAuth } from '../../hooks/useAuth';
 import Swal from 'sweetalert2';
 import { useProduct } from '../../hooks/useProduct';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 export default function MyProductPage() {
   const navigate = useNavigate();
   const { authUser } = useAuth();
   const { editProduct, myProduct, setMyProduct, getMyProductData } = useProduct();
+
+  const loc = useLocation();
+  console.log(loc);
 
   const handleDeleteItem = async (itemId) => {
     try {
