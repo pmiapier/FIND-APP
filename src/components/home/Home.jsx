@@ -1,23 +1,32 @@
-import one from '../../images/1.png';
-import two from '../../images/2.png';
-import three from '../../images/3.png';
-import four from '../../images/4.png';
-import col21 from '../../images/col21.png';
-import col22 from '../../images/col22.png';
-import col23 from '../../images/col23.png';
-import col24 from '../../images/col24.png';
-import col25 from '../../images/col25.png';
-import col26 from '../../images/col26.png';
-import col31 from '../../images/col31.png';
-import col32 from '../../images/col32.png';
-import col33 from '../../images/col33.png';
-import col34 from '../../images/col34.png';
-import col41 from '../../images/col41.png';
-import col42 from '../../images/col42.png';
-import col43 from '../../images/col43.png';
-import col44 from '../../images/col44.png';
+import { useEffect, useState } from "react";
+import one from "../../images/1.png";
+import two from "../../images/2.png";
+import three from "../../images/3.png";
+import four from "../../images/4.png";
+import col21 from "../../images/col21.png";
+import col22 from "../../images/col22.png";
+import col23 from "../../images/col23.png";
+import col24 from "../../images/col24.png";
+import col25 from "../../images/col25.png";
+import col26 from "../../images/col26.png";
+import axios from "../../config/axios";
+import ProductCard from "../cards/ProductCard";
 
 const Home = () => {
+  const [allItem, setAllItem] = useState([]);
+
+  useEffect(() => {
+    getAllItem();
+  }, []);
+
+  console.log(allItem);
+  const getAllItem = async () => {
+    const data = await axios
+      .get("/item")
+      .then((res) => setAllItem(res.data))
+      .catch((error) => console.log(error));
+    return data;
+  };
   return (
     <div className="mx-auto grid w-5/6 gap-4">
       <div className="grid grid-cols-2 ">
@@ -44,187 +53,14 @@ const Home = () => {
         </div>
       </div>
 
-      <div className="font-extrabold text-lg pl-4">รายการแน่ะนำสำหรับคุณโดยเฉพาะ</div>
-
-      <div className="grid grid-cols-2 gap-4 mt-2">
-        <div className="grid grid-cols-2 gap-4">
-          <div className="rounded-[25px]  border-gray-300 border shadow-md">
-            <img src={col31} className="w-full rounded-t-[25px]" />
-            <div className="p-6">
-              <h2 className="text-xl">
-                Electrolux Ac-1024 ลำโพงบลูทูธ พกพา ทรงกระทัดรัด ใช้ได้นาน 12 ชั่วโมงต่อหนึ่ง....
-              </h2>
-              <br></br>
-              <div className="flex justify-between">
-                <p>฿175 / วัน</p>
-                <p>ราชเทวี</p>
-              </div>
-            </div>
-          </div>
-          <div className="rounded-[25px]  border-gray-300 border shadow-md">
-            <img src={col32} className="w-full rounded-t-[25px]" />
-            <div className="p-6">
-              <h2 className="text-xl">
-                Electrolux Ac-1024 ลำโพงบลูทูธ พกพา ทรงกระทัดรัด ใช้ได้นาน 12 ชั่วโมงต่อหนึ่ง....
-              </h2>
-              <br></br>
-              <div className="flex justify-between">
-                <p>฿175 / วัน</p>
-                <p>ราชเทวี</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="grid grid-cols-2 gap-4">
-          <div className="rounded-[25px]  border-gray-300 border shadow-md">
-            <img src={col33} className="w-full rounded-t-[25px]" />
-            <div className="p-6">
-              <h2 className="text-xl">
-                Electrolux Ac-1024 ลำโพงบลูทูธ พกพา ทรงกระทัดรัด ใช้ได้นาน 12 ชั่วโมงต่อหนึ่ง....
-              </h2>
-              <br></br>
-              <div className="flex justify-between">
-                <p>฿175 / วัน</p>
-                <p>ราชเทวี</p>
-              </div>
-            </div>
-          </div>
-
-          <div className="rounded-[25px]  border-gray-300 border shadow-md">
-            <img src={col34} className="w-full rounded-t-[25px]" />
-            <div className="p-6">
-              <h2 className="text-xl">
-                Electrolux Ac-1024 ลำโพงบลูทูธ พกพา ทรงกระทัดรัด ใช้ได้นาน 12 ชั่วโมงต่อหนึ่ง....
-              </h2>
-              <br></br>
-              <div className="flex justify-between">
-                <p>฿175 / วัน</p>
-                <p>ราชเทวี</p>
-              </div>
-            </div>
-          </div>
-        </div>
+      <div className="font-extrabold text-lg pl-4">
+        รายการแน่ะนำสำหรับคุณโดยเฉพาะ
       </div>
 
-      <div className="grid grid-cols-2 gap-4 mt-2">
-        <div className="grid grid-cols-2 gap-4">
-          <div className="rounded-[25px]  border-gray-300 border shadow-md">
-            <img src={col41} className="w-full rounded-t-[25px]" />
-            <div className="p-6">
-              <h2 className="text-xl">
-                Electrolux Ac-1024 ลำโพงบลูทูธ พกพา ทรงกระทัดรัด ใช้ได้นาน 12 ชั่วโมงต่อหนึ่ง....
-              </h2>
-              <br></br>
-              <div className="flex justify-between">
-                <p>฿175 / วัน</p>
-                <p>ราชเทวี</p>
-              </div>
-            </div>
-          </div>
-
-          <div className="rounded-[25px]  border-gray-300 border shadow-md">
-            <img src={col42} className="w-full rounded-t-[25px]" />
-            <div className="p-6">
-              <h2 className="text-xl">
-                Electrolux Ac-1024 ลำโพงบลูทูธ พกพา ทรงกระทัดรัด ใช้ได้นาน 12 ชั่วโมงต่อหนึ่ง....
-              </h2>
-              <br></br>
-              <div className="flex justify-between">
-                <p>฿175 / วัน</p>
-                <p>ราชเทวี</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className=" grid grid-cols-2 gap-4">
-          <div className="rounded-[25px]  border-gray-300 border shadow-md">
-            <img src={col43} className="w-full rounded-t-[25px]" />
-            <div className="p-6">
-              <h2 className="text-xl">
-                Electrolux Ac-1024 ลำโพงบลูทูธ พกพา ทรงกระทัดรัด ใช้ได้นาน 12 ชั่วโมงต่อหนึ่ง....
-              </h2>
-              <br></br>
-              <div className="flex justify-between">
-                <p>฿175 / วัน</p>
-                <p>ราชเทวี</p>
-              </div>
-            </div>
-          </div>
-          <div className="rounded-[25px]  border-gray-300 border shadow-md">
-            <img src={col44} className="w-full rounded-t-[25px]" />
-            <div className="p-6">
-              <h2 className="text-xl">
-                Electrolux Ac-1024 ลำโพงบลูทูธ พกพา ทรงกระทัดรัด ใช้ได้นาน 12 ชั่วโมงต่อหนึ่ง....
-              </h2>
-              <br></br>
-              <div className="flex justify-between">
-                <p>฿175 / วัน</p>
-                <p>ราชเทวี</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div className="grid grid-cols-2 gap-4 mt-2">
-        <div className="grid grid-cols-2 gap-4">
-          <div className="rounded-[25px]  border-gray-300 border shadow-md">
-            <img src={col41} className="w-full rounded-t-[25px]" />
-            <div className="p-6">
-              <h2 className="text-xl">
-                Electrolux Ac-1024 ลำโพงบลูทูธ พกพา ทรงกระทัดรัด ใช้ได้นาน 12 ชั่วโมงต่อหนึ่ง....
-              </h2>
-              <br></br>
-              <div className="flex justify-between">
-                <p>฿175 / วัน</p>
-                <p>ราชเทวี</p>
-              </div>
-            </div>
-          </div>
-          <div className="rounded-[25px]  border-gray-300 border shadow-md">
-            <img src={col42} className="w-full rounded-t-[25px]" />
-            <div className="p-6">
-              <h2 className="text-xl">
-                Electrolux Ac-1024 ลำโพงบลูทูธ พกพา ทรงกระทัดรัด ใช้ได้นาน 12 ชั่วโมงต่อหนึ่ง....
-              </h2>
-              <br></br>
-              <div className="flex justify-between">
-                <p>฿175 / วัน</p>
-                <p>ราชเทวี</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="grid grid-cols-2 gap-4">
-          <div className="rounded-[25px]  border-gray-300 border shadow-md">
-            <img src={col43} className="w-full rounded-t-[25px]" />
-            <div className="p-6">
-              <h2 className="text-xl">
-                Electrolux Ac-1024 ลำโพงบลูทูธ พกพา ทรงกระทัดรัด ใช้ได้นาน 12 ชั่วโมงต่อหนึ่ง....
-              </h2>
-              <br></br>
-              <div className="flex justify-between">
-                <p>฿175 / วัน</p>
-                <p>ราชเทวี</p>
-              </div>
-            </div>
-          </div>
-          <div className="rounded-[25px]  border-gray-300 border shadow-md">
-            <img src={col44} className="w-full rounded-t-[25px]" />
-            <div className="p-6">
-              <h2 className="text-xl">
-                Electrolux Ac-1024 ลำโพงบลูทูธ พกพา ทรงกระทัดรัด ใช้ได้นาน 12 ชั่วโมงต่อหนึ่ง....
-              </h2>
-              <br></br>
-              <div className="flex justify-between">
-                <p>฿175 / วัน</p>
-                <p>ราชเทวี</p>
-              </div>
-            </div>
-          </div>
-        </div>
+      <div className="grid grid-cols-4 gap-4 mt-2">
+        {allItem.map((el) => (
+          <ProductCard key={el.id} item={el} />
+        ))}
       </div>
 
       <div className="grid grid-cols-4 gap-3 mb-6">
