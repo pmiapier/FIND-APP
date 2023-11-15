@@ -5,7 +5,7 @@ import findLogo from '../images/FindLogo.png';
 
 export default function Footer() {
   return (
-    <div className="flex flex-col w-[100vw] h-80">
+    <div className="flex flex-col w-[100vw] h-[50px]">
       <div className="flex w-full justify-between">
         <div className="flex flex-col items-center justify-center w-[180px] mr-32 ml-64">
           <img src={findLogo}></img>
@@ -45,9 +45,9 @@ export default function Footer() {
       <hr className="border-1 text-gray-50 mt-8 mx-64" />
       <div className="flex justify-between px-20 mt-5">
         <div className="flex gap-4">
-          <img src={facebookIcon} />
-          <img src={instagramIcon} />
-          <img src={linkedInIcon} />
+          <img className='w-[50px]' src={facebookIcon} />
+          <img className='w-[50px]' src={instagramIcon} />
+          <img className='w-[50px]' src={linkedInIcon} />
         </div>
         <div>
           <h6 className="text-gray-400 mr-48">@2023. all rights reserverd,FIND</h6>

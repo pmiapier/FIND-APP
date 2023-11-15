@@ -1,24 +1,26 @@
 import React, { useEffect, useState } from 'react';
 import { socket } from '../confic/socket';
 import axios from 'axios';
+import { useAuth } from '../../../hooks/useAuth';
 
 export default function ChatUserBox({ input, setCurrentUser, currentUser, onlineUsers }) {
 
     const [alluser, setAlluser] = useState([])
     const [chatRooms, setChatRooms] = useState([]);
     const getHistoryRoom = () => {
-        axios.get(`/chat?user=${3}`)
+        console.log("A", input, +input?.sender)
+        axios.get(`/chat?user=${+input?.sender}`)
             .then((response) => {
                 setChatRooms((pre) => response.data);
-                // console.log('room', response.data);
+                console.log('room', response.data);
             })
             .catch((error) => {
                 console.error('Error fetching chat rooms:', error);
             });
     }
     useEffect(() => {
-        getHistoryRoom()
-    }, []);
+        if (input.sender) getHistoryRoom()
+    }, [input]);
     useEffect(() => {
         socket.on(`onlineUser`, (data) => {
             // console.log(data[input?.sender])
@@ -31,7 +33,7 @@ export default function ChatUserBox({ input, setCurrentUser, currentUser, online
 
         });
         socket.on("updateChatRoom", () => {
-            getHistoryRoom()
+            // getHistoryRoom()
         })
         return () => {
             socket.off("onlineUser")
@@ -40,7 +42,6 @@ export default function ChatUserBox({ input, setCurrentUser, currentUser, online
 
     return (
         <div >
-
             {alluser.map((user) => <div key={user.socketId} role="button" onClick={() => {
                 socket.emit('join_room', {
                     sender: input?.sender,
@@ -48,37 +49,17 @@ export default function ChatUserBox({ input, setCurrentUser, currentUser, online
                 })
                 setCurrentUser(user)
                 getHistoryRoom()
-
             }} className={`h-[80px] w-full flex items-center gap-2 hover:bg-gray-200 px-5 `}>
                 <div className="flex flex-col justify-center gap-0.5 h-full w-full">
                     <div className="font-bold text-[18px]">{user.firstName}</div>
                 </div>
-                {/* {onlineUsers?.includes(user) ? (
-                    <div className="text-green-500">Online</div>
-                ) : (
-                    <div className="text-gray-500">Offline</div>
-                )} */}
-            </div>)}
-            <div className="">************************************************************</div>
-            {/* {chatRooms?.map((user, idx) => <div key={idx} role="button"
-                onClick={() => {
-                    socket.emit('join_room', {
-                        sender: input?.sender,
-                        receiver: user.userA.id === input?.sender ? "" : user.userB.id
-                    })
-                    setCurrentUser(user.userA.id === input?.sender ? "" : user.userB.id)
-                    getHistoryRoom()
-                }}
-                className=" h-[80px] w-full flex items-center gap-2 hover:bg-gray-200 px-5">
-                <div className="flex flex-col justify-center gap-0.5 h-full w-full">
-                    <div className="font-bold text-[18px]">{user.userA.user === input?.sender ? user.userB.user : user.userA.user}</div>
-                </div>
-                {onlineUsers?.includes(user.userA.user === input?.sender ? user.userB.user : user.userA.user) ? (
+                {onlineUsers?.includes(user) ? (
                     <div className="text-green-500">Online</div>
                 ) : (
                     <div className="text-gray-500">Offline</div>
                 )}
-            </div>)} */}
+            </div>)}
+            <div className="">************************************************************</div>
             {chatRooms?.map((user, idx) => <div key={idx} role="button"
                 onClick={() => {
                     socket.emit('join_room', {

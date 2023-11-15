@@ -1,7 +1,9 @@
 import Router from './router/Router';
 import { ToastContainer } from 'react-toastify';
-
+import { socket } from './pages/chat/confic/socket';
+import { useAuth } from './hooks/useAuth';
 export default function App() {
+
   return (
     <>
       <Router />

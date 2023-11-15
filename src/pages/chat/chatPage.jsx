@@ -7,11 +7,11 @@ import axios from 'axios';
 export default function ChatPage() {
     const { authUser } = useAuth();
     // console.log(authUser)
+    const [currentUser, setCurrentUser] = useState('')
     const [input, setInput] = useState({
         sender: null,
         receiver: null
     })
-    const [currentUser, setCurrentUser] = useState('')
     const [onlineUsers, setOnlineUsers] = useState([]);
     useEffect(() => {
         if (authUser) {
@@ -22,18 +22,17 @@ export default function ChatPage() {
         socket.auth = { authUser }
         socket.connect()
         socket.on("onlineUser", (data) => {
-            console.log("**********************************************")
             delete data[input.sender];
             const userArray = Object.keys(data);
-            console.log(userArray)
+            // console.log(userArray)
             setOnlineUsers(userArray);
         });
         return () => {
             socket.disconnect()
         }
     }, [input])
-    console.log(currentUser, "5555")
-
+    console.log(currentUser)
+    // console.log(input, '****************')
 
     return (
         <div className="w-full flex items-center justify-center py-10">
