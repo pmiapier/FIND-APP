@@ -5,18 +5,32 @@ import { useEffect, useState } from 'react';
 import { formatDate } from '../../utils/dates';
 import { socket } from '../chat/confic/socket';
 import { useAuth } from '../../hooks/useAuth';
+import { useNavigate } from "react-router-dom";
 
 
 export default function SingleProductPage() {
   const { onOpenModal } = useModal();
   let { id } = useParams();
   const [item, setItem] = useState({ user: '' });
-
+  const { authUser } = useAuth();
+  const navigate = useNavigate();
   const getSingleItem = () => {
     axios.get(`/item/get-single-item/${id}`).then((response) => {
       console.log('ourdata response', response.data);
       setItem(response.data);
     });
+  };
+  function handleClickNavigateToChat() {
+    navigate("/chat");
+  }
+  const handleJoinRoom = () => {
+    if (authUser) {
+      // Emit join_room event
+      socket.emit('join_room', {
+        sender: authUser.id,
+        receiver: item.ownerId,
+      });
+    }
   };
   useEffect(() => {
     getSingleItem();
@@ -45,13 +59,10 @@ export default function SingleProductPage() {
               เช่าเลย!
             </button>
             <button
-              // onClick={() => {
-              //   socket.emit('join_room', {
-              //     sender: input?.sender,
-              //     receiver: item.ownerId
-              //   })
-              //   setCurrentUser({ userId: item.ownerId })
-              // }}
+              onClick={() => {
+                handleClickNavigateToChat()
+                handleJoinRoom()
+              }}
               className="bg-gray-400 text-white w-3/12 p-4 rounded-md">
               ส่งข้อความ
             </button>
