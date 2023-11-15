@@ -2,7 +2,6 @@ import { useAuth } from "../../hooks/useAuth";
 
 export default function WalletDetailItem({deposit,amount,owner_status,rentee_status,createdAt,ownerId,renteeId}) {
   const { authUser } = useAuth();
-  console.log("🚀 ~ file: WalletDetailItem.jsx:5 ~ WalletDetailItem ~ authUser:", authUser.id)
   const rent = "Rent"
   const owner = "Owner"
   return (

@@ -1,17 +1,11 @@
 import { useEffect, useState } from 'react';
 import WalletDetailItem from './WalletDetailItem';
 import axios from '../../config/axios';
-import { useAuth } from '../../hooks/useAuth';
+
 
 export default function WalletDetail() {
-  const { authUser } = useAuth();
-  console.log("🚀 ~ file: WalletDetail.jsx:8 ~ WalletDetail ~ authUser:", authUser)
   const [rentee, setRentee] = useState([]);
-  console.log('🚀 ~ file: WalletDetail.jsx:7 ~ WalletDetail ~ rentee:', rentee);
   const [owner, setOwner] = useState([]);
-  console.log('🚀 ~ file: WalletDetail.jsx:9 ~ WalletDetail ~ owner:', owner);
-  
- 
 
   const getTransaciton = async () => {
     const getData = await axios.get('/transaction/get-order');
@@ -43,10 +37,7 @@ export default function WalletDetail() {
            <WalletDetailItem key={el.id} deposit={el.deposit} amount={el.amount} owner_status={el.owner_status} ownerId={el.ownerId} createdAt={el.createdAt} />
         ))}
 
-        {/* {authUser !== rentee
-          ? rentee.map((el) => <WalletDetailItem key={el.id} deposit={el.deposit} amount={el.amount} status={el.status} renteeId={el.renteeId} createdAt={el.createdAt} />)
-          : owner.map((el) => <WalletDetailItem key={el.id} deposit={el.deposit} amount={el.amount} status={el.status} ownerId={el.ownerId} createdAt={el.createdAt} />)} */}
-      </div>
+        </div>
     </div>
   );
 }

@@ -2,41 +2,32 @@ import { useEffect, useState } from 'react';
 import blank from '../../images/blank.png';
 import axios from '../../config/axios';
 import comfirm from '../../utils/sweetAlert/sweetAlert';
+import { useAuth } from '../../hooks/useAuth';
 
 export default function WalletBalance() {
+  const { authUser } = useAuth();
   const [balance, setBalance] = useState([]);
-  // console.log('🚀 ~ file: WalletBalance.jsx:8 ~ WalletBalance ~ balance:', balance);
   const [isLoading,setIsloading] = useState(false)
+  const [pendingRent,setPendingRent] = useState([])
 
-  const [pendingOwner,setPendingOwner] = useState({})
-  console.log("🚀 ~ file: WalletBalance.jsx:12 ~ WalletBalance ~ pendingOwner:", pendingOwner)
-  const [pendingRent,setPendingRent] = useState({})
-  console.log("🚀 ~ file: WalletBalance.jsx:14 ~ WalletBalance ~ pendingRent:", pendingRent)
-  const sumPending = pendingOwner + pendingRent
-  console.log("🚀 ~ file: WalletBalance.jsx:14 ~ WalletBalance ~ sumPending:", sumPending)
+
   const getPending = async () => {
     const getData = await axios.get('/transaction/get-pending');
-    setPendingOwner(getData.data.amountStatusOwner._sum)
-    setPendingRent(getData.data.amountStatusRentee._sum)
-    // setPending(getData.data.orderTransactionRentee);
+    setPendingRent(getData.data.sumOwnerAndRent)
   
   };
 
   const updateWithdraw = async () => {
     const result = await comfirm()
       if(result.isConfirmed){
-        console.log("🚀 ~ file: WalletBalance.jsx:14 ~ updateWithdraw ~ a :", result )
         const wallet = await axios.patch('/wallet/withdraw');
-        console.log(wallet);
-        console.log(wallet.data);
         setIsloading(true)
       }
   };
 
   const getBalance = async () => {
     const myWallet = await axios.get('/wallet/getWallet');
-    // console.log(myWallet);
-    // console.log(myWallet.data);
+
     setBalance(+myWallet.data.amount);
   };
 
@@ -61,7 +52,7 @@ export default function WalletBalance() {
 
           <div className="flex flex-col flex-1 justify-center">
             <span className="font-bold">Pending</span>
-            <span className="font-bold">฿ 3,550 </span>
+            <span className="font-bold">{pendingRent.toLocaleString()} </span>
           </div>
 
           {/* Blank */}
