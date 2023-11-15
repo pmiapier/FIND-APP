@@ -35,7 +35,7 @@ export default function CheckoutModel() {
   const [item, setItem] = useState({ user: '' });
   const getSingleItem = () => {
     axios.get(`/item/get-single-item/${id}`).then((response) => {
-      console.log('ourdata response', response.data);
+      // console.log('ourdata response', response.data);
       setItem(response.data);
     });
   };

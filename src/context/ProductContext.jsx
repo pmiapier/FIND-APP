@@ -31,14 +31,16 @@ export default function ProductContextProvider({ children }) {
         'Content-Type': 'multipart/form-data'
       };
       const response = await axios.patch(`/user/updateItem`, editedProduct, { headers });
+      // console.log(response.data);
       setMyProduct((prevItems) => {
-        return prevItems.map((item) => (item.id === editedProduct.id ? editedProduct : item));
+        console.log(prevItems);
+        return prevItems.map((item) => (item?.id === response.data?.id ? response.data : item));
       });
-      console.log('response', response.data);
+      // console.log('response', response.data);
     } catch (error) {
       console.error('Error saving changes: ', error);
     }
-    console.log('Saving changes to product:', editedProduct);
+    // console.log('Saving changes to product:', editedProduct);
   };
 
   const updateProductStatus = async (productId) => {
@@ -71,7 +73,7 @@ export default function ProductContextProvider({ children }) {
         const response = await axios.get('/user/my-product', {
           params: { userId: authUser.id }
         });
-        await setMyProduct(response.data);
+        setMyProduct(response.data);
       }
     } catch (error) {
       console.error('Error fetching my product data: ', error);
