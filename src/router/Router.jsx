@@ -38,7 +38,7 @@ const router = createBrowserRouter([
       { path: '/cancelled', element: <StripeCancelled /> },
       { path: '/myaccount', element: <MyAccountDetailPage /> },
       { path: '/my-rented-items', element: <MyRentedItemsPage /> },
-      { path: '/Chat', element: <ChatPage /> },
+      // { path: '/Chat', element: <ChatPage /> },
       { path: 'my-rental-items/item-dispute', element: <ItemDisputePage /> },
       { path: 'my-rented-items/item-dispute', element: <ItemDisputePage /> }
     ]

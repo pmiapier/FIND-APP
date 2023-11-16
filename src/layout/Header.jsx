@@ -31,12 +31,14 @@ const Header = () => {
               หมวดหมู่สินค้า
             </div>
           </Link>
-          <Link to="/Chat">
-            <div className="hover:cursor-pointer flex justify-center items-center gap-1">
-              <FaRegCommentAlt />
-              ข้อความ
-            </div>
-          </Link>
+
+          <div
+            onClick={() => onOpenModal('chatModal')}
+            className="hover:cursor-pointer flex justify-center items-center gap-1">
+            <FaRegCommentAlt />
+            ข้อความ
+          </div>
+
           {authUser ? (
             ''
           ) : (
