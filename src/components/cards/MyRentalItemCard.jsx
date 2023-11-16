@@ -94,10 +94,7 @@ export default function MyRentalItemCard({ data }) {
           </div>
         ) : (
           <div className="bg-readyToRent rounded-t-xl w-full h-full text-white px-10 py-5 flex flex-col justify-center items-center ">
-            <div>Rental</div>
-            <div>starts</div>
-            <div>in</div>
-            <div className="text-[30px]">{daysUntilStart} days</div>
+            <div className='flex'>Rental starts in <div className="mx-1 font-bold">{daysUntilStart} </div> days</div>
           </div>
         )}
       </div>
@@ -126,7 +123,7 @@ export default function MyRentalItemCard({ data }) {
           </div>
           <div className="  flex w-full justify-center items-center mt-5">
             <div className="flex gap-3">
-              <Button text={'Send Message '} className={'bg-messageButton hover:bg-hoverMessageButton w-52'} />
+
               {ownerStatus === 'pending_delivery' && renteeStatus !== 'awaiting_payment' ? (
                 <Button
                   text={'Confirm Item Delivery'}
@@ -178,6 +175,7 @@ export default function MyRentalItemCard({ data }) {
                   className={'bg-primaryButton hover:bg-hoverPrimaryButton w-52'}
                 />
               ) : null}
+              <Button text={'Send Message '} className={'bg-messageButton hover:bg-hoverMessageButton w-52'} />
               <div onClick={() => onOpenModal('itemDisputeModal')}>
                 <Button icon1={true} text={'Item Dispute'} className={'bg-red-500 hover:bg-red-700 w-52'} />
               </div>
