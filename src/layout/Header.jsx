@@ -1,4 +1,4 @@
-import {  FaRegUserCircle, FaRegCommentAlt, FaBars } from 'react-icons/fa';
+import { FaRegUserCircle, FaRegCommentAlt, FaBars } from 'react-icons/fa';
 import logo from '../images/FindLogo.png';
 import { useModal } from '../hooks/useModal';
 import Dropdown from './Dropdown';
@@ -10,9 +10,9 @@ const Header = () => {
   const { authUser } = useAuth();
   return (
     <div className=" flex justify-center items-center w-full h-[85px] bg-white drop-shadow-xl">
-      <div className="flex justify-evenly items-center gap-[100px] w-full">
+      <div className="flex justify-between px-[170px] items-center w-full">
         <Link to="/">
-          <img src={logo} className="w-[130px]" />
+          <img src={logo} className="w-[160px]" />
         </Link>
         <div className="flex items-center justify-center gap-5">
           <Link to="/product-listing">
@@ -21,14 +21,12 @@ const Header = () => {
               Cagetory
             </div>
           </Link>
-
           <div
             onClick={() => onOpenModal('chatModal')}
             className="hover:cursor-pointer flex justify-center items-center gap-1">
             <FaRegCommentAlt />
             Message
           </div>
-
           {authUser ? (
             ''
           ) : (

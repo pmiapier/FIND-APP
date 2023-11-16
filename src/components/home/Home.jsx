@@ -28,7 +28,7 @@ const Home = () => {
     return data;
   };
   return (
-    <div className="mx-auto grid w-5/6 gap-4">
+    <div className="mx-auto grid w-5/6 gap-4 mt-8">
       <div className="grid grid-cols-2 ">
         <img src={one} className="w-full" />
         <div className="grid grid-cols-2 gap-4">
@@ -54,7 +54,7 @@ const Home = () => {
       </div>
 
       <div className="font-extrabold text-lg pl-4">
-      Recommended Items
+        Recommended Items
       </div>
 
       <div className="grid grid-cols-4 gap-4 mt-2">
