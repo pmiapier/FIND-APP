@@ -59,68 +59,74 @@ export default function MyRentalItemCard({ data }) {
         console.log('error from handleDelivery');
       }
 
-      
-        // await axios.post(`/transaction/createTransaction`, { rentId: data.id })
-   
+
+      // await axios.post(`/transaction/createTransaction`, { rentId: data.id })
+
     } catch (error) {
       console.log(error)
     }
   };
 
-  const handleReturned = async() => {
+  const handleReturned = async () => {
     try {
       const res = await axios.post(`/rent/changeOwnerStatus`, { rentId: data.id, status: 'completed' }).then(() => {
         setStatus('renting');
         setOwnerStatus('completed');
       });
-  
+
       if (!res) {
         console.log('error from handleDelivery');
       }
       await axios.post(`/transaction/createTransaction`, { rentId: data.id })
-      
+
     } catch (error) {
       console.log(error)
     }
   };
 
   return (
-    <div className="bg-white flex justify-center items-center gap-5 py-5">
-      <div className="w-60 h-40 overflow-hidden rounded-lg">
-      {pic ? <img className="rounded-sm" src={pic} alt="item" /> : null}
+    <div className="bg-red-500 w-[1100px] h-[400px] flex justify-center flex-col rounded-b-xl gap-5">
 
+      <div className="">
+        {startRentDate <= dateNow ? (
+          <div className="bg-orange rounded-t-xl w-full h-[10px] text-white px-10 py-5 flex justify-center items-center ">
+            <div className='flex' >Must Return the item in <div className="text-[30px]">{diffDate}</div> days</div>
+          </div>
+        ) : (
+          <div className="bg-readyToRent rounded-t-xl text-white px-10 py-5 flex flex-col justify-center items-center ">
+            <div>Rental</div>
+            <div>starts</div>
+            <div>in</div>
+            <div className="text-[30px]">{daysUntilStart} days</div>
+          </div>
+        )}
       </div>
 
-      <div className="py-5">
-        <div>#orderNo</div>
-        <div>{data.item.title}</div>
-        <div className="flex gap-2">
-          <div>Item ID</div>
-          <div>{data.item.id}</div>
+
+      <div className="flex gap-5">
+        <div className="w-60 h-40 overflow-hidden rounded-lg">
+          {pic ? <img className="rounded-sm" src={pic} alt="item" /> : null}
+
         </div>
-        <div>Item Status:</div>
-        <ItemStatus text={status} />
-        <div className="flex gap-2">
-          <div>Item Owner</div>
-          <div>{data.owner.firstName}</div>
+
+        <div className="py-5">
+          <div>#orderNo</div>
+          <div>{data.item.title}</div>
+          <div className="flex gap-2">
+            <div>Item ID</div>
+            <div>{data.item.id}</div>
+          </div>
+          <div>Rental Status:</div>
+          <ItemStatus text={status} />
+          <div className="flex gap-2">
+            <div>Item Owner</div>
+            <div>{data.owner.firstName}</div>
+          </div>
         </div>
       </div>
 
-      {startRentDate <= dateNow ? (
-        <div className="bg-orange text-white px-10 py-5 rounded-lg flex flex-col justify-center items-center ">
-          <div>Must Return</div>
-          <div>the item</div>
-          <div>in</div>
-          <div className="text-[30px]">{diffDate} days</div>
-        </div>
-      ) : (
-        <div className="bg-readyToRent text-white px-10 py-5 rounded-lg flex flex-col justify-center items-center ">
-          <div>Rental</div>
-          <div>starts</div>
-          <div>in</div>
-          <div className="text-[30px]">{daysUntilStart} days</div>
-        </div>
-      )}
+
+
 
       <div className="border-2 border-gray-100 flex flex-col gap-1 px-10 py-5 rounded-lg text-center">
         {/* <div className="flex justify-between">
