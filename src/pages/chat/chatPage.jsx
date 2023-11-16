@@ -34,8 +34,8 @@ export default function ChatPage() {
             socket.disconnect()
         }
     }, [input])
-    console.log('currentUser:', currentUser)
-    console.log('onlineUsers:', onlineUsers)
+    // console.log('currentUser:', currentUser)
+    // console.log('onlineUsers:', onlineUsers)
     return (
         <>
             {isOpenModal && modalType === "chatModal" && (

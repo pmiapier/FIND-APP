@@ -1,5 +1,5 @@
-import ProductCard from '../../components/cards/ProductCard';
-import { Link, useLocation } from 'react-router-dom';
+import ProductCard from '../../components/checkout/ProductCard';
+import { Link, useLocation, useParams, useSearchParams } from 'react-router-dom';
 import InputField from '../../components/inputs/InputField';
 import Pagination from '../../components/others/Pagination';
 import { useProduct } from '../../hooks/useProduct';
@@ -8,21 +8,29 @@ import axios from '../../config/axios';
 
 export default function ProductListingPage() {
   const [product, setProduct] = useState([]);
-  const [allPage, setAllPage] = useState(1);
-  const [page, setPage] = useState(1);
-  const [category, setCategory] = useState(null);
-  const { categoryList } = useProduct();
+  const [allPage, setAllPage] = useState();
+  // const [page, setPage] = useState(1);
+  // const [category, setCategory] = useState();
+
+  const { categoryList, category, setCategory, page, setPage } = useProduct();
   const [countItems, setCountItems] = useState(1);
+
+  let search = useLocation().search;
+  console.log(category);
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const handlePriceChange = (e) => {};
 
   useEffect(() => {
-    fetchProducts();
+    setSearchParams({ categories: category, page });
   }, [page, category]);
+  useEffect(() => {
+    fetchProducts();
+  }, [searchParams]);
 
   const fetchProducts = async () => {
     try {
-      const query = `/item/productListing?page=${page}` + (category ? `&categories=${category}` : '');
+      const query = `/item/productListing${search}`;
       const res = await axios.get(query);
       setAllPage(Math.ceil(res.data.count._count?.id / 15));
       setProduct(res.data.item);
@@ -62,11 +70,15 @@ export default function ProductListingPage() {
               <div className="pl-2">
                 <ul className="space-y-1">
                   {categoryList.map((el, idx) => (
-                    <li className="text-blue-500 hover:text-blue-900 hover:underline" key={idx}>
-                      <Link to="#" onClick={() => setCategory(el)}>
+                    <li className="text-blue-500 hover:text-blue-900 hover:underline cursor-pointer" key={idx}>
+                      <div
+                        onClick={(e) => {
+                          setPage(1);
+                          setCategory(el);
+                        }}
+                      >
                         {el}
-                      </Link>
-                      <span className="text-xs p-1 text-gray-500">(147)</span>
+                      </div>
                     </li>
                   ))}
                 </ul>

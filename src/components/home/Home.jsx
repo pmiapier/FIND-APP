@@ -1,28 +1,31 @@
-import { useEffect, useState } from "react";
-import one from "../../images/1.png";
-import two from "../../images/2.png";
-import three from "../../images/3.png";
-import four from "../../images/4.png";
-import col21 from "../../images/col21.png";
-import col22 from "../../images/col22.png";
-import col23 from "../../images/col23.png";
-import col24 from "../../images/col24.png";
-import col25 from "../../images/col25.png";
-import col26 from "../../images/col26.png";
-import axios from "../../config/axios";
-import ProductCard from "../cards/ProductCard";
+import { useEffect, useState } from 'react';
+import one from '../../images/1.png';
+import two from '../../images/2.png';
+import three from '../../images/3.png';
+import four from '../../images/4.png';
+import col21 from '../../images/col21.png';
+import col22 from '../../images/col22.png';
+import col23 from '../../images/col23.png';
+import col24 from '../../images/col24.png';
+import col25 from '../../images/col25.png';
+import col26 from '../../images/col26.png';
+import axios from '../../config/axios';
+import ProductCard from '../checkout/ProductCard';
+import { Link } from 'react-router-dom';
+import { useProduct } from '../../hooks/useProduct';
 
 const Home = () => {
   const [allItem, setAllItem] = useState([]);
+  const {category,setCategory} = useProduct()
 
   useEffect(() => {
     getAllItem();
   }, []);
 
-  console.log(allItem);
+  // console.log(allItem);
   const getAllItem = async () => {
     const data = await axios
-      .get("/item")
+      .get('/item')
       .then((res) => setAllItem(res.data))
       .catch((error) => console.log(error));
     return data;
@@ -30,32 +33,50 @@ const Home = () => {
   return (
     <div className="mx-auto grid w-5/6 gap-4">
       <div className="grid grid-cols-2 ">
-        <img src={one} className="w-full" />
+        <Link to={`/product-listing`} onClick={()=>setCategory(`sport`)}>
+          <img src={one} className="w-full" />
+        </Link>
         <div className="grid grid-cols-2 gap-4">
-          <img src={two} className="w-full h-full" />
+          <Link to={`/product-listing`} onClick={()=>setCategory(`Electronics`)} >
+            <img src={two} className="w-full h-full" />
+          </Link>
           <div className="grid gap-4">
-            <img src={three} className="w-full" />
-            <img src={four} className="w-full" />
+            <Link to={`/product-listing`} onClick={()=>setCategory(`Appliances`)}>
+              <img src={three} className="w-full" />
+            </Link>
+            <Link to={`/product-listing`} onClick={()=>setCategory(`Tools`)}>
+              <img src={four} className="w-full" />
+            </Link>
           </div>
         </div>
       </div>
 
       <div className="grid grid-cols-2 gap-4">
         <div className="grid grid-cols-3 gap-4">
-          <img src={col21} className="w-full" />
-          <img src={col22} className="w-full" />
-          <img src={col23} className="w-full" />
+          <Link to={`/product-listing`} onClick={()=>setCategory(`Baby`)}>
+            <img src={col21} className="w-full" />
+          </Link>
+          <Link to={`/product-listing`} onClick={()=>setCategory(`Books`)}>
+            <img src={col22} className="w-full" />
+          </Link>
+          <Link to={`/product-listing`} onClick={()=>setCategory(`Camping`)}>
+            <img src={col23} className="w-full" />
+          </Link>
         </div>
         <div className="grid grid-cols-3 gap-4">
-          <img src={col24} className="w-full" />
-          <img src={col25} className="w-full" />
-          <img src={col26} className="w-full" />
+          <Link to={`/product-listing`} onClick={()=>setCategory(`Hiking`)}>
+            <img src={col24} className="w-full" />
+          </Link>
+          <Link to={`/product-listing`} onClick={()=>setCategory(`Clothing`)}>
+            <img src={col25} className="w-full" />
+          </Link>
+          <Link to={`/product-listing`} onClick={()=>setCategory(`Vehicles`)}>
+            <img src={col26} className="w-full" />
+          </Link>
         </div>
       </div>
 
-      <div className="font-extrabold text-lg pl-4">
-        รายการแน่ะนำสำหรับคุณโดยเฉพาะ
-      </div>
+      <div className="font-extrabold text-lg pl-4">รายการแน่ะนำสำหรับคุณโดยเฉพาะ</div>
 
       <div className="grid grid-cols-4 gap-4 mt-2">
         {allItem.map((el) => (
