@@ -12,7 +12,7 @@ export default function MyProductPage() {
   const { editProduct, myProduct, setMyProduct, getMyProductData } = useProduct();
 
   const loc = useLocation();
-  console.log(loc);
+
 
   const handleDeleteItem = async (itemId) => {
     try {
@@ -73,7 +73,7 @@ export default function MyProductPage() {
 
       <div className="grid grid-cols-2 gap-6 justify-around">
         {myProduct.map((product) => {
-          console.log(product)
+
           return (
             <MyItemCard
               key={product.id}

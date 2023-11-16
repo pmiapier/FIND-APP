@@ -3,11 +3,7 @@ import Joi from 'joi';
 import { useModal } from '../hooks/useModal';
 import InputFromUser from '../components/inputs/inputFromUser';
 import { useAuth } from '../hooks/useAuth';
-import { FcGoogle } from 'react-icons/fc';
-import { BiLogoFacebook } from 'react-icons/bi';
 import Logo from '../images/imgRegister.png';
-import axios from 'axios';
-import { getAccessToken, removeAccessToken, addAccessToken } from '../utils/local-storage';
 
 const registerSchema = Joi.object({
   firstName: Joi.string().trim().required().messages({
@@ -72,7 +68,6 @@ export default function RegisterModal() {
     password: '',
     confirmPassword: ''
   });
-  // console.log(error);
 
   const handleChangeInput = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
@@ -82,7 +77,6 @@ export default function RegisterModal() {
 
     setError({});
     const validationError = validateRegister(input);
-    // console.log(validationError)
     if (validationError) {
       return setError(validationError);
     }
@@ -114,16 +108,13 @@ export default function RegisterModal() {
               <img src={Logo} className="w-[50%]" />
               <div className="flex flex-col items-center w-[50%] h-full p-10 pt-[80px]">
                 <div className="flex flex-col justify-start w-full">
-                  <div className="text-[40px]  font-bold">สมัครสมาชิก</div>
+                  <div className="text-[40px]  font-bold">Register</div>
                   <div className="flex gap-1 ">
-                    <div className="">เป็นสมาชิกอยู่แล้ว?</div>
-                    <div className="text-blue-600 font-bold hover:cursor-pointer">เข้าสู่ระบบ</div>
+                    <div className="">Already a member?</div>
+                    <div className="text-blue-600 font-bold hover:cursor-pointer" onClick={() => onOpenModal("loginModal")}>Login</div>
                   </div>
                 </div>
-                <div className="mt-[100px] mb-[20px] w-[50%] relative flex   h-px place-items-center bg-gray-300">
-                  <div className="absolute left-1/2 h-5 -translate-x-1/2 bg-white px-4 text-center text-sm text-gray-500">
-                    หรือ
-                  </div>
+                <div className="mt-[80px] relative flex place-items-center bg-gray-300">
                 </div>
 
                 <form className="w-[90%]" onSubmit={handleSubmitForm}>

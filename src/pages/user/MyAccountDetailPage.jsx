@@ -55,7 +55,7 @@ export default function MyAccountDetailPage() {
               text={'Change password'}
               className={'border border-1 border-black w-full'}
             />
-            <ButtonAccount text={'Two-factor authentication'} className={'border border-1 border-black w-full'} />
+          
           </div>
         </div>
       </div>

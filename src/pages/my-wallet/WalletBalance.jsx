@@ -40,13 +40,13 @@ export default function WalletBalance() {
     <>
       {/* ยอดเงิน */}
       <div className="flex flex-col gap-2 bg-white p-4 border  w-[200vh] ">
-        <span className="font-bold">ภาพรวมยอดเงิน</span>
+        <span className="font-bold">Over view</span>
         <div className="flex  border-2 flex-1 ">
           <div className="flex flex-col gap-2 flex-1 p-2">
             <span>FIND Balance</span>
             <div className="flex gap-4">
               <span className="font-bold">฿ {balance.toLocaleString()} </span>
-              <button className="bg-red-500 w-20 rounded-md text-white hover:bg-red-600" onClick={updateWithdraw}>ถอนเงิน</button>
+              <button className="bg-red-500 w-20 rounded-md text-white hover:bg-red-600" onClick={updateWithdraw}>Withdraw</button>
             </div>
           </div>
 
@@ -56,11 +56,11 @@ export default function WalletBalance() {
           </div>
 
           {/* Blank */}
-          <div className="flex flex-col p-2 gap-2 flex-1">
-            <span>บัญชีธนาคารของฉัน</span>
+          <div className="flex flex-col justify p-2 gap-2 flex-1">
+            <span>My Bank Account</span>
             <div className="flex gap-2">
               <img src={blank} alt="blank" />
-              <div>กสิกรไทย (Kbank) 491-30129-2</div>
+              <div className='flex justify-center items-center'>KASIKORN BANK (Kbank) 491-30129-2</div>
             </div>
           </div>
         </div>

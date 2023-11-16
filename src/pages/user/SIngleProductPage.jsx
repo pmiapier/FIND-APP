@@ -3,6 +3,8 @@ import { useParams } from 'react-router-dom';
 import axios from '../../config/axios';
 import { useEffect, useState } from 'react';
 import { formatDate } from '../../utils/dates';
+import {MdPinDrop  } from "react-icons/md";
+import { RxAvatar } from "react-icons/rx";
 import { socket } from '../chat/confic/socket';
 import { useAuth } from '../../hooks/useAuth';
 import { useNavigate } from "react-router-dom";
@@ -40,13 +42,13 @@ export default function SingleProductPage() {
         <div className="flex space-y-4 flex-col ">
           <h1 className="text-5xl font-bold">{item.title}</h1>
           <div className="bg-[#fafafa] h-[80px] p-2">
-            <p>สำหรับการเช่า</p>
+            <p>Renting For</p>
             <p className="text-5xl font-bold pl-4">
               ฿{item.price}
-              <span className="text-2xl">/วัน</span>
+              <span className="text-2xl">/Day</span>
             </p>
           </div>
-          <p className="font-bold text-2xl">รายละเอียดสินค้า</p>
+          <p className="font-bold text-2xl">Detail Product</p>
           <div className="p-2">
             <div dangerouslySetInnerHTML={{ __html: item.description }} />
           </div>
@@ -55,7 +57,7 @@ export default function SingleProductPage() {
               onClick={() => onOpenModal('checkoutModal', id)}
               className="bg-blue-500 text-white w-6/12 p-4 rounded-md"
             >
-              เช่าเลย!
+              Rent Now
             </button>
             <button
               onClick={() => {
@@ -65,42 +67,43 @@ export default function SingleProductPage() {
                 toggleInputChat()
               }}
               className="bg-gray-400 text-white w-3/12 p-4 rounded-md">
-              ส่งข้อความ
+              Send Message
             </button>
           </div>
           <hr />
           <div className="grid grid-cols-2">
             <div className="space-y-2">
-              <p className="font-bold text-lg">ข้อมูลสินค้า</p>
+              <p className="font-bold text-lg">Product Information</p>
               <div className="flex gap-4 items-center">
-                <div className="w-[32px] h-[32px] bg-blue-500"></div>
-                <p className="text-blue-500 text-lg">1110, พระโขนง</p>
+                <div className="text-3xl"><MdPinDrop /></div>
+                <p className="text-blue-500 text-lg">1110, Phra Khanong</p>
               </div>
               <div className="flex gap-4">
-                <p className="w-20">รหัสสินค้า</p>
+                <p className="w-30">Code Product</p>
                 <p className="text-gray-500">{item.id}</p>
               </div>
               <div className="flex gap-4">
-                <p className="w-20">อัพเดทเมื่อ</p>
+                <p className="w-20">Update At</p>
                 <p className="text-gray-500">{formatDate(item.updatedAt)}</p>
               </div>
             </div>
             <div className="space-y-2">
-              <p className="font-bold text-lg">ผู้ลงสินค้า</p>
+              <p className="font-bold text-lg">Owner Product</p>
               <div className="flex gap-4 items-center">
-                <div className="w-[32px] h-[32px] bg-blue-500"></div>
+                <div className="text-3xl"><RxAvatar /></div>
+                
                 <p className="text-blue-500 text-lg">{item.user}</p>
               </div>
-              <div className="flex">
-                <p className="w-20 text-xs">เป็นสมาชิกเมื่อ</p>
-                <span className="text-xs text-gray-500"> 2ปี 4ด</span>
+              <div className="flex gap-2">
+                <p className="w-30 text-xs">Become a member</p>
+                <span className="text-xs text-gray-500"> 2y 4m</span>
               </div>
             </div>
           </div>
           <hr />
-          <div className="flex space-x-2">
-            <p>มีบางอย่างผิดปกติ?</p>
-            <p className="text-blue-500 font-bold">แจ้งให้ FIND ตรวจสอบ</p>
+          <div className="flex space-x-2 " >
+            <p>There's Something Wrong?</p>
+            <p className="text-blue-500 font-bold" role='button'>Report this issue to FIND</p>
           </div>
         </div>
         <div className="space-y-4">
@@ -146,16 +149,6 @@ export default function SingleProductPage() {
               />
             </div>
           </div>
-        </div>
-      </div>
-      <div className="w-full bg-white p-6 rounded-md space-x-6 shadow">
-        <p className="font-bold text-lg">คุณอาจจะชอบสิ่งนี้</p>
-        <div className="grid grid-cols-5">
-          <div>Product Card</div>
-          <div>Product Card</div>
-          <div>Product Card</div>
-          <div>Product Card</div>
-          <div>Product Card</div>
         </div>
       </div>
     </div>

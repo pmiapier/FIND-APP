@@ -42,7 +42,6 @@ export default function AddProductPage() {
 
     setSelectedImages((previousImages) => previousImages.concat(imagesArray));
     setSelectedFiles((prevFiles) => [...prevFiles, ...selectedFilesFromInput]);
-    console.log('selectedFiles', selectedFiles);
   };
 
   const handleInput = (e) => {
