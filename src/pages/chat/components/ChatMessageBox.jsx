@@ -4,15 +4,16 @@ import { FaPaperclip } from 'react-icons/fa';
 import data from '@emoji-mart/data'
 import Picker from '@emoji-mart/react'
 import { socket } from '../confic/socket';
+import AvatarInMessage from './AvatarInMessage';
 
-export default function ChatMessageBox({ input, currentUser }) {
+export default function ChatMessageBox({ input, currentUser, showInputChat, setShowInputChat }) {
     const [currentMessage, setCurrentMessage] = useState(``)
     const [messageList, setMessageList] = useState([])
     const [chatroom, setChatroom] = useState(``)
     const [type, setType] = useState(``)
     const [inputText, setInputText] = useState(``)
     const [inputShowImg, setInputShowImg] = useState(``)
-    // console.log(currentUser, "5555")
+
     // 👇 Scroll To Bottom 👇
     const messageInputRef = useRef();
     useEffect(() => {
@@ -22,7 +23,6 @@ export default function ChatMessageBox({ input, currentUser }) {
     // 👇 Send Message 👇
     const sendMessage = async () => {
         if (currentMessage !== ``) {
-            // console.log(chatroom, "sendRoom")
             const messageData = {
                 chatroom,
                 to: currentUser.userId,
@@ -111,7 +111,6 @@ export default function ChatMessageBox({ input, currentUser }) {
     // 👇 Socket.io Get => room id / all chat / receive message 👇
     useEffect(() => {
         socket.on(`room_id`, (data) => {
-            // console.log(data.id, "room")
             setChatroom(data.id)
         });
         socket.on('disconnect', () => {
@@ -161,7 +160,7 @@ export default function ChatMessageBox({ input, currentUser }) {
                         {message.type === `message` ? <div>{message.message}</div> : <img className='rounded-xl' src={message.message} />}
                     </div>
                     <div className={`flex items-end text-[12px] ${timePosition}`}>{formattedTime}</div>
-                    {message.sender !== input.sender && (<div className=' -order-1 mr-2'> {currentUser.firstName}</div>)}
+                    {message.sender !== input.sender && (<div className=' -order-1 mr-2'> <AvatarInMessage /></div>)}
                 </div>
             );
         });
@@ -178,16 +177,19 @@ export default function ChatMessageBox({ input, currentUser }) {
                 <div className='flex relative' >
                     {showEmoji && <div ref={refEmoji} className="absolute bottom-[45px] left-0"><Picker data={data} onEmojiSelect={addEmoji} /></div>}
                 </div>
-                <div className="flex w-full relative">
-                    <button className="absolute bottom-[8px] flex left-2" onClick={() => setShowEmoji(!showEmoji)}><BsEmojiLaughing className='text-[25px] text-gray-400' /></button>
-                    <input type="file" onChange={handleImg} className='hidden' ref={inputImg}></input>
-                    <button className="absolute bottom-[8px] flex left-[40px]" onClick={() => inputImg.current.click()} ><FaPaperclip className='text-[24px] text-gray-400' /></button>
-                    <input type="text" onKeyPress={handleNewMessage} placeholder="Type a message..." value={inputText} onChange={handleInput} className="w-full p-2 pl-[70px] border rounded" />
-                </div>
-                <button
-                    onClick={sendMessage}
-                    className="bg-blue-500 text-white p-2 ml-2 rounded-lg"
-                >Send</button>
+                {showInputChat && (<>
+                    <div className="flex w-full relative">
+                        <button className="absolute bottom-[8px] flex left-2" onClick={() => setShowEmoji(!showEmoji)}><BsEmojiLaughing className='text-[25px] text-gray-400' /></button>
+                        <input type="file" onChange={handleImg} className='hidden' ref={inputImg}></input>
+                        <button className="absolute bottom-[8px] flex left-[40px]" onClick={() => inputImg.current.click()} ><FaPaperclip className='text-[24px] text-gray-400' /></button>
+                        <input type="text" onKeyPress={handleNewMessage} placeholder="Type a message..." value={inputText} onChange={handleInput} className="w-full p-2 pl-[70px] border rounded" />
+                    </div>
+                    <button
+                        onClick={sendMessage}
+                        className="bg-blue-500 text-white px-3 rounded-lg">
+                        Send
+                    </button>
+                </>)}
             </div>
         </div >
     )

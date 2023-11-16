@@ -6,13 +6,11 @@ import { formatDate } from '../../utils/dates';
 import { socket } from '../chat/confic/socket';
 import { useAuth } from '../../hooks/useAuth';
 import { useNavigate } from "react-router-dom";
-
-
 export default function SingleProductPage() {
   const { onOpenModal } = useModal();
   let { id } = useParams();
   const [item, setItem] = useState({ user: '' });
-  const { authUser, setCurrentUser } = useAuth();
+  const { authUser, setCurrentUser, setShowInputChat } = useAuth();
   const navigate = useNavigate();
   const getSingleItem = () => {
     axios.get(`/item/get-single-item/${id}`).then((response) => {
@@ -22,9 +20,11 @@ export default function SingleProductPage() {
   function handleClickNavigateToChat() {
     navigate("/chat");
   }
+  const toggleInputChat = () => {
+    setShowInputChat(true);
+  };
   const handleJoinRoom = () => {
     if (authUser) {
-      // Emit join_room event
       socket.emit('join_room', {
         sender: authUser.id,
         receiver: item.ownerId,
@@ -59,9 +59,10 @@ export default function SingleProductPage() {
             </button>
             <button
               onClick={() => {
-                handleClickNavigateToChat()
-                handleJoinRoom()
-                setCurrentUser({ fullName: item.user })
+                onOpenModal('chatModal');
+                handleJoinRoom();
+                setCurrentUser({ fullName: item.user });
+                toggleInputChat()
               }}
               className="bg-gray-400 text-white w-3/12 p-4 rounded-md">
               ส่งข้อความ

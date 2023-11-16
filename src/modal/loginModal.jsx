@@ -20,7 +20,7 @@ const loginSchema = Joi.object({
         .min(6).max(20)
         .messages({
             "string.empty": "Password is required",
-            "string.pattern.base":"Incorrect password."
+            "string.pattern.base": "Incorrect password."
         }),
 });
 
@@ -64,9 +64,9 @@ export default function LoginModal() {
         login(input)
             .then((x) => {
                 if (x === `user not found`) {
-                    setError({email:`user not found`})
+                    setError({ email: `user not found` })
                 } else if (x === `wrong password`) {
-                    setError({password:`wrong password`})
+                    setError({ password: `wrong password` })
                 } else if (x === `success`) onCloseModal();
             })
             .catch((err) => {
@@ -149,7 +149,7 @@ export default function LoginModal() {
                                             </div>
                                         </div>
                                     </div>
-                                        <div>{error.password && <p className="text-red-500">{error.password}</p>}</div>
+                                    <div>{error.password && <p className="text-red-500">{error.password}</p>}</div>
                                     <div className="flex justify-end text-gray-500 hover:cursor-pointer">ลืมรหัสผ่าน?</div>
                                     <button className="px-4 py-2 my-2 w-[30%] bg-blue-500 border-2 border-blue-500 hover:border-blue-500 hover:bg-gray-100 hover:text-blue-500 text-white rounded-lg text-[20px]">
                                         เข้าสู่ระบบ

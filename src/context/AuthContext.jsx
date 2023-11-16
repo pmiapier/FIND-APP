@@ -9,6 +9,7 @@ export default function AuthContextProvider({ children }) {
   const [authUser, setAuthUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [currentUser, setCurrentUser] = useState('')
+  const [showInputChat, setShowInputChat] = useState(false)
   useEffect(() => {
     if (getAccessToken()) {
       axios
@@ -63,7 +64,8 @@ export default function AuthContextProvider({ children }) {
         login,
         isLoading,
         logout,
-        setAuthUser, currentUser, setCurrentUser
+        setAuthUser, currentUser, setCurrentUser,
+        showInputChat, setShowInputChat
       }}
     >
       {children}
