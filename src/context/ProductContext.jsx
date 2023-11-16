@@ -32,28 +32,24 @@ export default function ProductContextProvider({ children }) {
         'Content-Type': 'multipart/form-data'
       };
       const response = await axios.patch(`/user/updateItem`, editedProduct, { headers });
-      // console.log(response.data);
       setMyProduct((prevItems) => {
-        console.log(prevItems);
         return prevItems.map((item) => (item?.id === response.data?.id ? response.data : item));
       });
-      // console.log('response', response.data);
+ 
     } catch (error) {
       console.error('Error saving changes: ', error);
     }
-    // console.log('Saving changes to product:', editedProduct);
+  
   };
 
   const updateProductStatus = async (productId) => {
     try {
       const response = await axios.patch(`/user/updateItemStatus/`, { productId });
-      // setMyProduct((prevItems) => prevItems.map((item) => (item.id === productId ? response.data : item)));
       getMyProductData();
     } catch (error) {
       console.log('Error updating status: ', error);
     }
   };
-  //####
 
   const getItems = () => {
     axios.get('/item').then((response) => {

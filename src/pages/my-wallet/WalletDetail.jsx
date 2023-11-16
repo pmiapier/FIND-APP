@@ -21,12 +21,12 @@ export default function WalletDetail() {
 
   return (
     <div className="flex flex-col border p-4 w-[200vh]">
-      <div className="font-bold">รายละเอียดรายรับของฉัน</div>
+      <div className="font-bold">Transaction Detail</div>
       <div className="flex justify-between bg-gray-200 p-2">
-        <span className="flex flex-1 font-bold">เลขที่ออเดอร์</span>
-        <span className="flex flex-1 font-bold">วันที่ทำการโอนเงิน</span>
-        <span className="flex flex-1 font-bold">สถานะ</span>
-        <span className="flex flex-1 font-bold">จำนวนเงินที่ได้รับ</span>
+        <span className="flex flex-1 font-bold">Order Number</span>
+        <span className="flex flex-1 font-bold">Date of transaction</span>
+        <span className="flex flex-1 font-bold">Status</span>
+        <span className="flex flex-1 font-bold">Amount</span>
         <span className="flex flex-1 font-bold">Role</span>
       </div>
       <div> 

@@ -22,7 +22,6 @@ const Home = () => {
     getAllItem();
   }, []);
 
-  // console.log(allItem);
   const getAllItem = async () => {
     const data = await axios
       .get('/item')
@@ -31,7 +30,7 @@ const Home = () => {
     return data;
   };
   return (
-    <div className="mx-auto grid w-5/6 gap-4">
+    <div className="mx-auto grid w-5/6 gap-4 mt-8">
       <div className="grid grid-cols-2 ">
         <Link to={`/product-listing`} onClick={()=>setCategory(`sport`)}>
           <img src={one} className="w-full" />
@@ -76,7 +75,9 @@ const Home = () => {
         </div>
       </div>
 
-      <div className="font-extrabold text-lg pl-4">รายการแน่ะนำสำหรับคุณโดยเฉพาะ</div>
+      <div className="font-extrabold text-lg pl-4">
+        Recommended Items
+      </div>
 
       <div className="grid grid-cols-4 gap-4 mt-2">
         {allItem.map((el) => (
@@ -87,37 +88,37 @@ const Home = () => {
       <div className="grid grid-cols-4 gap-3 mb-6">
         <div className="grid grid-cols-2 border-2 rounded-xl p-4">
           <div className="">
-            <p className="text-[32px] font-bold"> 4,787</p>
+            <p className="text-[32px] font-bold"> 31</p>
           </div>
           <div className="flex gap-1 flex-col">
-            <p className="text-[16px] text-green-700">+187</p>
-            <p className="text-[11px]">จากสัปดาห์ที่แล้ว</p>
+            <p className="text-[16px] text-green-700">+31</p>
+            <p className="text-[11px]">Today</p>
           </div>
           <div>
-            <p className="font-bold"> จำนวนสมาชิกของ FIND</p>
+            <p className="font-bold"> Our FIND Member</p>
           </div>
         </div>
         <div className="grid grid-cols-2 border-2 rounded-xl p-4">
           <div className="">
-            <p className="text-[32px] font-bold"> 4,787</p>
+            <p className="text-[32px] font-bold"> 220</p>
           </div>
           <div className="flex gap-1 flex-col">
-            <p className="text-[16px] text-green-700">+187</p>
-            <p className="text-[11px]">จากสัปดาห์ที่แล้ว</p>
+            <p className="text-[16px] text-green-700">+220</p>
+            <p className="text-[11px]">Last week</p>
           </div>
           <div>
-            <p className="font-bold"> จำนวนสมาชิกของ FIND</p>
+            <p className="font-bold"> Our FIND Member</p>
           </div>
         </div>
 
         <div className="flex font-semibold col-span-2 border-2 rounded-lg">
           <div className="w-[60%] p-10 text-2xl">
-            <h1>มีสินค้าที่ไม่ค่อยได้ใช้ แต่ไม่อยากขาย?</h1>
-            <h1>สร้างรายได้กับเรา</h1>
+            <h1>No need to buy, No need to sell,</h1>
+            <h1>start making profit out of your items with FIND</h1>
           </div>
           <div className="w-[40%] ">
             <div className="bg-red-600 rounded-lg text-white h-full flex justify-center items-center">
-              <h1 className="">คลิกเพื่อปล่อยเช่าสินค้าของคุณ</h1>
+              <h1 className="">Begin Your Rental Journey.</h1>
             </div>
           </div>
         </div>

@@ -12,9 +12,10 @@ import StripeCancelled from '../components/checkout/stripe-checkout/StripeCancel
 import MyAccountDetailPage from '../pages/user/MyAccountDetailPage';
 import MyRentedItemsPage from '../pages/user/MyRentedItemsPage';
 import ChatPage from '../pages/chat/chatPage';
-import ItemDisputePage from '../pages/user/ItemDisputePage';
+
 import AddProductPage from '../pages/user/AddProductPage';
 import EditProductPage from '../pages/user/EditProductPage';
+import ItemDisputePage from '../modal/ItemDisputePage';
 
 const router = createBrowserRouter([
   {
@@ -40,7 +41,6 @@ const router = createBrowserRouter([
       { path: '/my-rented-items', element: <MyRentedItemsPage /> },
       // { path: '/Chat', element: <ChatPage /> },
       { path: 'my-rental-items/item-dispute', element: <ItemDisputePage /> },
-      { path: 'my-rented-items/item-dispute', element: <ItemDisputePage /> }
     ]
   }
 ]);

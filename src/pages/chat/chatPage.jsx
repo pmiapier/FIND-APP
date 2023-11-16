@@ -9,8 +9,6 @@ export default function ChatPage() {
     const { onCloseModal, isOpenModal, modalType, onOpenModal } = useModal();
     const { authUser, currentUser, setCurrentUser, showInputChat, setShowInputChat } = useAuth();
 
-    // console.log(authUser)
-    // const [currentUser, setCurrentUser] = useState('')
     const [input, setInput] = useState({
         sender: null,
         receiver: null
@@ -27,15 +25,15 @@ export default function ChatPage() {
         socket.on("onlineUser", (data) => {
             delete data[input.sender];
             const userArray = Object.keys(data);
-            // console.log(userArray)
+     
             setOnlineUsers(userArray);
         });
         return () => {
             socket.disconnect()
         }
     }, [input])
-    // console.log('currentUser:', currentUser)
-    // console.log('onlineUsers:', onlineUsers)
+
+
     return (
         <>
             {isOpenModal && modalType === "chatModal" && (

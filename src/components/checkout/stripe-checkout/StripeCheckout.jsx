@@ -34,8 +34,6 @@ export default function StripeCheckout() {
       customer_email: 'test@tee.t'
     });
     const { sessionId } = response.data;
-    console.log('response', response);
-    console.log('sessionId', sessionId);
     const { error } = await stripe.redirectToCheckout({
       sessionId
     });

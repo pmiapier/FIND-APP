@@ -1,5 +1,5 @@
 export default function InputFromUser({ type = "text", placeholder, value, onChange, className, name, hasError, label, limitText }) {
-    // console.log(hasError);
+
     return (
         <>
             <label htmlFor="" className="font-bold">

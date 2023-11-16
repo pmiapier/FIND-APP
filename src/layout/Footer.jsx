@@ -6,58 +6,48 @@ import logo from '../images/FindLogo.png';
 
 const Footer = () => {
   return (
-    <footer className="px-[176px]">
-      <div className="grid grid-cols-6">
-        <div className="col-span-2">
-          <div className="pl-32 ">
-            <img className="w-[130px]" src={logo} />
-            <h1 className="font-black ">Lorem ipsum</h1>
+    <footer className="w-full flex justify-center mt-16 mb-3">
+      <div className="w-[1440px]">
+        <div className="grid grid-cols-6">
+          <div className="col-span-2 flex flex-col gap-2 justify-center items-center">
+            <img className="w-[200px]" src={logo} />
+            <div className="flex justify-around w-[30%]">
+              <FaFacebook role='button' className="text-[25px] hover:text-gray-400" />
+              <CiInstagram role='button' className="text-[25px] hover:text-gray-400" />
+              <BsLine role='button' className="text-[25px] hover:text-gray-400" />
+              <IoLogoYoutube role='button' className="text-[25px] hover:text-gray-400" />
+            </div>
+          </div>
+          <div>
+            <div className="font-bold">INFORMATION</div>
+            <div role='button' className="hover:text-gray-400">About</div>
+            <div role='button' className="hover:text-gray-400">FAQ</div>
+            <div role='button' className="hover:text-gray-400">Contact Us</div>
+          </div>
+          <div>
+            <div className="font-bold">LEGAL</div>
+            <div role='button' className="hover:text-gray-400">Terms & Conditions</div>
+            <div role='button' className="hover:text-gray-400">Privacy Policy</div>
+            <div role='button' className="hover:text-gray-400">Withdrawal Policy</div>
+          </div>
+          <div>
+            <div className="font-bold">SAFETY & SECURITY</div>
+            <div role='button' className="hover:text-gray-400">About Verification</div>
+            <div role='button' className="hover:text-gray-400">Security &  Policy</div>
+          </div>
+          <div>
+            <div className="font-bold">STAY UP TO DATE</div>
+            <div role='button' className="hover:text-gray-400">Be the first to get the latest promotions, news and more</div>
           </div>
         </div>
-        <div>
-          <h1 className="font-black text-l">Footer Head #1</h1>
-          <h6 className="text-gray-400">text link #1</h6>
-          <h6 className="text-gray-400">text link #2</h6>
-          <h6 className="text-gray-400">text link #3</h6>
-          <h6 className="text-gray-400">text link #4</h6>
-        </div>
-        <div>
-          <h1 className="font-black text-l">Footer Head #2</h1>
-          <h6 className="text-gray-400">text link #1</h6>
-          <h6 className="text-gray-400">text link #2</h6>
-          <h6 className="text-gray-400">text link #3</h6>
-          <h6 className="text-gray-400">text link #4</h6>
-        </div>
-        <div>
-          <h1 className="font-black text-l">Footer Head #3</h1>
-          <h6 className="text-gray-400">text link #1</h6>
-          <h6 className="text-gray-400">text link #2</h6>
-          <h6 className="text-gray-400">text link #3</h6>
-          <h6 className="text-gray-400">text link #4</h6>
-        </div>
-        <div>
-          <h1 className="font-black text-l">Footer Head #4</h1>
-          <h6 className="text-gray-400">text link #1</h6>
-          <h6 className="text-gray-400">text link #2</h6>
-          <h6 className="text-gray-400">text link #3</h6>
-          <h6 className="text-gray-400">text link #4</h6>
+        <hr className="mt-5 mb-2"></hr>
+        <div className="w-full">
+          <div className="flex justify-end pr-">
+            <div className="text-sm text-gray-400">@2023,all right seserverd,FIND</div>
+          </div>
         </div>
       </div>
-      <br></br>
-      <div className="flex justify-center w-full">
-        <hr className="w-[85%]  border "></hr>
-      </div>
-      <div className="flex justify-between pt-2 px-32 ">
-        <div className="flex gap-4">
-          <FaFacebook className="text-xl" />
-          <CiInstagram className="text-xl" />
-          <BsLine className="text-xl" />
-          <IoLogoYoutube className="text-xl" />
-        </div>
-        <div>
-          <h6 className="text-sm text-gray-400">@2023,all right seserverd,FIND</h6>
-        </div>
-      </div>
+
     </footer>
   );
 };

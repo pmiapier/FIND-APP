@@ -69,7 +69,6 @@ export default function ChatMessageBox({ input, currentUser, showInputChat, setS
     }
     const handleReceiveMessage = (data) => {
         data.send_date = new Date(data.send_date);
-        console.log(data.chatroom, +chatroom)
         if (data.chatroom === +chatroom) {
             setMessageList((list) => [...list, data]);
         }
@@ -143,8 +142,7 @@ export default function ChatMessageBox({ input, currentUser, showInputChat, setS
     // 👇 Render Messages Box / Classify receiver and sender 👇
     const renderMessages = () => {
         return messageList.map((message, index) => {
-            // console.log(message.sender, '111111111111111111111111')
-            // console.log(input?.sender, '222222222222222222222222')
+
             const isMe = message.sender === input?.sender;
             const messageClass = isMe ? 'bg-blue-500 text-white' : 'bg-gray-300 ';
             const messageImgClass = message.type !== `message` ? 'bg-white ' : messageClass;

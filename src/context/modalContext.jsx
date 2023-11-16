@@ -11,8 +11,6 @@ export default function ModalContextProvider({ children }) {
     setModalType(type);
   };
   useEffect(() => {
-    // console.log('type', modalType);
-    // console.log('isOpen', isOpenModal);
   }, [modalType, isOpenModal]);
   const onCloseModal = () => {
     setIsOpenModal(false);
