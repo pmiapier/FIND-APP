@@ -4,6 +4,7 @@ import { useModal } from '../hooks/useModal';
 import Dropdown from './Dropdown';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
+import DropdownMegaMenu from './DropdownMegaMenu';
 
 const Header = () => {
   const { onOpenModal } = useModal();
@@ -16,14 +17,12 @@ const Header = () => {
         </Link>
         <div className="flex items-center justify-center gap-5">
           <Link to="/product-listing">
-            <div className="flex justify-center items-center gap-1">
-              <FaBars />
-              Cagetory
-            </div>
+            <DropdownMegaMenu logo={<FaBars />} text="Category" className="" />
           </Link>
           <div
             onClick={() => onOpenModal('chatModal')}
-            className="hover:cursor-pointer flex justify-center items-center gap-1">
+            className="hover:cursor-pointer flex justify-center items-center gap-1"
+          >
             <FaRegCommentAlt />
             Message
           </div>

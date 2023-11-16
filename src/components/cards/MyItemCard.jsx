@@ -22,16 +22,20 @@ export default function MyItemCard({ product, handleDeleteItem, handleEditItem }
                 : null
             }
           />
-          <StatusForMyProduct text={`฿${product.price}`} className={'text-white bg-itemCategory '} />
+          <StatusForMyProduct text={`฿${product.price}`} className={'text-white bg-itemPrice '} />
           <StatusForMyProduct text={product.categories.name} className={'text-white bg-itemCategory'} />
         </div>
         <FaRegTrashAlt onClick={() => handleDeleteItem(product.id)} className="cursor-pointer" />
       </div>
 
       <div className="flex gap-6 items-center">
-        <div className="w-[180px] h-full">
+        <div className="w-[180px] h-[180px]">
           {product.images && product.images.length > 0 && (
-            <img className="rounded-lg" src={product.images[0]?.imageUrl} alt="item" />
+            <img
+              className="rounded-lg object-cover min-w-full min-h-full h-full"
+              src={product.images[0]?.imageUrl}
+              alt="item"
+            />
           )}
         </div>
         <div className="flex flex-col gap-1 flex-1">

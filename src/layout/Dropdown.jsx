@@ -20,9 +20,9 @@ export default function Dropdown() {
           <div className="flex flex-col ">
             <span>{authUser.firstName}</span>
             <span>{authUser.email}</span>
-            <div className='flex justify-center items-center gap-2'>
-            <img src={pointIcon} className="w-[16px] h-[16px] "></img>
-            <li>FIND point: {authUser.point || 0}</li>
+            <div className="flex justify-center items-center gap-2">
+              <img src={pointIcon} className="w-[16px] h-[16px] "></img>
+              <li>FIND point: {authUser.point || 0}</li>
             </div>
           </div>
         </div>
@@ -41,9 +41,7 @@ export default function Dropdown() {
         <li>
           <a href="/my-wallet">My wallet</a>
         </li>
-        <li>
-          <a href="#">My message</a>
-        </li>
+
         <li onClick={logout}>
           <a href="/">Log out</a>
         </li>

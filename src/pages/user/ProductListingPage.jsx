@@ -50,7 +50,7 @@ export default function ProductListingPage() {
   return (
     <>
       <div className="flex flex-col gap-5 justify-center items-center bg-primaryBackground w-full font-bold h-[180px]">
-        <h1 className="text-3xl ">YOUR CATEGORY NAME HERE</h1>
+        <h1 className="text-3xl ">{category}</h1>
       </div>
 
       <div className="px-[12rem]">
