@@ -1,3 +1,4 @@
+import ItemDisputePage from '../modal/ItemDisputePage';
 import CheckoutModel from '../modal/checkoutModel';
 import LoginModal from '../modal/loginModal';
 import RegisterModal from '../modal/registerModal';
@@ -10,6 +11,7 @@ export const ModalProvider = () => {
       <RegisterModal />
       <CheckoutModel />
       <ChatPage />
+      <ItemDisputePage />
     </>
   );
 };

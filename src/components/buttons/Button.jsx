@@ -1,21 +1,22 @@
 import { FaPencilAlt } from 'react-icons/fa';
-
-const Button = ({ text, className, icon, event, disabled }) => {
+import { CgNotes } from "react-icons/cg";
+const Button = ({ text, className, icon, icon1, event, disabled }) => {
   return (
-    <div>
+    <div className=''>
       <button
         className={
           className +
-          ` rounded-lg px-3 py-2 text-base flex gap-2 items-center justify-center text-white font-[700] cursor-pointer ${
-            disabled ? 'opacity-50' : ''
+          ` rounded-lg px-3 py-2 text-base flex gap-2 items-center justify-center text-white font-[700] cursor-pointer ${disabled ? 'opacity-50' : ''
           }`
         }
         onClick={event}
         disabled={disabled}
       >
-        {icon ? <FaPencilAlt /> : null}
+        <div className="flex gap-1 justify-center items-center">
+          {icon ? <FaPencilAlt /> : null}
+          {icon1 ? <CgNotes /> : null}
+          {text}</div>
 
-        {text}
       </button>
     </div>
   );
