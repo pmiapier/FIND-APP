@@ -12,17 +12,17 @@ export default function ProductCard({ item }) {
               'https://images.pexels.com/photos/12456282/pexels-photo-12456282.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'
             }
             alt="product_img"
-            className="object-cover w-full"
+            className="object-cover w-full h-[400px]"
           />
         </div>
         <div className="space-y-7 p-3">
           <p className="font-semibold">{item.title}</p>
           <div className="flex justify-between items-center pb-4">
             <p className="text-xs text-gray-400">
-              ฿{item.price}
-              <span>&nbsp;/&nbsp;วัน</span>
+              ฿ {item.price}
+              <span>&nbsp;/&nbsp;Day</span>
             </p>
-            <p className="text-xs text-gray-400">เขตราชเทวี</p>
+            <p className="text-xs text-gray-400">Ratchathewi District</p>
           </div>
         </div>
       </div>

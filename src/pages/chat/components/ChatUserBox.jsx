@@ -13,7 +13,7 @@ export default function ChatUserBox({ input, setCurrentUser, onlineUsers, setSho
         axios.get(`/chat?user=${+input?.sender}`)
             .then((response) => {
                 setChatRooms((pre) => response.data);
-                console.log('room', response.data);
+     
             })
             .catch((error) => {
                 console.error('Error fetching chat rooms:', error);
@@ -30,7 +30,6 @@ export default function ChatUserBox({ input, setCurrentUser, onlineUsers, setSho
 
         });
         socket.on("updateChatRoom", () => {
-            // getHistoryRoom()
         })
         return () => {
             socket.off("onlineUser")

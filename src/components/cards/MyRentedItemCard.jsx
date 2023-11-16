@@ -25,7 +25,6 @@ export default function MyRentedItemCard({ data }) {
   const [renteeStatus, setRenteeStatus] = useState(data.rentee_status);
 
   const getMainStatus = () => {
-    console.log(ownerStatus, renteeStatus)
     if (ownerStatus === 'pending_delivery' && renteeStatus === 'pending_received') {
       return 'Awaiting delivery';
     } else if (ownerStatus === 'renting' && renteeStatus === 'pending_received') {
@@ -44,7 +43,6 @@ export default function MyRentedItemCard({ data }) {
   const [status, setStatus] = useState('');
 
   useEffect(() => {
-    console.log(getMainStatus())
     setStatus(getMainStatus());
   }, [ownerStatus, renteeStatus]);
  
@@ -136,7 +134,6 @@ export default function MyRentedItemCard({ data }) {
       <div className="border-2 border-gray-100 flex flex-col gap-1 px-10 py-5 rounded-lg ">
         <Link to="item-dispute">
           <Button text={'Item Dispute'} className={'bg-messageButton hover:bg-hoverMessageButton w-48'} />
-          {/* <Button text={'Proof of Returning'} className={'bg-readyToRent hover:bg-green-700 w-full'} /> */}
         </Link>
 
         {ownerStatus === 'renting' && renteeStatus === 'received_item' ? (
@@ -176,9 +173,7 @@ export default function MyRentedItemCard({ data }) {
           <Button text={'Make payment'} className={'bg-primaryButton hover:bg-hoverPrimaryButton w-full'} />
         ) : null}
 
-        {/* <Button text={'Comfirm Return Item'} className={'bg-primaryButton hover:bg-hoverPrimaryButton w-full'} /> */}
 
-        {/* <Button text={'Comfirm Return Item'} className={'bg-primaryButton hover:bg-hoverPrimaryButton w-full'} /> */}
       </div>
     </div>
   );

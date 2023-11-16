@@ -1,5 +1,4 @@
 import { FaArrowRight } from 'react-icons/fa';
-
 import Button from '../buttons/Button';
 import { FaRegTrashAlt } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
@@ -8,7 +7,6 @@ import StatusForMyProduct from '../status/StatusForMyProduct';
 
 export default function MyItemCard({ product, handleDeleteItem, handleEditItem }) {
   const { updateProductStatus } = useProduct();
-  // console.log(product);
 
   return (
     <div className="flex flex-col gap-4 bg-white shadow-lg px-5 py-5 ">
@@ -61,7 +59,6 @@ export default function MyItemCard({ product, handleDeleteItem, handleEditItem }
                 text={'Edit Product'}
                 className={'bg-[#808080] hover:bg-[#010101]'}
                 icon={true}
-                // disabled={product.status === 'renting'}
                 event={() => handleEditItem(product.id)}
               />
 
