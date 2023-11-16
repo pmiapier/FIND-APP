@@ -6,7 +6,8 @@ import axios from '../config/axios';
 export default function ProductContextProvider({ children }) {
   const [myProduct, setMyProduct] = useState([]);
   const [items, setItems] = useState([]);
-  const [category, setCategory] = useState([]);
+  const [page, setPage] = useState(1);
+  const [category, setCategory] = useState();
   const [categoryList, setCategoryList] = useState([]);
 
   //# TEE
@@ -58,7 +59,7 @@ export default function ProductContextProvider({ children }) {
 
   const getCategory = () => {
     axios.get(`/item/getCategories`).then((response) => {
-      setCategory(response.data);
+      // setCategory(response.data);
       setCategoryList(response.data);
     });
   };
@@ -98,7 +99,8 @@ export default function ProductContextProvider({ children }) {
         myProduct,
         setMyProduct,
         getMyProductData,
-        updateProductStatus
+        updateProductStatus,
+        page,setPage,setCategory
       }}
     >
       {children}
