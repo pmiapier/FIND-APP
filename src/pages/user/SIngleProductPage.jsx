@@ -7,17 +7,31 @@ import {MdPinDrop  } from "react-icons/md";
 import { RxAvatar } from "react-icons/rx";
 import { socket } from '../chat/confic/socket';
 import { useAuth } from '../../hooks/useAuth';
-
-
+import { useNavigate } from "react-router-dom";
 export default function SingleProductPage() {
   const { onOpenModal } = useModal();
   let { id } = useParams();
   const [item, setItem] = useState({ user: '' });
-
+  const { authUser, setCurrentUser, setShowInputChat } = useAuth();
+  const navigate = useNavigate();
   const getSingleItem = () => {
     axios.get(`/item/get-single-item/${id}`).then((response) => {
       setItem(response.data);
     });
+  };
+  function handleClickNavigateToChat() {
+    navigate("/chat");
+  }
+  const toggleInputChat = () => {
+    setShowInputChat(true);
+  };
+  const handleJoinRoom = () => {
+    if (authUser) {
+      socket.emit('join_room', {
+        sender: authUser.id,
+        receiver: item.ownerId,
+      });
+    }
   };
   useEffect(() => {
     getSingleItem();
@@ -46,7 +60,12 @@ export default function SingleProductPage() {
               Rent Now
             </button>
             <button
-
+              onClick={() => {
+                onOpenModal('chatModal');
+                handleJoinRoom();
+                setCurrentUser({ fullName: item.user });
+                toggleInputChat()
+              }}
               className="bg-gray-400 text-white w-3/12 p-4 rounded-md">
               Send Message
             </button>

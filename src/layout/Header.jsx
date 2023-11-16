@@ -21,12 +21,14 @@ const Header = () => {
               Cagetory
             </div>
           </Link>
-          <Link to="/Chat">
-            <div className="hover:cursor-pointer flex justify-center items-center gap-1">
-              <FaRegCommentAlt />
-              Message
-            </div>
-          </Link>
+
+          <div
+            onClick={() => onOpenModal('chatModal')}
+            className="hover:cursor-pointer flex justify-center items-center gap-1">
+            <FaRegCommentAlt />
+            Message
+          </div>
+
           {authUser ? (
             ''
           ) : (

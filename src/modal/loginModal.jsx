@@ -18,7 +18,7 @@ const loginSchema = Joi.object({
         .min(6).max(20)
         .messages({
             "string.empty": "Password is required",
-            "string.pattern.base":"Incorrect password."
+            "string.pattern.base": "Incorrect password."
         }),
 });
 
@@ -61,9 +61,9 @@ export default function LoginModal() {
         login(input)
             .then((x) => {
                 if (x === `user not found`) {
-                    setError({email:`user not found`})
+                    setError({ email: `user not found` })
                 } else if (x === `wrong password`) {
-                    setError({password:`wrong password`})
+                    setError({ password: `wrong password` })
                 } else if (x === `success`) onCloseModal();
             })
             .catch((err) => {
