@@ -1,6 +1,5 @@
 import Button from '../buttons/Button';
 import ItemStatus from '../status/ItemStatus';
-import item from '../../assets/jamesunsplash.jpg';
 import axios from '../../config/axios';
 import { useState, useEffect } from 'react';
 import { formatDate } from '../../utils/dates';
@@ -48,8 +47,6 @@ export default function MyRentalItemCard({ data }) {
 
   const handleDelivery = async () => {
     try {
-      console.log("🚀 ~ file: MyRentedItemCard.jsx:44 ~ MyRentedItemCard ~ renteeStatus:", renteeStatus)
-      console.log("🚀 ~ file: MyRentedItemCard.jsx:44 ~ MyRentedItemCard ~ ownerStatus:", ownerStatus)
       const res = await axios.post(`/rent/changeOwnerStatus`, { rentId: data.id, status: 'renting' }).then(() => {
         setStatus('renting');
         setOwnerStatus('renting');
@@ -58,9 +55,6 @@ export default function MyRentalItemCard({ data }) {
       if (!res) {
         console.log('error from handleDelivery');
       }
-
-      
-        // await axios.post(`/transaction/createTransaction`, { rentId: data.id })
    
     } catch (error) {
       console.log(error)
@@ -85,7 +79,7 @@ export default function MyRentalItemCard({ data }) {
   };
 
   return (
-    <div className="bg-white flex justify-center items-center gap-5 py-5">
+    <div className="bg-white flex justify-center items-center gap-5 py-5 ">
       <div className="w-60 h-40 overflow-hidden rounded-lg">
       {pic ? <img className="rounded-sm" src={pic} alt="item" /> : null}
 
@@ -123,21 +117,8 @@ export default function MyRentalItemCard({ data }) {
       )}
 
       <div className="border-2 border-gray-100 flex flex-col gap-1 px-10 py-5 rounded-lg text-center">
-        {/* <div className="flex justify-between">
-          <div>rental price</div>
-          <div>฿{data.item.price}</div>
-        </div>
-
-        <div className="flex justify-between">
-          <div>Deposite</div>
-          <div>฿{data.deposit}</div>
-        </div>
-
-        <div className="flex justify-between">
-          <div>Total</div>
-          <div>฿{data.amount}</div>
-        </div> */}
-        <div className="flex flex-col gap-2 items-center mt-4">
+       
+        <div className="flex flex-col gap-2 items-center mt-4 ">
           <Button text={'Send Message '} className={'bg-messageButton hover:bg-hoverMessageButton w-64'} />
           {ownerStatus === 'pending_delivery' && renteeStatus !== 'awaiting_payment' ? (
             <Button
@@ -167,7 +148,7 @@ export default function MyRentalItemCard({ data }) {
             <Button
               text={'Awaiting rentee action'}
               disabled="disabled"
-              className={'bg-primaryButton hover:bg-hoverPrimaryButton w-64'}
+              className={'bg-primaryButton rounded-lg px-3 py-2 text-base  hover:bg-hoverPrimaryButton w-64'}
             />
           ) : renteeStatus === 'awaiting_payment' ? (
             <Button

@@ -22,7 +22,7 @@ export default function CheckoutModel() {
   const elements = useElements();
 
   const { authUser } = useAuth();
-  // console.log(authUser);
+
 
   const [message, setMessage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -33,10 +33,9 @@ export default function CheckoutModel() {
   //### Geting the single Item
   let { id } = useParams();
   const [item, setItem] = useState({ user: '' });
-  // console.log(id);
+
   const getSingleItem = () => {
     axios.get(`/item/get-single-item/${id}`).then((response) => {
-      // console.log('ourdata response', response.data);
       setItem(response.data);
     });
   };
@@ -50,10 +49,6 @@ export default function CheckoutModel() {
       };
     }
   }, [id]);
-  // axios.get(`/item/get-single-item/${id}`).then((response) => {
-  //   console.log('ourdata response', response.data);
-  //   setItem(response.data);
-  // });
 
   const validateSubmit = () => {
     if (!tosChecked) {
@@ -104,9 +99,6 @@ export default function CheckoutModel() {
     });
 
     const { sessionId } = response.data;
-
-    console.log('response', response);
-    console.log('sessionId', sessionId);
     const { error } = await stripe.redirectToCheckout({
       sessionId
     });

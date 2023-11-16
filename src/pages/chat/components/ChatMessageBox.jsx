@@ -12,7 +12,7 @@ export default function ChatMessageBox({ input, currentUser }) {
     const [type, setType] = useState(``)
     const [inputText, setInputText] = useState(``)
     const [inputShowImg, setInputShowImg] = useState(``)
-    // console.log(currentUser, "5555")
+
     // 👇 Scroll To Bottom 👇
     const messageInputRef = useRef();
     useEffect(() => {
@@ -22,7 +22,7 @@ export default function ChatMessageBox({ input, currentUser }) {
     // 👇 Send Message 👇
     const sendMessage = async () => {
         if (currentMessage !== ``) {
-            // console.log(chatroom, "sendRoom")
+     
             const messageData = {
                 chatroom,
                 to: currentUser.userId,
@@ -69,7 +69,6 @@ export default function ChatMessageBox({ input, currentUser }) {
     }
     const handleReceiveMessage = (data) => {
         data.send_date = new Date(data.send_date);
-        console.log(data.chatroom, +chatroom)
         if (data.chatroom === +chatroom) {
             setMessageList((list) => [...list, data]);
         }
@@ -111,7 +110,6 @@ export default function ChatMessageBox({ input, currentUser }) {
     // 👇 Socket.io Get => room id / all chat / receive message 👇
     useEffect(() => {
         socket.on(`room_id`, (data) => {
-            // console.log(data.id, "room")
             setChatroom(data.id)
         });
         socket.on('disconnect', () => {
@@ -144,8 +142,7 @@ export default function ChatMessageBox({ input, currentUser }) {
     // 👇 Render Messages Box / Classify receiver and sender 👇
     const renderMessages = () => {
         return messageList.map((message, index) => {
-            // console.log(message.sender, '111111111111111111111111')
-            // console.log(input?.sender, '222222222222222222222222')
+
             const isMe = message.sender === input?.sender;
             const messageClass = isMe ? 'bg-blue-500 text-white' : 'bg-gray-300 ';
             const messageImgClass = message.type !== `message` ? 'bg-white ' : messageClass;

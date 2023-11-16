@@ -21,7 +21,7 @@ export default function UpdateUserModel({ onClick }) {
     onClick();
   };
 
-  console.log(authUser);
+
   return (
     <div className="h-screen flex flex-col items-center justify-center ">
       <div className="w-[50vh]  p-8 rounded-md shadow-lg flex flex-col gap-8 mx-auto my-auto border-2 bg-white border-gray-300">

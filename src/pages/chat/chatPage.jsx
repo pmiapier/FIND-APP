@@ -6,7 +6,6 @@ import { useAuth } from "../../hooks/useAuth";
 import axios from 'axios';
 export default function ChatPage() {
     const { authUser } = useAuth();
-    // console.log(authUser)
     const [currentUser, setCurrentUser] = useState('')
     const [input, setInput] = useState({
         sender: null,
@@ -24,15 +23,14 @@ export default function ChatPage() {
         socket.on("onlineUser", (data) => {
             delete data[input.sender];
             const userArray = Object.keys(data);
-            // console.log(userArray)
+     
             setOnlineUsers(userArray);
         });
         return () => {
             socket.disconnect()
         }
     }, [input])
-    console.log(currentUser)
-    // console.log(input, '****************')
+
 
     return (
         <div className="w-full flex items-center justify-center py-10">

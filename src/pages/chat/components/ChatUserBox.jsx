@@ -8,11 +8,10 @@ export default function ChatUserBox({ input, setCurrentUser, currentUser, online
     const [alluser, setAlluser] = useState([])
     const [chatRooms, setChatRooms] = useState([]);
     const getHistoryRoom = () => {
-        console.log("A", input, +input?.sender)
         axios.get(`/chat?user=${+input?.sender}`)
             .then((response) => {
                 setChatRooms((pre) => response.data);
-                console.log('room', response.data);
+     
             })
             .catch((error) => {
                 console.error('Error fetching chat rooms:', error);
@@ -23,17 +22,12 @@ export default function ChatUserBox({ input, setCurrentUser, currentUser, online
     }, [input]);
     useEffect(() => {
         socket.on(`onlineUser`, (data) => {
-            // console.log(data[input?.sender])
             delete data[input?.sender]
-            // const userArray = Object.values(data).map(user => user.firstName)
             const userArray = Object.values(data)
-            // console.log(data, "*********************")
-            // console.log(userArray, "+++++++++++++++++")
             setAlluser(userArray)
 
         });
         socket.on("updateChatRoom", () => {
-            // getHistoryRoom()
         })
         return () => {
             socket.off("onlineUser")
@@ -73,11 +67,6 @@ export default function ChatUserBox({ input, setCurrentUser, currentUser, online
                 <div className="flex flex-col justify-center gap-0.5 h-full w-full">
                     <div className="font-bold text-[18px]">{user.userA.id === input?.sender ? user.userB.firstName : user.userA.firstName}</div>
                 </div>
-                {/* {onlineUsers?.includes(user.userA.id === input?.sender ? user.userA.id : user.userB.id) ? (
-                    <div className="text-green-500">Online</div>
-                ) : (
-                    <div className="text-gray-500">Offline</div>
-                )} */}
             </div>)}
         </div>
     )

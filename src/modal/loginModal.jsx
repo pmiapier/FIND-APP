@@ -1,7 +1,5 @@
 import { useModal } from "../hooks/useModal";
-import { FcGoogle } from "react-icons/fc";
 import { BsEyeFill, BsEyeSlashFill } from "react-icons/bs";
-import { BiLogoFacebook } from "react-icons/bi";
 import Logo from "../images/imgLogo.png";
 import { useState } from "react";
 import { useAuth } from "../hooks/useAuth";
@@ -56,7 +54,6 @@ export default function LoginModal() {
         e.preventDefault();
 
         const validationError = validateLogin(input);
-        console.log(validationError)
         if (validationError) {
             return setError(validationError);
         }
@@ -89,26 +86,17 @@ export default function LoginModal() {
                             <img src={Logo} className="w-[50%]" />
                             <div className="flex flex-col items-center w-[50%] h-full p-10 pt-[80px]">
                                 <div className="flex flex-col justify-start w-full">
-                                    <div className="text-[40px]  font-bold">เข้าสู่ระบบ</div>
+                                    <div className="text-[40px]  font-bold">Login</div>
                                     <div className="flex gap-1 ">
-                                        <div className="">ยังไม่เป็นสมาชิก?</div>
+                                        <div className="">Become a member? </div>
                                         <div className="text-blue-500 font-bold hover:cursor-pointer" onClick={() => onOpenModal("registerModal")}>
-                                            สมัครสมาชิก
+                                            Register
                                         </div>
                                     </div>
                                 </div>
-                                <div className="flex gap-5 h-[60px] pt-[80px] w-full">
-                                    <button className="flex justify-center gap-4 items-center bg-gray-300 h-[60px] w-[50%] rounded-full">
-                                        <FcGoogle className=" h-[45px] w-[45px]" />
-                                        <div className="col-span-8">CONTINUE WITH GOOGLE</div>
-                                    </button>
-                                    <button className="flex justify-center gap-4 items-center bg-blue-500 h-[60px] w-[50%] rounded-full">
-                                        <BiLogoFacebook className="text-white col-span-2 h-[45px] w-[45px]" />
-                                        <div className=" text-white">CONTINUE WITH FACEBOOK</div>
-                                    </button>
-                                </div>
-                                <div className="mt-[120px] mb-[60px] w-[50%] relative flex   h-px place-items-center bg-gray-300">
-                                    <div className="absolute left-1/2 h-5 -translate-x-1/2 bg-white px-4 text-center text-sm text-gray-500">หรือ</div>
+                    
+                                <div className="mt-[80px] w-[50%] relative flex place-items-center bg-gray-300">
+                                
                                 </div>
                                 <form className="w-[90%]" onSubmit={submitLogin}>
                                     <div className="relative z-0 w-full mb-6 group">
@@ -150,9 +138,9 @@ export default function LoginModal() {
                                         </div>
                                     </div>
                                         <div>{error.password && <p className="text-red-500">{error.password}</p>}</div>
-                                    <div className="flex justify-end text-gray-500 hover:cursor-pointer">ลืมรหัสผ่าน?</div>
+                                    <div className="flex justify-end text-gray-500 hover:cursor-pointer">Foget Password?</div>
                                     <button className="px-4 py-2 my-2 w-[30%] bg-blue-500 border-2 border-blue-500 hover:border-blue-500 hover:bg-gray-100 hover:text-blue-500 text-white rounded-lg text-[20px]">
-                                        เข้าสู่ระบบ
+                                        Login
                                     </button>
                                 </form>
                             </div>

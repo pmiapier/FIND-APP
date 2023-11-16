@@ -51,7 +51,6 @@ export default function EditProductPage() {
       setSelectedImages((prevImages) => prevImages.concat(imagesArray));
       setSelectedFiles((prevFiles) => prevFiles.concat(selectedFilesArray));
     } else {
-      console.log('ttt', e.target.name);
       setInput({ ...input, [e.target.name]: e.target.value });
     }
   };
@@ -70,7 +69,7 @@ export default function EditProductPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // console.log('loading handleSubmit: .........', loading);
+
     if (selectedProduct) {
       const payload = {
         title: input.itemName,
@@ -94,7 +93,6 @@ export default function EditProductPage() {
 
       try {
         setLoading(true);
-        // console.log('loading in try: .........', loading);
         await saveProductChanges(payload);
         Swal.fire('Success', 'Product details updated successfully', 'success');
       } catch (error) {
@@ -102,7 +100,7 @@ export default function EditProductPage() {
       } finally {
         setLoading(false);
       }
-      // console.log('loading after try: .........', loading);
+  
       saveProductChanges(payload);
       clearSelectedProduct();
       navigate('/my-product', { state: { a: 20 } });
