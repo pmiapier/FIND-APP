@@ -20,7 +20,6 @@ export default function MyRentedItemCard({ data }) {
   }, []);
   const endRentDate = formatDate(data.endRentDate);
 
-
   const diffDate = Math.ceil((new Date(endRentDate) - new Date(startRentDate)) / 86400000);
   const daysUntilStart = Math.ceil((new Date(startRentDate) - new Date(dateNow)) / 86400000);
   const [ownerStatus, setOwnerStatus] = useState(data.owner_status);
@@ -48,7 +47,6 @@ export default function MyRentedItemCard({ data }) {
     setStatus(getMainStatus());
   }, [ownerStatus, renteeStatus]);
 
-
   const handleDelivery = () => {
     const res = axios.post(`/rent/changeRenteeStatus`, { rentId: data.id, status: 'received_item' }).then(() => {
       setStatus('renting');
@@ -62,20 +60,17 @@ export default function MyRentedItemCard({ data }) {
 
   const handleReturned = async () => {
     try {
-
       const res = await axios.post(`/rent/changeRenteeStatus`, { rentId: data.id, status: 'completed' }).then(() => {
         setStatus('renting');
         setRenteeStatus('completed');
-      }
-      );
+      });
       if (!res) {
         console.log('error from handleReturned');
       }
-      await axios.post(`/transaction/createTransaction`, { rentId: data.id })
+      await axios.post(`/transaction/createTransaction`, { rentId: data.id });
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-
   };
 
   // return (
@@ -175,21 +170,24 @@ export default function MyRentedItemCard({ data }) {
   //         <Button text={'Make payment'} className={'bg-primaryButton hover:bg-hoverPrimaryButton w-full'} />
   //       ) : null}
 
-
   //     </div>
   //   </div>
   // );
 
   return (
     <div className="w-[700px] h-[300px]">
-      <div className="w-full h-[20px]" >
+      <div className="w-full h-[20px]">
         {startRentDate <= dateNow ? (
           <div className="bg-orange rounded-t-xl w-full h-full text-white px-10 py-5 flex justify-center items-center ">
-            <div className='flex' >Must Return the item in <div className="mx-1 font-bold"> {diffDate} </div> days</div>
+            <div className="flex">
+              Must Return the item in <div className="mx-1 font-bold"> {diffDate} </div> days
+            </div>
           </div>
         ) : (
           <div className="bg-readyToRent rounded-t-xl w-full h-full text-white px-10 py-5 flex flex-col justify-center items-center ">
-            <div className='flex'>Rental starts in <div className="mx-1 font-bold">{daysUntilStart} </div> days</div>
+            <div className="flex">
+              Rental starts in <div className="mx-1 font-bold">{daysUntilStart} </div> days
+            </div>
           </div>
         )}
       </div>
@@ -201,7 +199,7 @@ export default function MyRentedItemCard({ data }) {
                 {pic ? <img className="rounded-sm" src={pic} alt="item" /> : null}
               </div>
               <div className="flex flex-col">
-                <div className=' text-[20px] font-bold'>{data.item.title}</div>
+                <div className=" text-[20px] font-bold">{data.item.title}</div>
                 <div>#orderNo :</div>
                 <div className="flex gap-2">
                   <div>Item ID :</div>
@@ -211,7 +209,7 @@ export default function MyRentedItemCard({ data }) {
                 <ItemStatus text={status} />
                 <div className="flex gap-2">
                   <div>Item Owner :</div>
-                  <div>{data.owner.firstName + " " + data.owner.lastName}</div>
+                  <div>{data.owner.firstName + ' ' + data.owner.lastName}</div>
                 </div>
               </div>
               <div className="border-2 border-gray-200 w-[200px] flex flex-col gap-1 px-10 py-5 rounded-lg text-center ">
@@ -220,12 +218,10 @@ export default function MyRentedItemCard({ data }) {
                 <div>RENTAL ENDS</div>
                 <div className="text-gray-400">{endRentDate}</div>
               </div>
-
             </div>
           </div>
           <div className="  flex w-full justify-center items-center mt-5">
             <div className="flex gap-3">
-
               {ownerStatus === 'renting' && renteeStatus === 'received_item' ? (
                 <div>
                   <Button text={'Proof of Returning'} className={'bg-readyToRent hover:bg-green-700 w-full mb-1'} />
@@ -272,6 +268,4 @@ export default function MyRentedItemCard({ data }) {
       </div>
     </div>
   );
-
-
 }

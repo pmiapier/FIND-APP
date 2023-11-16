@@ -6,7 +6,6 @@ import { formatDate } from '../../utils/dates';
 import { Link } from 'react-router-dom';
 import { useModal } from '../../hooks/useModal';
 
-
 export default function MyRentalItemCard({ data }) {
   let startRentDate = formatDate(data.startRentDate);
   const { onOpenModal } = useModal();
@@ -59,12 +58,9 @@ export default function MyRentalItemCard({ data }) {
         console.log('error from handleDelivery');
       }
 
-
       // await axios.post(`/transaction/createTransaction`, { rentId: data.id })
-
-
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   };
 
@@ -78,23 +74,26 @@ export default function MyRentalItemCard({ data }) {
       if (!res) {
         console.log('error from handleDelivery');
       }
-      await axios.post(`/transaction/createTransaction`, { rentId: data.id })
-
+      await axios.post(`/transaction/createTransaction`, { rentId: data.id });
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   };
 
   return (
     <div className="w-[700px] h-[300px]">
-      <div className="w-full h-[20px]" >
+      <div className="w-full h-[20px]">
         {startRentDate <= dateNow ? (
-          <div className="bg-orange rounded-t-xl w-full h-full text-white px-10 py-5 flex justify-center items-center ">
-            <div className='flex' >Must Return the item in <div className="mx-1 font-bold"> {diffDate} </div> days</div>
+          <div className="bg-green-600 rounded-t-xl w-full h-full text-white px-10 py-5 flex justify-center items-center ">
+            <div className="flex">
+              Must Return the item in <div className="mx-1 font-bold"> {diffDate} </div> days
+            </div>
           </div>
         ) : (
           <div className="bg-readyToRent rounded-t-xl w-full h-full text-white px-10 py-5 flex flex-col justify-center items-center ">
-            <div className='flex'>Rental starts in <div className="mx-1 font-bold">{daysUntilStart} </div> days</div>
+            <div className="flex">
+              Rental starts in <div className="mx-1 font-bold">{daysUntilStart} </div> days
+            </div>
           </div>
         )}
       </div>
@@ -106,7 +105,7 @@ export default function MyRentalItemCard({ data }) {
                 {pic ? <img className="rounded-sm" src={pic} alt="item" /> : null}
               </div>
               <div className="flex flex-col">
-                <div className=' text-[20px] font-bold'>{data.item.title}</div>
+                <div className=" text-[20px] font-bold">{data.item.title}</div>
                 <div>#orderNo :</div>
                 <div className="flex gap-2">
                   <div>Item ID :</div>
@@ -116,14 +115,13 @@ export default function MyRentalItemCard({ data }) {
                 <ItemStatus text={status} />
                 <div className="flex gap-2">
                   <div>Item Owner :</div>
-                  <div>{data.owner.firstName + " " + data.owner.lastName}</div>
+                  <div>{data.owner.firstName + ' ' + data.owner.lastName}</div>
                 </div>
               </div>
             </div>
           </div>
           <div className="  flex w-full justify-center items-center mt-5">
             <div className="flex gap-3">
-
               {ownerStatus === 'pending_delivery' && renteeStatus !== 'awaiting_payment' ? (
                 <Button
                   text={'Confirm Item Delivery'}
@@ -186,8 +184,16 @@ export default function MyRentalItemCard({ data }) {
     </div>
   );
 }
-{/* <div className="bg-white flex justify-center items-center gap-5 py-5 "> */ }
-{/* <div className="w-60 h-40 o rounded-lg">
-        {pic ? <img className="rounded-sm" src={pic} alt="item" /> : null} */}
-{/* </div> */ }
-{/* </div> */ }
+{
+  /* <div className="bg-white flex justify-center items-center gap-5 py-5 "> */
+}
+{
+  /* <div className="w-60 h-40 o rounded-lg">
+        {pic ? <img className="rounded-sm" src={pic} alt="item" /> : null} */
+}
+{
+  /* </div> */
+}
+{
+  /* </div> */
+}
