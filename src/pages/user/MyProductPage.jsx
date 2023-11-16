@@ -13,7 +13,6 @@ export default function MyProductPage() {
 
   const loc = useLocation();
 
-
   const handleDeleteItem = async (itemId) => {
     try {
       await Swal.fire({
@@ -73,7 +72,6 @@ export default function MyProductPage() {
 
       <div className="grid grid-cols-2 gap-6 justify-around">
         {myProduct.map((product) => {
-
           return (
             <MyItemCard
               key={product.id}

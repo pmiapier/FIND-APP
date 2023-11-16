@@ -23,7 +23,6 @@ export default function CheckoutModel() {
 
   const { authUser } = useAuth();
 
-
   const [message, setMessage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -165,7 +164,7 @@ export default function CheckoutModel() {
               <div className="text-[30px] font-semibold mb-1">{item.title}</div>
               <div className="flex gap-2 w-full h-full">
                 <div className="flex-1 w-[50%] h-[80%] bg-red-500 rounded-lg overflow-hidden ">
-                  <img src={item.images?.[0]?.imageUrl} />
+                  <img src={item.images?.[0]?.imageUrl} className="object-cover w-full h-full object-center center" />
                 </div>
                 <div className="flex flex-col w-[50%] justify-between h-[80%] ">
                   <div className="">
