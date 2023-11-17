@@ -10,7 +10,7 @@ const Header = () => {
   const { onOpenModal } = useModal();
   const { authUser } = useAuth();
   return (
-    <div className=" flex justify-center items-center w-full h-[85px] bg-white drop-shadow-xl">
+    <div className=" flex justify-center items-center w-full h-[95px] bg-white drop-shadow-xl">
       <div className="flex justify-between px-[170px] items-center w-full">
         <Link to="/">
           <img src={logo} className="w-[160px]" />

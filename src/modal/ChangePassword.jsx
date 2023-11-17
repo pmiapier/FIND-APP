@@ -20,7 +20,7 @@ export default function ChangePassword({ onClick }) {
   };
 
   return (
-    <div className="h-screen flex flex-col items-center justify-center ">
+    <div className="h-screen flex flex-col items-center justify-center backdrop-blur">
       <div className="w-[50vh] h-[50vh] p-8 rounded-md shadow-lg flex flex-col gap-8 mx-auto my-auto border-2 bg-white border-gray-300">
         <div className="text-3xl font-bold">Change password</div>
 

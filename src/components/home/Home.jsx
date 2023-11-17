@@ -112,40 +112,25 @@ const Home = () => {
           </SwiperSlide >
         ))}
       </Swiper>
-      <div className="grid grid-cols-4 gap-3 mb-6">
-        <div className="grid grid-cols-2 border-2 rounded-xl p-4">
-          <div className="">
-            <p className="text-[32px] font-bold"> 31</p>
-          </div>
-          <div className="flex gap-1 flex-col">
-            <p className="text-[16px] text-green-700">+31</p>
-            <p className="text-[11px]">Today</p>
-          </div>
-          <div>
-            <p className="font-bold"> Our FIND Member</p>
-          </div>
+      <div className="grid grid-cols-4 h-[190px] gap-3 mb-6">
+        <div className=" border-2 relative rounded-xl ">
+          <div className=" absolute left-[40px] bottom-[47px] text-[100px] font-bold text-green-400">+31</div>
+          <div className=" absolute right-[40px] bottom-[60px] text-[60px] ">Today</div>
+          <div className=" absolute left-[70px] bottom-8 text-[30px] font-bold"> Our FIND Member</div>
         </div>
-        <div className="grid grid-cols-2 border-2 rounded-xl p-4">
-          <div className="">
-            <p className="text-[32px] font-bold"> 220</p>
-          </div>
-          <div className="flex gap-1 flex-col">
-            <p className="text-[16px] text-green-700">+220</p>
-            <p className="text-[11px]">Last week</p>
-          </div>
-          <div>
-            <p className="font-bold"> Our FIND Member</p>
-          </div>
+        <div className=" border-2 relative rounded-xl ">
+          <div className=" absolute left-[85px] bottom-[55px] text-[100px] font-bold text-yellow-400">+228</div>
+          <div className=" absolute right-[80px] bottom-[30px] text-[50px] ">Last week</div>
+          <div className=" absolute left-[120px] bottom-4 text-[20px] font-bold"> Our FIND Member</div>
         </div>
-
-        <div className="flex font-semibold col-span-2 border-2 border-red-600 rounded-lg">
+        <div className="flex font-semibold col-span-2 border-2 border-red-600 rounded-xl">
           <div className="w-[60%] p-10 text-2xl">
             <h1>No need to buy, No need to sell,</h1>
             <h1>start making profit out of your items with FIND</h1>
           </div>
           <div className="w-[40%] ">
             <div className="bg-red-600 rounded-r-lg text-white  h-full flex justify-center items-center">
-              <h1 className="">Begin Your Rental Journey.</h1>
+              <h1 className="text-[23px] ">Begin Your Rental Journey.</h1>
             </div>
           </div>
         </div>

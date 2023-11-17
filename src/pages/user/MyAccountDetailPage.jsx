@@ -13,7 +13,7 @@ export default function MyAccountDetailPage() {
 
   return (
     <>
-      <div className="flex gap-10 justify-center items-center py-20 bg-primaryBackground">
+      <div className="flex gap-10 justify-center items-center py-20 bg-white">
         <div className="flex flex-col justify-center items-center gap-4">
           <h1 className="text-3xl font-bold">Welcome to the FIND Account Center</h1>
           <img className="" src={detailImage}></img>
@@ -55,7 +55,7 @@ export default function MyAccountDetailPage() {
               text={'Change password'}
               className={'border border-1 border-black w-full'}
             />
-          
+
           </div>
         </div>
       </div>

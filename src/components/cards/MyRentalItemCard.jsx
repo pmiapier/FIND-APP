@@ -84,7 +84,7 @@ export default function MyRentalItemCard({ data }) {
     <div className="w-[700px] h-[300px]">
       <div className="w-full h-[20px]">
         {startRentDate <= dateNow ? (
-          <div className="bg-green-600 rounded-t-xl w-full h-full text-white px-10 py-5 flex justify-center items-center ">
+          <div className="bg-readyToRent rounded-t-xl w-full h-full text-white px-10 py-5 flex justify-center items-center ">
             <div className="flex">
               Must Return the item in <div className="mx-1 font-bold"> {diffDate} </div> days
             </div>

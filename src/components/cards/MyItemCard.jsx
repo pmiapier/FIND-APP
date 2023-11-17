@@ -18,8 +18,8 @@ export default function MyItemCard({ product, handleDeleteItem, handleEditItem }
               product.status === 'available'
                 ? 'bg-readyToRent'
                 : product.status === 'unavailable'
-                ? 'bg-itemStock'
-                : null
+                  ? 'bg-itemStock'
+                  : null
             }
           />
           <StatusForMyProduct text={`฿${product.price}`} className={'text-white bg-itemPrice '} />
