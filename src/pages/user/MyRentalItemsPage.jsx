@@ -14,13 +14,13 @@ export default function MyRentalItemsPage() {
   };
 
   return (
-    <div className="bg-primaryBackground px-20 py-5 text-center">
+    <div className="bg-primaryBackground px-20 py-5 ">
       <div className="text-[30px] font-bold">MY RENTAL ITEMS</div>
       <div className="flex flex-col gap-5 items-center">
         {items
           ? items.map((item, index) => {
-              return <MyRentalItemCard key={index} data={item} />;
-            })
+            return <MyRentalItemCard key={index} data={item} />;
+          })
           : null}
       </div>
     </div>

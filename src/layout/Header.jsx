@@ -17,8 +17,12 @@ const Header = () => {
         </Link>
         <div className="flex items-center justify-center gap-5">
           <Link to="/product-listing">
-            <DropdownMegaMenu logo={<FaBars />} text="Category" className="" />
+            <div className="flex items-center justify-center gap-1">
+              <div className=""><FaBars /></div>
+              <div className="">All Category</div>
+            </div>
           </Link>
+
           <div
             onClick={() => onOpenModal('chatModal')}
             className="hover:cursor-pointer flex justify-center items-center gap-1"

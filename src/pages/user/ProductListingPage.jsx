@@ -20,7 +20,7 @@ export default function ProductListingPage() {
   // console.log(category);
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const handlePriceChange = (e) => {};
+  const handlePriceChange = (e) => { };
   const [searchItem, setSearchItem] = useState('');
 
   const handleInput = (e) => {
@@ -58,12 +58,12 @@ export default function ProductListingPage() {
 
   return (
     <>
-      <div className="flex flex-col gap-5 justify-center items-center bg-primaryBackground w-full font-bold h-[180px]">
-        <h1 className="text-3xl ">{category}</h1>
-      </div>
+
+
 
       <div className="px-[12rem]">
-        <div className="flex space-x-4 space-y-4">
+
+        <div className="flex space-x-4 space-y-4 mt-5">
           <div className="h-fit w-3/12 p-4">
             <div className="border border-primaryGrayBorder p-4 rounded-md shadow space-y-4">
               <div className="flex items-center justify-center h-[45px] ">
@@ -94,7 +94,7 @@ export default function ProductListingPage() {
                   ))}
                 </ul>
               </div>
-              <div>
+              {/* <div>
                 <p className="font-bold">Search by Map</p>
                 <InputField placeholder="Province Name" />
                 <div className="h-fit">
@@ -108,20 +108,30 @@ export default function ProductListingPage() {
                     referrerPolicy="no-referrer-when-downgrade"
                   ></iframe>
                 </div>
+              </div> */}
+            </div>
+          </div>
+          <div className="">
+            <div className=" flex justify-center mb-3 h-[60px]">
+              <div className="flex gap-5 justify-start items-center bg-green-400 w-full rounded-xl px-5 py-5 shadow-lg">
+                <div className="text-[30px] font-extrabold text-white">{category}</div>
               </div>
             </div>
-          </div>
-          <div className="w-9/12 space-y-4">
-            <div className="grid grid-cols-3 gap-4">
-              {product ? filterItem.map((el, idx) => <ProductCard key={idx} item={el} />) : null}
+            <div className=" space-y-4">
+              <div className="grid grid-cols-3 gap-4">
+                {product ? filterItem.map((el, idx) => <ProductCard key={idx} item={el} />) : null}
+              </div>
+              <div className="flex justify-between">
+                <p className="">
+                  Showing 1 to {countItems >= 15 ? 15 : countItems} of {countItems} results
+                </p>
+                <Pagination page={page} setPage={setPage} allPage={allPage} />
+              </div>
             </div>
-            <div className="flex justify-between">
-              <p className="">
-                Showing 1 to {countItems >= 15 ? 15 : countItems} of {countItems} results
-              </p>
-              <Pagination page={page} setPage={setPage} allPage={allPage} />
-            </div>
+
+
           </div>
+
         </div>
       </div>
     </>

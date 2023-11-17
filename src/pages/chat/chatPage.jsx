@@ -25,7 +25,7 @@ export default function ChatPage() {
         socket.on("onlineUser", (data) => {
             delete data[input.sender];
             const userArray = Object.keys(data);
-     
+
             setOnlineUsers(userArray);
         });
         return () => {
@@ -53,7 +53,7 @@ export default function ChatPage() {
                                 <div className="flex w-[1440px] ">
                                     <div className="w-[40%] border-r-2 ">
                                         <div className="h-[60px] w-full flex justify-center items-center font-bold text-[20px] border-b-2 ">
-                                            {/* {authUser?.firstName + " " + authUser?.lastName} */}กล่องข้อความ
+                                            {/* {authUser?.firstName + " " + authUser?.lastName} */}Message
                                         </div>
                                         <div className="w-full h-[740px] overflow-auto">
                                             <ChatUserBox input={input} setShowInputChat={setShowInputChat} showInputChat={showInputChat} setCurrentUser={setCurrentUser} currentUser={currentUser} onlineUsers={onlineUsers} />
