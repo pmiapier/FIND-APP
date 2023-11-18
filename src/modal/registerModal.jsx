@@ -85,7 +85,7 @@ export default function RegisterModal() {
         if (x === `duplicateEmail`) {
           setError({ email: `duplicate email.` });
         } else if (x === `duplicatePhone`) {
-          setError({ phoneNumber: `This phone numebr has already chicken.` });
+          setError({ phoneNumber: `This phone numebr has already been taken.` });
         } else if (x === `success`) onCloseModal();
       })
       .catch((err) => {
@@ -111,11 +111,15 @@ export default function RegisterModal() {
                   <div className="text-[40px]  font-bold">Register</div>
                   <div className="flex gap-1 ">
                     <div className="">Already a member?</div>
-                    <div className="text-blue-600 font-bold hover:cursor-pointer" onClick={() => onOpenModal("loginModal")}>Login</div>
+                    <div
+                      className="text-blue-600 font-bold hover:cursor-pointer"
+                      onClick={() => onOpenModal('loginModal')}
+                    >
+                      Login
+                    </div>
                   </div>
                 </div>
-                <div className="mt-[80px] relative flex place-items-center bg-gray-300">
-                </div>
+                <div className="mt-[80px] relative flex place-items-center bg-gray-300"></div>
 
                 <form className="w-[90%]" onSubmit={handleSubmitForm}>
                   <div className="flex gap-7">
