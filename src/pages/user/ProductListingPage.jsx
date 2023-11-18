@@ -66,7 +66,7 @@ export default function ProductListingPage() {
         <div className="flex space-x-4 space-y-4 mt-5 ">
           <div className="h-fit w-3/12 p-4">
             <div className="border border-primaryGrayBorder p-4 rounded-2xl shadow space-y-4">
-              <div className="flex items-center justify-center h-[45px] ">
+              <div className="flex items-center justify-center h-[45px] mt-2">
                 <input
                   className="w-full h-full py-1 px-3 border-2 border-gray-300 rounded-xl"
                   placeholder="Search..."
@@ -111,7 +111,7 @@ export default function ProductListingPage() {
           </div>
           <div className="w-full flex flex-col justify-between">
             <div className="">
-              <div className=" flex justify-center mb-3 h-[60px]">
+              <div className=" flex justify-center mb-3 pr-4 h-[60px]">
                 <div className="flex gap-5 justify-start items-center bg-green-400 w-full rounded-xl px-5 py-5 shadow-lg">
                   <div className="text-[30px] font-extrabold text-white">{category}</div>
                 </div>

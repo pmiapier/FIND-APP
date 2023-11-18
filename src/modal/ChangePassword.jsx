@@ -21,13 +21,13 @@ export default function ChangePassword({ onClick }) {
 
   return (
     <div className="h-screen flex flex-col items-center justify-center backdrop-blur">
-      <div className="w-[50vh] h-[50vh] p-8 rounded-md shadow-lg flex flex-col gap-8 mx-auto my-auto border-2 bg-white border-gray-300">
+      <div className="w-[50vh] h-[50vh] p-8 shadow-lg flex flex-col gap-8 mx-auto my-auto border-2 bg-white border-gray-300 rounded-3xl">
         <div className="text-3xl font-bold">Change password</div>
 
         <form className="flex flex-col gap-2">
           <label className="text-xl pl-2">Current Password</label>
           <input
-            className="border-2 p-2 w-full"
+            className="border-2 p-2 w-full rounded-md"
             value={password?.password}
             // placeholder="Current Password"
             onChange={(e) =>
@@ -39,7 +39,7 @@ export default function ChangePassword({ onClick }) {
           ></input>
           <label className="text-xl pl-2">New Password</label>
           <input
-            className="border-2 p-2 w-full"
+            className="border-2 p-2 w-full rounded-md"
             placeholder="New Password"
             id="password"
             type="password"
@@ -53,7 +53,7 @@ export default function ChangePassword({ onClick }) {
           ></input>
           <label className="text-xl pl-2">Confirm Password</label>
           <input
-            className="border-2 p-2 w-full"
+            className="border-2 p-2 w-full rounded-md"
             placeholder="Confirm password"
             id="Confirmpassword"
             type="Confirmpassword"
@@ -67,11 +67,11 @@ export default function ChangePassword({ onClick }) {
           ></input>
         </form>
 
-        <div className="flex justify-start gap-8">
-          <button className="border p-2 rounded-md bg-blue-600 text-white px-8" onClick={handlePassword}>
+        <div className="flex justify-start gap-3">
+          <button className="border p-2 rounded-md bg-blue-500 hover:bg-blue-600 text-white px-8 hover:font-extrabold" onClick={handlePassword}>
             Save Change
           </button>
-          <button className="border p-2 rounded-md font-semibold px-8" onClick={onClick}>
+          <button className="border p-2 rounded-md font-semibold px-8 hover:bg-red-400 hover:text-white" onClick={onClick}>
             Cancel
           </button>
         </div>

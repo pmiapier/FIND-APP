@@ -27,16 +27,16 @@ export default function Dropdown() {
           </div>
         </div>
         <li className='my-1'>
-          <a className='hover:font-bold' href="/my-rental-items">My rental items</a>
-        </li>
-        <li>
-          <a className='hover:font-bold' href="/my-rented-items">My rented items</a>
-        </li>
-        <li>
           <a className='hover:font-bold' href="/myaccount">My account</a>
         </li>
         <li>
           <a className='hover:font-bold' href="/my-product">My products</a>
+        </li>
+        <li >
+          <a className='hover:font-bold' href="/my-rental-items">My rental items</a>
+        </li>
+        <li>
+          <a className='hover:font-bold' href="/my-rented-items">My rented items</a>
         </li>
         <li>
           <a className='hover:font-bold' href="/my-wallet">My wallet</a>

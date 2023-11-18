@@ -14,7 +14,7 @@ export default function MyRentedItemsPage() {
   return (
     <div className=" px-20 py-5 ">
       <div className="w-full flex justify-center px-20 py-5">
-        <div className="flex gap-5 justify-start items-center bg-blue-300 w-full rounded-xl px-5 py-5 shadow-lg">
+        <div className="flex gap-5 justify-start items-center bg-blue-400 w-full rounded-xl px-5 py-5 shadow-lg">
           <div className="text-[40px] font-extrabold px-5 text-white">MY RENTED ITEMS</div>
         </div>
       </div>
