@@ -128,8 +128,7 @@ export default function EditProductPage() {
       <form
         encType="multipart/form-data"
         onSubmit={handleSubmit}
-        className="flex w-[1300px] rounded-2xl flex-col gap-5 px-12 pt-5 pb-12 bg-white
-      shadow-lg"
+        className="flex  rounded-2xl flex-col gap-5 px-12 pt-5 pb-12 bg-white"
       >
         <div className="flex justify-between items-center">
           <div className="text-[30px]">Item Details</div>

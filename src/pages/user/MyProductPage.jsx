@@ -44,7 +44,6 @@ export default function MyProductPage() {
       });
     }
   };
-  const { onOpenModal } = useModal();
   const goToAddProductPage = () => {
     navigate('/add-new-product');
   };
@@ -63,7 +62,7 @@ export default function MyProductPage() {
     <div className="flex flex-col bg-primaryBackground px-10 py-10 ">
       <div
         onClick={() => {
-          handleEditItem()
+          goToAddProductPage();
         }}
         className="cursor-pointer"
       >
