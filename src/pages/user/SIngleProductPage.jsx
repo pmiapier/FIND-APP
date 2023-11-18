@@ -126,19 +126,19 @@ export default function SingleProductPage() {
               className="object-cover h-full w-full rounded-md"
             />
           </div>
-          <div className="grid grid-cols-3 place-items-center">
+          <div className="flex gap-3 place-items-center">
             {item.images?.[1] && (
-              <div className="w-[180px] h-[180px]">
+              <div className="w-[160px] h-[160px]">
                 <img src={item.images?.[1]?.imageUrl} alt="product" className="object-cover h-full w-full rounded-md" />
               </div>
             )}
             {item.images?.[2] && (
-              <div className="w-[180px] h-[180px]">
+              <div className="w-[160px] h-[160px]">
                 <img src={item.images?.[2]?.imageUrl} alt="product" className="object-cover h-full w-full rounded-md" />
               </div>
             )}
             {item.images?.[3] && (
-              <div className="w-[180px] h-[180px]">
+              <div className="w-[160px] h-[160px]">
                 <img src={item.images?.[3]?.imageUrl} alt="product" className="object-cover h-full w-full rounded-md" />
               </div>
             )}

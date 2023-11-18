@@ -20,7 +20,7 @@ export default function ProductListingPage() {
   // console.log(category);
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const handlePriceChange = (e) => {};
+  const handlePriceChange = (e) => { };
   const [searchItem, setSearchItem] = useState('');
 
   const handleInput = (e) => {
@@ -58,30 +58,28 @@ export default function ProductListingPage() {
 
   return (
     <>
-      <div className="flex flex-col gap-5 justify-center items-center bg-primaryBackground w-full font-bold h-[180px]">
-        <h1 className="text-3xl ">{category}</h1>
-      </div>
+
+
 
       <div className="px-[12rem]">
-        <div className="flex space-x-4 space-y-4">
+
+        <div className="flex space-x-4 space-y-4 mt-5 ">
           <div className="h-fit w-3/12 p-4">
-            <div className="border border-primaryGrayBorder p-4 rounded-md shadow space-y-4">
-              <div className="flex items-center justify-center h-[45px] ">
+            <div className="border border-primaryGrayBorder p-4 rounded-2xl shadow space-y-4">
+              <div className="flex items-center justify-center h-[45px] mt-2">
                 <input
-                  className="w-full h-full p-3 border-2 border-gray-300"
+                  className="w-full h-full py-1 px-3 border-2 border-gray-300 rounded-xl"
                   placeholder="Search..."
                   onChange={handleInput}
                 />
-                <button className="w-[50px] h-full bg-gray-700 rounded-r-xl flex justify-center items-center">
-                  <FaSearch className="text-white" />
-                </button>
+
               </div>
 
-              <p className="font-bold">Cagetory</p>
+              <p className="font-bold pl-1 text-[30px]">Cagetory</p>
               <div className="pl-2">
-                <ul className="space-y-1">
+                <div className="space-y-1 ">
                   {categoryList.map((el, idx) => (
-                    <li className="text-blue-500 hover:text-blue-900 hover:underline cursor-pointer" key={idx}>
+                    <div className="text-blue-500 hover:font-bold p-1 w-[300px] text-[20px] hover:bg-gray-200 rounded-lg px-5  cursor-pointer" key={idx}>
                       <div
                         onClick={(e) => {
                           setPage(1);
@@ -90,11 +88,11 @@ export default function ProductListingPage() {
                       >
                         {el}
                       </div>
-                    </li>
+                    </div>
                   ))}
-                </ul>
+                </div>
               </div>
-              <div>
+              {/* <div>
                 <p className="font-bold">Search by Map</p>
                 <InputField placeholder="Province Name" />
                 <div className="h-fit">
@@ -108,18 +106,29 @@ export default function ProductListingPage() {
                     referrerPolicy="no-referrer-when-downgrade"
                   ></iframe>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
-          <div className="w-9/12 space-y-4">
-            <div className="grid grid-cols-3 gap-4">
-              {product ? filterItem.map((el, idx) => <ProductCard key={idx} item={el} />) : null}
+          <div className="w-full flex flex-col justify-between">
+            <div className="">
+              <div className=" flex justify-center mb-3 pr-4 h-[60px]">
+                <div className="flex gap-5 justify-start items-center bg-green-400 w-full rounded-xl px-5 py-5 shadow-lg">
+                  <div className="text-[30px] font-extrabold text-white">{category}</div>
+                </div>
+              </div>
             </div>
-            <div className="flex justify-between">
-              <p className="">
-                Showing 1 to {countItems >= 15 ? 15 : countItems} of {countItems} results
-              </p>
-              <Pagination page={page} setPage={setPage} allPage={allPage} />
+            <div className="">
+              <div className=" space-y-4">
+                <div className="grid grid-cols-3 gap-4 justify-center items-center mb-8">
+                  {product ? filterItem.map((el, idx) => <ProductCard key={idx} item={el} />) : null}
+                </div>
+                <div className="flex justify-end gap-5 items-center pr-5">
+                  <p className=" ">
+                    Showing 1 to {countItems >= 15 ? 15 : countItems} of {countItems} results
+                  </p>
+                  <Pagination page={page} setPage={setPage} allPage={allPage} />
+                </div>
+              </div>
             </div>
           </div>
         </div>

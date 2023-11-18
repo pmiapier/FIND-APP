@@ -6,7 +6,7 @@ import logo from '../images/FindLogo.png';
 
 const Footer = () => {
   return (
-    <footer className="w-full flex justify-center mt-16 mb-3">
+    <footer className="w-full flex justify-center mt-16 mb-3 primaryBackground ">
       <div className="w-[1440px]">
         <div className="grid grid-cols-6">
           <div className="col-span-2 flex flex-col gap-2 justify-center items-center">
@@ -37,13 +37,13 @@ const Footer = () => {
           </div>
           <div>
             <div className="font-bold">STAY UP TO DATE</div>
-            <div role='button' className="hover:text-gray-400">Be the first to get the latest promotions, news and more</div>
+            <div role='button' className="text-gray-400">Be the first to get the latest promotions, news and more</div>
           </div>
         </div>
         <hr className="mt-5 mb-2"></hr>
         <div className="w-full">
           <div className="flex justify-end pr-">
-            <div className="text-sm text-gray-400">@2023,all right seserverd,FIND</div>
+            <div className="text-sm text-gray-400 mb-1">@2023,all right seserverd,FIND</div>
           </div>
         </div>
       </div>

@@ -13,10 +13,20 @@ import axios from '../../config/axios';
 import ProductCard from '../checkout/ProductCard';
 import { Link } from 'react-router-dom';
 import { useProduct } from '../../hooks/useProduct';
+import { Swiper, SwiperSlide } from 'swiper/react';
+
+// Import Swiper styles
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+
+
+// import required modules
+import { Navigation, Pagination, Mousewheel, Keyboard } from 'swiper/modules';
 
 const Home = () => {
   const [allItem, setAllItem] = useState([]);
-  const {category,setCategory} = useProduct()
+  const { category, setCategory } = useProduct()
 
   useEffect(() => {
     getAllItem();
@@ -30,100 +40,102 @@ const Home = () => {
     return data;
   };
   return (
-    <div className="mx-auto grid w-5/6 gap-4 mt-8">
+    <div className="mx-auto grid w-5/6 gap-2 mt-8">
       <div className="grid grid-cols-2 ">
-        <Link to={`/product-listing`} onClick={()=>setCategory(`sport`)}>
+        <Link to={`/product-listing`} onClick={() => setCategory(`sport`)}>
           <img src={one} className="w-full" />
         </Link>
-        <div className="grid grid-cols-2 gap-4">
-          <Link to={`/product-listing`} onClick={()=>setCategory(`Electronics`)} >
+        <div className="grid grid-cols-2 gap-2">
+          <Link to={`/product-listing`} onClick={() => setCategory(`Electronics`)} >
             <img src={two} className="w-full h-full" />
           </Link>
-          <div className="grid gap-4">
-            <Link to={`/product-listing`} onClick={()=>setCategory(`Appliances`)}>
+          <div className="grid gap-2">
+            <Link to={`/product-listing`} onClick={() => setCategory(`Appliances`)}>
               <img src={three} className="w-full" />
             </Link>
-            <Link to={`/product-listing`} onClick={()=>setCategory(`Tools`)}>
+            <Link to={`/product-listing`} onClick={() => setCategory(`Tools`)}>
               <img src={four} className="w-full" />
             </Link>
           </div>
         </div>
       </div>
 
-      <div className="grid grid-cols-2 gap-4">
-        <div className="grid grid-cols-3 gap-4">
-          <Link to={`/product-listing`} onClick={()=>setCategory(`Baby`)}>
+      <div className="grid grid-cols-2 gap-2">
+        <div className="grid grid-cols-3 gap-2">
+          <Link to={`/product-listing`} onClick={() => setCategory(`Baby`)}>
             <img src={col21} className="w-full" />
           </Link>
-          <Link to={`/product-listing`} onClick={()=>setCategory(`Books`)}>
+          <Link to={`/product-listing`} onClick={() => setCategory(`Books`)}>
             <img src={col22} className="w-full" />
           </Link>
-          <Link to={`/product-listing`} onClick={()=>setCategory(`Camping`)}>
+          <Link to={`/product-listing`} onClick={() => setCategory(`Camping`)}>
             <img src={col23} className="w-full" />
           </Link>
         </div>
-        <div className="grid grid-cols-3 gap-4">
-          <Link to={`/product-listing`} onClick={()=>setCategory(`Hiking`)}>
+        <div className="grid grid-cols-3 gap-2">
+          <Link to={`/product-listing`} onClick={() => setCategory(`Hiking`)}>
             <img src={col24} className="w-full" />
           </Link>
-          <Link to={`/product-listing`} onClick={()=>setCategory(`Clothing`)}>
+          <Link to={`/product-listing`} onClick={() => setCategory(`Clothing`)}>
             <img src={col25} className="w-full" />
           </Link>
-          <Link to={`/product-listing`} onClick={()=>setCategory(`Vehicles`)}>
+          <Link to={`/product-listing`} onClick={() => setCategory(`Vehicles`)}>
             <img src={col26} className="w-full" />
           </Link>
         </div>
       </div>
 
-      <div className="font-extrabold text-lg pl-4">
-        Recommended Items
+      <div className="w-full flex justify-center">
+        <div className="flex gap-5 justify-start items-center bg-green-400 w-full rounded-xl px-5 py-5 shadow-lg">
+          <div className="text-[40px] font-extrabold text-white">Recommended Items</div>
+        </div>
       </div>
+      {/* <div className="w-full flex justify-center">
+        <div className="w-[90%] grid grid-cols-5 gap-4 mt-2">
+          {allItem.map((el) => (
+            <ProductCard key={el.id} item={el} />
+          ))}</div>
+      </div> */}
+      <Swiper
+        slidesPerView={3.95}
+        spaceBetween={5}
+        navigation={true}
 
-      <div className="grid grid-cols-4 gap-4 mt-2">
+        mousewheel={true}
+        keyboard={true}
+        modules={[Navigation, Pagination, Mousewheel, Keyboard]}
+        className=" w-[1500px] mb-5"
+      >
         {allItem.map((el) => (
-          <ProductCard key={el.id} item={el} />
+          <SwiperSlide >
+            <ProductCard key={el.id} item={el} />
+          </SwiperSlide >
         ))}
-      </div>
-
-      <div className="grid grid-cols-4 gap-3 mb-6">
-        <div className="grid grid-cols-2 border-2 rounded-xl p-4">
-          <div className="">
-            <p className="text-[32px] font-bold"> 31</p>
-          </div>
-          <div className="flex gap-1 flex-col">
-            <p className="text-[16px] text-green-700">+31</p>
-            <p className="text-[11px]">Today</p>
-          </div>
-          <div>
-            <p className="font-bold"> Our FIND Member</p>
-          </div>
+      </Swiper>
+      <div className="grid grid-cols-4 h-[190px] gap-3 mb-6">
+        <div className=" border-2 relative rounded-xl ">
+          <div className=" absolute left-[40px] bottom-[47px] text-[100px] font-bold text-green-400">+31</div>
+          <div className=" absolute right-[40px] bottom-[60px] text-[60px] ">Today</div>
+          <div className=" absolute left-[70px] bottom-8 text-[30px] font-bold"> Our FIND Member</div>
         </div>
-        <div className="grid grid-cols-2 border-2 rounded-xl p-4">
-          <div className="">
-            <p className="text-[32px] font-bold"> 220</p>
-          </div>
-          <div className="flex gap-1 flex-col">
-            <p className="text-[16px] text-green-700">+220</p>
-            <p className="text-[11px]">Last week</p>
-          </div>
-          <div>
-            <p className="font-bold"> Our FIND Member</p>
-          </div>
+        <div className=" border-2 relative rounded-xl ">
+          <div className=" absolute left-[85px] bottom-[55px] text-[100px] font-bold text-yellow-400">+228</div>
+          <div className=" absolute right-[80px] bottom-[30px] text-[50px] ">Last week</div>
+          <div className=" absolute left-[120px] bottom-4 text-[20px] font-bold"> Our FIND Member</div>
         </div>
-
-        <div className="flex font-semibold col-span-2 border-2 rounded-lg">
+        <div className="flex font-semibold col-span-2 border-2 border-red-600 rounded-xl">
           <div className="w-[60%] p-10 text-2xl">
             <h1>No need to buy, No need to sell,</h1>
             <h1>start making profit out of your items with FIND</h1>
           </div>
           <div className="w-[40%] ">
-            <div className="bg-red-600 rounded-lg text-white h-full flex justify-center items-center">
-              <h1 className="">Begin Your Rental Journey.</h1>
+            <div className="bg-red-600 rounded-r-lg text-white  h-full flex justify-center items-center">
+              <h1 className="text-[23px] ">Begin Your Rental Journey.</h1>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </div >
   );
 };
 

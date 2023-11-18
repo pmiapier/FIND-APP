@@ -207,9 +207,9 @@ export default function MyRentedItemCard({ data }) {
                 </div>
                 <div>Rental Status :</div>
                 <ItemStatus text={status} />
-                <div className="flex gap-2">
+                <div className="flex items-center gap-2">
                   <div>Item Owner :</div>
-                  <div>{data.owner.firstName + ' ' + data.owner.lastName}</div>
+                  <div className='text-[13px] text-blue-500'>{data.owner.firstName + ' ' + data.owner.lastName[0]}</div>
                 </div>
               </div>
               <div className="border-2 border-gray-200 w-[200px] flex flex-col gap-1 px-10 py-5 rounded-lg text-center ">
@@ -221,10 +221,12 @@ export default function MyRentedItemCard({ data }) {
             </div>
           </div>
           <div className="  flex w-full justify-center items-center mt-5">
-            <div className="flex gap-3">
+            <div className="flex gap-3 relative">
               {ownerStatus === 'renting' && renteeStatus === 'received_item' ? (
                 <div>
-                  <Button text={'Proof of Returning'} className={'bg-readyToRent hover:bg-green-700 w-full mb-1'} />
+                  {/* <div className=" absolute bottom-10">
+                    <Button text={'Proof of Returning'} className={'bg-readyToRent hover:bg-green-700 w-full mb-1'} />
+                  </div> */}
                   <Button
                     text={'Comfirm Return Item'}
                     className={'bg-primaryButton hover:bg-hoverPrimaryButton w-full'}

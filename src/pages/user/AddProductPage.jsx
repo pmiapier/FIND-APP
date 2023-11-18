@@ -2,7 +2,6 @@ import Button from '../../components/buttons/Button';
 import InputField from '../../components/inputs/InputField';
 import Joi from 'joi';
 import { toast } from 'react-toastify';
-
 import Swal from 'sweetalert2';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
@@ -10,6 +9,7 @@ import { useProduct } from '../../hooks/useProduct';
 import { useAuth } from '../../hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
 import Loading from '../../components/loading/Loading';
+import { useModal } from '../../hooks/useModal';
 
 const schema = Joi.object({
   itemName: Joi.string().max(150).required().label('ชื่อสินค้า'),
@@ -30,7 +30,6 @@ export default function AddProductPage() {
     itemPrice: '',
     availability: ''
   });
-
   const [selectedImages, setSelectedImages] = useState([]);
   const [selectedFiles, setSelectedFiles] = useState([]);
   const onSelectFile = (e) => {
@@ -103,19 +102,16 @@ export default function AddProductPage() {
       setLoading(false);
     }
   };
-
   const handleCancel = () => {
     navigate('/my-product');
   };
-
   return (
     <>
       {loading && <Loading />}
       <form
         encType="multipart/form-data"
         onSubmit={handleSubmit}
-        className="flex flex-col gap-5 px-12 pt-5 pb-12 bg-white rounded-lg
-        shadow-lg"
+        className="flex flex-col gap-5 rounded-2xl px-12 pt-5 pb-12 bg-white"
       >
         <div className="flex justify-between items-center">
           <div className="text-[30px]">Item Details</div>
@@ -274,7 +270,7 @@ export default function AddProductPage() {
           </div>
         </div>
         <div className="flex gap-5">
-          <Button text="Confirm" className="bg-blue-500" />
+          <Button text="Confirm" className="bg-blue-400 hover:bg-blue-500" />
           <Button text="Cancel" className="bg-red-500" event={handleCancel} />
         </div>
       </form>

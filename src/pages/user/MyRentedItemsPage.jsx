@@ -12,13 +12,17 @@ export default function MyRentedItemsPage() {
     setItems(res.data);
   };
   return (
-    <div className="bg-primaryBackground px-20 py-5 ">
-      <div className="text-[30px] font-bold text-center">MY RENTED ITEMS</div>
-      <div className="flex flex-col gap-5 z-0 items-center">
+    <div className=" px-20 py-5 ">
+      <div className="w-full flex justify-center px-20 py-5">
+        <div className="flex gap-5 justify-start items-center bg-blue-400 w-full rounded-xl px-5 py-5 shadow-lg">
+          <div className="text-[40px] font-extrabold px-5 text-white">MY RENTED ITEMS</div>
+        </div>
+      </div>
+      <div className="w-full grid justify-items-center items-center grid-cols-2 gap-9 px-[155px]">
         {items
           ? items.map((item, index) => {
-              return <MyRentedItemCard key={index} data={item} />;
-            })
+            return <MyRentedItemCard key={index} data={item} />;
+          })
           : null}
       </div>
     </div>

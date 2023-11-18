@@ -5,10 +5,10 @@ import { ModalProvider } from '../providers/modalProvider';
 
 const Layout = () => {
   return (
-    <div>
+    <div className='min-h-screen'>
       <Header />
       <Outlet />
-      <Footer />
+      <div className="sticky  top-[100vh]"><Footer /></div>
       <ModalProvider />
     </div>
   );

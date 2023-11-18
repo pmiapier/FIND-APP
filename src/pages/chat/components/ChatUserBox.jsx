@@ -9,11 +9,11 @@ export default function ChatUserBox({ input, setCurrentUser, onlineUsers, setSho
     const toggleInputChat = () => {
         setShowInputChat(true);
     };
+    const [selectedRoom, setSelectedRoom] = useState(null);
     const getHistoryRoom = () => {
         axios.get(`/chat?user=${+input?.sender}`)
             .then((response) => {
                 setChatRooms((pre) => response.data);
-     
             })
             .catch((error) => {
                 console.error('Error fetching chat rooms:', error);
@@ -36,7 +36,8 @@ export default function ChatUserBox({ input, setCurrentUser, onlineUsers, setSho
         }
     }, [input])
     console.log(onlineUsers)
-
+    const selectedRoomClass = 'bg-gray-300';
+    const defaultRoomClass = '';
     return (
         <div >
             {/* {alluser.map((user) => <div key={user.socketId} role="button" onClick={() => {
@@ -67,8 +68,9 @@ export default function ChatUserBox({ input, setCurrentUser, onlineUsers, setSho
                         : { userId: user.userA.id, firstName: user.userA.firstName, lastName: user.userA.lastName, fullName: user.userA.firstName + " " + user.userA.lastName })
                     getHistoryRoom()
                     toggleInputChat()
+                    setSelectedRoom(idx);
                 }}
-                className=" h-[80px] w-full flex items-center gap-2 hover:bg-gray-200 px-5">
+                className={` h-[80px] w-full flex items-center gap-2  px-5 ${selectedRoom === idx ? selectedRoomClass : defaultRoomClass}`}>
                 <Avatar setStatus={onlineUsers?.includes((user.userA.id === input?.sender ? user.userB.id : user.userA.id).toString())} />
                 <div className="flex flex-col justify-center gap-0.5 h-full w-full">
                     <div className="font-bold text-[18px]">{user.userA.id === input?.sender ? user.userB.firstName + " " + user.userB.lastName : user.userA.firstName + " " + user.userA.lastName}</div>

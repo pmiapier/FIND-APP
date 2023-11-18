@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import Loading from '../../components/loading/Loading';
+import { useModal } from '../../hooks/useModal';
 
 export default function EditProductPage() {
   const { selectedProduct, saveProductChanges, clearSelectedProduct, categoryList, getMyProductData } = useProduct();
@@ -20,7 +21,7 @@ export default function EditProductPage() {
   const [selectedImages, setSelectedImages] = useState([]);
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [loading, setLoading] = useState(false);
-
+  const { onCloseModal, isOpenModal, modalType, onOpenModal } = useModal();
   useEffect(() => {
     if (selectedProduct) {
       setInput({
@@ -100,7 +101,7 @@ export default function EditProductPage() {
       } finally {
         setLoading(false);
       }
-  
+
       saveProductChanges(payload);
       clearSelectedProduct();
       navigate('/my-product', { state: { a: 20 } });
@@ -112,22 +113,22 @@ export default function EditProductPage() {
     navigate('/my-product');
   };
 
-  if (!selectedProduct) {
-    return (
-      <>
-        <Loading />
-      </>
-    );
-  }
+  // if (!selectedProduct) {
+  //   return (
+  //     <>
+  //       <Loading />
+  //     </>
+  //   );
+  // }
 
   return (
     <>
+
       {loading && <Loading />}
       <form
         encType="multipart/form-data"
         onSubmit={handleSubmit}
-        className="flex flex-col gap-5 px-12 pt-5 pb-12 bg-white rounded-lg
-      shadow-lg"
+        className="flex  rounded-2xl flex-col gap-5 px-12 pt-5 pb-12 bg-white"
       >
         <div className="flex justify-between items-center">
           <div className="text-[30px]">Item Details</div>
@@ -160,9 +161,8 @@ export default function EditProductPage() {
                   ))}
                 {selectedImages && selectedImages.length < 4 && (
                   <div
-                    className={`border border-dashed relative flex items-center ${
-                      selectedFiles.length < 4 ? '' : 'hidden'
-                    }`}
+                    className={`border border-dashed relative flex items-center ${selectedFiles.length < 4 ? '' : 'hidden'
+                      }`}
                     style={{ width: '80px', maxWidth: '80px', height: '80px', maxHeight: '80px' }}
                   >
                     <label htmlFor="itemFile" style={{ cursor: 'pointer' }}>
@@ -277,7 +277,7 @@ export default function EditProductPage() {
           </div>
         </div>
         <div className="flex gap-5">
-          <Button text="Save Change" className="bg-blue-500" />
+          <Button text="Save Change" className="bg-blue-400 hover:bg-blue-500" />
           <Button text="Cancel" className="bg-red-500" event={handleCancel} />
         </div>
       </form>

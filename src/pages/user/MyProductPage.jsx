@@ -5,6 +5,7 @@ import { useAuth } from '../../hooks/useAuth';
 import Swal from 'sweetalert2';
 import { useProduct } from '../../hooks/useProduct';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useModal } from '../../hooks/useModal';
 
 export default function MyProductPage() {
   const navigate = useNavigate();
@@ -43,7 +44,6 @@ export default function MyProductPage() {
       });
     }
   };
-
   const goToAddProductPage = () => {
     navigate('/add-new-product');
   };
@@ -51,6 +51,7 @@ export default function MyProductPage() {
   const handleEditItem = async (product) => {
     await editProduct(product);
     navigate(`/edit-product/${product}`);
+
   };
 
   useEffect(() => {
@@ -58,30 +59,33 @@ export default function MyProductPage() {
   }, [authUser]);
 
   return (
-    <div className="flex flex-col bg-primaryBackground px-10 py-10 gap-10">
-      <div className="text-lg">You have {myProduct.length} items in total</div>
-      <div
-        onClick={() => {
-          goToAddProductPage();
-        }}
-        className="flex gap-5 justify-start items-center bg-white px-5 py-5 shadow-lg cursor-pointer"
-      >
-        <div className=" flex text-5xl font-thin text-red-700 pb-[10px]">+</div>
-        <div className="text-2xl">Add new item</div>
+    <div className="flex justify-center w-full bg-primaryBackground px-10 py-10 ">
+      <div className="w-[1600px]">
+        <div
+          onClick={() => {
+            goToAddProductPage();
+          }}
+          className="cursor-pointer "
+        >
+          <div className="flex gap-5 justify-start items-center hover:bg-pink-500  bg-pink-400 w-full rounded-xl px-5 py-5 shadow-lg">
+            <div className="text-[40px]  font-extrabold px-5 text-white">+ MY PRODUCT</div>
+          </div>
+          <div className="text-[30px] py-3 pl-5 flex">You have <div className=" font-bold px-2  text-pink-400">{myProduct.length}</div>  items in total</div>
+        </div>
+        <div className="grid grid-cols-2 gap-6 justify-around">
+          {myProduct.map((product) => {
+            return (
+              <MyItemCard
+                key={product.id}
+                product={product}
+                handleDeleteItem={handleDeleteItem}
+                handleEditItem={handleEditItem}
+              />
+            );
+          })}
+        </div>
       </div>
 
-      <div className="grid grid-cols-2 gap-6 justify-around">
-        {myProduct.map((product) => {
-          return (
-            <MyItemCard
-              key={product.id}
-              product={product}
-              handleDeleteItem={handleDeleteItem}
-              handleEditItem={handleEditItem}
-            />
-          );
-        })}
-      </div>
     </div>
   );
 }
