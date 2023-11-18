@@ -277,7 +277,7 @@ export default function EditProductPage() {
           </div>
         </div>
         <div className="flex gap-5">
-          <Button text="Save Change" className="bg-blue-500" />
+          <Button text="Save Change" className="bg-blue-400 hover:bg-blue-500" />
           <Button text="Cancel" className="bg-red-500" event={handleCancel} />
         </div>
       </form>
